@@ -1,0 +1,8 @@
+﻿# 同期しないもの
+Thumbs.db
+desktop.ini
+.DS_Store
+~$*
+*.tmp
+node_modules/
+.sync_log.txt
