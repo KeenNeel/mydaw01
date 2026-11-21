@@ -1374,6 +1374,56 @@ body.lglight .meterbar,body.lglight .vu{transition:none!important}
 .meter.midiin i{background:linear-gradient(90deg,#2bb7ff,#7fe3ff)!important;box-shadow:0 0 6px #4cc9ff}
 .meter.midiin{position:relative}
 .meter.midiin::after{content:'MIDI';position:absolute;right:2px;top:50%;transform:translateY(-50%);font-size:8px;line-height:1;color:#bff1ff;font-weight:700;pointer-events:none}
+.aimtbl{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.aimrow{display:grid;grid-template-columns:minmax(220px,1.3fr) minmax(200px,1fr) minmax(150px,.7fr);gap:10px;align-items:center;padding:6px 8px;border-radius:8px;background:var(--panel2,#1d2128)}
+.aimrow.aimh{background:none;font-size:11px;color:var(--dim,#8b94a3);padding:0 8px}
+.aimrow.dis{opacity:.55}
+.aimrow select{width:100%}
+.aimsplit{margin-top:8px;font-weight:600}
+.aimtxt{white-space:pre-wrap;max-height:220px;overflow:auto;font-size:12px}
+.cntbl{border-collapse:collapse;width:100%;margin:4px 0 10px}
+.cntbl th,.cntbl td{border-bottom:1px solid var(--line,#333);padding:4px 8px;text-align:left;font-size:13px;vertical-align:top}
+.cntbl th{white-space:nowrap;font-family:monospace;color:var(--accent,#4fd1c5);width:34%}
+.cndlg h4{margin:12px 0 4px}
+.aimnote{font-size:11px;color:var(--dim,#8b94a3);margin-top:3px;line-height:1.4}
+.aimnote.paid{color:#e0a040}
+/* 押さえ方: 今・次・その次を横に、バリエーションは各列の下に縦 */
+#cvWin .cvcols{display:flex;gap:12px;align-items:flex-start;overflow-x:auto;padding-bottom:6px}
+#cvWin .cvcol{flex:1 1 0;min-width:170px;display:flex;flex-direction:column;gap:6px;padding:8px;border-radius:10px;background:var(--panel2,#1d2128);border:1px solid var(--line,#2c323c)}
+#cvWin .cvcol.cv-now{flex-grow:1.35;border-color:var(--accent,#4fd1c5);box-shadow:0 0 0 1px var(--accent,#4fd1c5) inset}
+#cvWin .cvcol.cv-next{border-color:#e0a040}
+#cvWin .cvcol.cv-next2{opacity:.85}
+#cvWin .cvcol .cvtag{font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--dim,#8b94a3)}
+#cvWin .cvcol.cv-now .cvtag{color:var(--accent,#4fd1c5)}#cvWin .cvcol.cv-next .cvtag{color:#e0a040}
+#cvWin .cvcol .cvname b{font-size:20px}
+#cvWin .cvcol .cvone svg{max-width:100%;height:auto}
+#cvWin .cvvars.cvvcol{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+#cvWin .cvvars.cvvcol .cvvi{display:flex;align-items:center;gap:8px;justify-content:flex-start}
+#cvWin .cvvars.cvvcol .cvvi svg{max-width:100%;height:auto}
+#cvWin .cvend{align-self:stretch;display:flex;align-items:center;justify-content:center;min-height:120px}
+.dmkbwrap{overflow-x:auto;margin:6px 0 10px}
+.dmkb .dmkey rect{fill:#f3efe6;stroke:#555;cursor:pointer}.dmkb .dmkey.b rect{fill:#222}
+.dmkb .dmkey text{font-size:10px;fill:#333;pointer-events:none}.dmkb .dmkey.b text{fill:#eee;font-size:9px}
+.dmkb .dmkey text.nn{fill:#888;font-size:9px}
+.dmkb .dmkey.used rect{fill:#ffd866}.dmkb .dmkey.b.used rect{fill:#b8901c}
+.dmkb .dmkey:hover rect{fill:#9fe7df}
+.dmgrp h4{margin:10px 0 4px}
+.dmrow{display:grid;grid-template-columns:48px 34px minmax(200px,1fr) 100px 60px auto;gap:8px;align-items:center;width:100%;text-align:left;padding:3px 8px;margin:1px 0;border-radius:6px;background:var(--panel2,#1d2128)}
+.dmrow.used{background:rgba(255,216,102,.14);border-left:3px solid #ffd866}
+.dmrow.nos{opacity:.6}
+.dmrow .dmn{font-family:monospace;color:var(--accent,#4fd1c5)}.dmrow .dmm,.dmrow .dmk{color:var(--dim,#8b94a3);font-size:11px}.dmrow .dmu{color:#ffd866;font-size:11px}.dmrow .dmx{color:#e08060;font-size:11px}
+.ccwin{position:fixed;left:50%;top:84px;transform:translateX(-50%);z-index:58;width:min(420px,92vw);background:var(--panel,#171a20);border:1px solid var(--accent,#4fd1c5);border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.5);padding:10px 14px;display:flex;flex-direction:column;gap:8px}
+.ccwin .cch{display:flex;align-items:center;gap:8px;cursor:move}
+.ccwin .ccbar{height:10px;border-radius:6px;background:var(--panel3,#252a33);overflow:hidden}
+.ccwin .ccbarin{height:100%;width:0;background:linear-gradient(90deg,var(--accent,#4fd1c5),#9be15d);transition:width .15s}
+.ccwin .cctxt{font-size:12px;color:var(--dim,#8b94a3)}
+.walamp{font-size:11px;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.walamp.ok{color:#9be15d}.walamp.warn{color:#f5c542;border-color:#f5c542}.walamp.ng{color:#fff;background:#c0303c}.walamp.sus{color:#111;background:#f5c542;animation:wapulse 1.2s infinite}
+@keyframes wapulse{50%{opacity:.6}}
+.watbl{border-collapse:collapse;width:100%;margin:8px 0}
+.watbl td,.watbl th{border-bottom:1px solid var(--line,#333);padding:5px 8px;text-align:left;vertical-align:top;font-size:13px}
+.watbl tr.ok td:first-child{color:#9be15d;font-weight:700}.watbl tr.ng td:first-child{color:#e0303c;font-weight:700}
+.watbl th{white-space:nowrap}.wafix{color:#f5c542;font-size:12px;margin-top:2px}
 </style></head><body>
 <script>try{var _t=localStorage.getItem("daw.theme");if(_t&&_t!=="amp")document.body.classList.add("th-"+_t)}catch(e){}</script>
 <div id="app">
@@ -1816,7 +1866,27 @@ ia.IXMAX_VAL=8206;var sa={};sa.SFBMAX=3*c.SBMAX_s;c.ENCDELAY=576;c.POSTDELAY=115
 u.setModules(B,G,f,b,v,a,m,z,g);G.setModules(B,g,m,a);z.setModules(G,m);f.setModules(u);v.setModules(G,e,b,l);b.setModules(l,e,u.enc.psy);e.setModules(G);l.setModules(b);a.setModules(u,G,m);w.setModules(d,g);d.setModules(m,z,f);var q=u.lame_init();q.num_channels=c;q.in_samplerate=k;q.brate=n;q.mode=la.STEREO;q.quality=3;q.bWriteVbrTag=!1;q.disable_reservoir=!0;q.write_id3tag_automatic=!1;u.lame_init_params(q);var D=1152,p=0|1.25*D+7200,r=new Int8Array(p);this.encodeBuffer=function(a,b){1==c&&(b=a);
 a.length>D&&(D=a.length,p=0|1.25*D+7200,r=new Int8Array(p));a=u.lame_encode_buffer(q,a,b,a.length,r,0,p);return new Int8Array(r.subarray(0,a))};this.flush=function(){var a=u.lame_encode_flush(q,r,0,p);return new Int8Array(r.subarray(0,a))}};lamejs.WavHeader=Fa}lamejs();
 </script><script>
-const DEMO_VER='1795263530';
+const DEMO_VER='1795275299';
+/* =====================================================================
+   Web Audio の互換対策（いちばん最初に読む）
+   ・古い Safari: webkitAudioContext / webkitOfflineAudioContext、コールバック式の decodeAudioData、new AudioBuffer が無い
+   ・どれも、あれば本物を使い、無いときだけ補う
+   ===================================================================== */
+const WAC={patched:[],altUsed:0};
+(function(){
+ const W=window;
+ if(!W.AudioContext&&W.webkitAudioContext){W.AudioContext=W.webkitAudioContext;WAC.patched.push('AudioContext（webkit）')}
+ if(!W.OfflineAudioContext&&W.webkitOfflineAudioContext){W.OfflineAudioContext=W.webkitOfflineAudioContext;WAC.patched.push('OfflineAudioContext（webkit）')}
+ const P=(W.BaseAudioContext||W.AudioContext||{}).prototype;
+ /* decodeAudioData: Promise を返さない古い実装でも await できるように */
+ if(P&&P.decodeAudioData&&!P.decodeAudioData.__wac){const orig=P.decodeAudioData;
+  P.decodeAudioData=function(ab,ok,ng){const ctx=this;return new Promise((res,rej)=>{let done=false;const okF=b=>{if(done)return;done=true;if(ok)try{ok(b)}catch(e){}res(b)},ngF=e=>{if(done)return;done=true;if(ng)try{ng(e)}catch(x){}rej(e||new Error('この形式の音声は、このブラウザでは読めません'))};
+   try{const r=orig.call(ctx,ab,okF,ngF);if(r&&r.then)r.then(okF,ngF)}catch(e){ngF(e)}})};P.decodeAudioData.__wac=true}
+ /* new AudioBuffer({…}) が使えないとき */
+ try{new AudioBuffer({length:1,sampleRate:44100,numberOfChannels:1})}catch(e){if(W.AudioContext){let c0=null;const AB=function(o){c0=c0||new W.AudioContext();return c0.createBuffer(o.numberOfChannels||1,o.length,o.sampleRate||c0.sampleRate)};W.AudioBuffer=AB;WAC.patched.push('AudioBuffer（作り方を補う）')}}
+ /* copyToChannel が無い古い実装 */
+ try{const AB=W.AudioBuffer&&W.AudioBuffer.prototype;if(AB&&!AB.copyToChannel){AB.copyToChannel=function(src,ch,off){this.getChannelData(ch).set(src,off||0)};WAC.patched.push('copyToChannel')}}catch(e){}
+})();
 'use strict';
 /* =====================================================================
    DAW skeleton — core: state / music-time helpers / audio engine
@@ -1828,6 +1898,11 @@ const el=(tag,attrs={},...kids)=>{const e=document.createElement(tag);for(const 
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 let _id=0;const uid=p=>p+(++_id);
 const NOTE_NAMES=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+/* 黒鍵の書き方: 'flat'＝B♭（ふつう）／'mml'＝B-（MML 風）／'sharp'＝A#。コード名・キー・音名すべて同じ考え方で */
+const NOTE_STYLES={flat:['C','D♭','D','E♭','E','F','G♭','G','A♭','A','B♭','B'],mml:['C','D-','D','E-','E','F','G-','G','A-','A','B-','B'],sharp:['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']};
+let NOTE_STYLE='flat',SLASH_STYLE='slash';try{NOTE_STYLE=localStorage.getItem('daw.accidental')||'flat';SLASH_STYLE=localStorage.getItem('daw.slashstyle')||'slash'}catch(e){}
+if(!NOTE_STYLES[NOTE_STYLE])NOTE_STYLE='flat';
+NOTE_NAMES.splice(0,12,...NOTE_STYLES[NOTE_STYLE]);
 const noteName=n=>NOTE_NAMES[n%12]+(Math.floor(n/12)-1);
 const isBlack=n=>[1,3,6,8,10].includes(n%12);
 const SCALES={major:[0,2,4,5,7,9,11],minor:[0,2,3,5,7,8,10]};
@@ -2700,13 +2775,17 @@ function encodeWav(chans,sr,bits){
 }
 
 /* ---------- プロジェクト保存 / 読込 ---------- */
+/* 音声の入れ方: ファイル保存は WAV（24bit）を文字にして入れる。自動保存（IndexedDB）は波形の数値をそのまま入れる（速い・軽い） */
+let AUTO_PCM=false;
+async function audioPack(buf){if(AUTO_PCM)return{pcm:{sr:buf.sampleRate,ch:chansOf(buf).map(a=>new Float32Array(a))}};return{wav:await blobToDataURL(encodeWav(chansOf(buf),buf.sampleRate,24))}}
+async function audioUnpack(c){if(c.pcm&&c.pcm.ch&&c.pcm.ch.length){const b=new AudioBuffer({numberOfChannels:c.pcm.ch.length,length:c.pcm.ch[0].length,sampleRate:c.pcm.sr});c.pcm.ch.forEach((a,i)=>b.copyToChannel(a instanceof Float32Array?a:new Float32Array(a),i));return b}return ensureAudio().decodeAudioData(dataURLToBuffer(c.wav))}
 async function buildProject(){
  const tracks=[];
  for(const t of S.tracks){
   const clips=[];
   for(const c of t.clips){
    const k={...c,buf:undefined,peaks:undefined,_rec:undefined};
-   if(c.buf)k.wav=await blobToDataURL(encodeWav(chansOf(c.buf),c.buf.sampleRate,24));
+   if(c.buf)Object.assign(k,await audioPack(c.buf));
    clips.push(k);
   }
   tracks.push({...t,fx:t.fx,clips});
@@ -2730,8 +2809,8 @@ async function loadProject(o){
  for(const t of o.tracks){
   const clips=[];
   for(const c of (t.clips||[])){
-   const k={...c};delete k.wav;delete k._rec;
-   if(c.wav){k.buf=await ctx.decodeAudioData(dataURLToBuffer(c.wav));BUFS.set(k.id,k.buf)}
+   const k={...c};delete k.wav;delete k.pcm;delete k._rec;
+   if(c.wav||c.pcm){k.buf=await audioUnpack(c);BUFS.set(k.id,k.buf)}
    clips.push(k);
   }
   list.push({...t,clips});
@@ -2759,7 +2838,17 @@ function openProjectDialog(){
  }else go();
 }
 
-/* ---------- 自動保存（10秒ごと・変更時のみ） ---------- */
+/* ---------- 自動保存（10秒ごと・変更時のみ） ----------
+   ブラウザの IndexedDB に保存する（数百 MB まで入るので、録音した音声も入る）
+   以前の localStorage（5MB ほどで「容量超過」になっていた）は使わない。残っていれば IndexedDB に移して消す
+   それでも保存できないときは、音声を除いた形で保存して、知らせるのは 1 回だけ */
+const AUTO_DB={db:null,warned:false,lite:false};
+function autoDb(){if(AUTO_DB.db)return Promise.resolve(AUTO_DB.db);return new Promise((res,rej)=>{let q;try{q=indexedDB.open('daw-autosave',1)}catch(e){return rej(e)}
+ q.onupgradeneeded=()=>q.result.createObjectStore('s');q.onsuccess=()=>{AUTO_DB.db=q.result;res(q.result)};q.onerror=()=>rej(q.error)})}
+async function autoPut(v){const db=await autoDb();return new Promise((res,rej)=>{const tx=db.transaction('s','readwrite');tx.objectStore('s').put(v,AUTO_KEY);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error);tx.onabort=()=>rej(tx.error)})}
+async function autoGet(){const db=await autoDb();return new Promise((res,rej)=>{const tx=db.transaction('s','readonly'),q=tx.objectStore('s').get(AUTO_KEY);q.onsuccess=()=>res(q.result||null);q.onerror=()=>rej(q.error)})}
+async function autoDel(){try{localStorage.removeItem(AUTO_KEY)}catch(e){}try{const db=await autoDb();db.transaction('s','readwrite').objectStore('s').delete(AUTO_KEY)}catch(e){}}
+function autoStripAudio(o){const x=JSON.parse(JSON.stringify(o));let n=0;for(const t of x.tracks||[]){for(const c of [...(t.clips||[]),...(t.takes||[])]){if(c.audio||c.wav||c.data||c.pcm){delete c.audio;delete c.wav;delete c.data;delete c.pcm;n++}}}x._noAudio=n;return x}
 async function autosaveTick(){
  if(recoveryPending||autoBusy)return;
  checkHistory();
@@ -2767,24 +2856,28 @@ async function autosaveTick(){
  autoBusy=true;
  try{
   const snap=HIST.last;
-  const o=await buildProject();
-  localStorage.setItem(AUTO_KEY,JSON.stringify({savedAt:Date.now(),data:o}));
+  AUTO_PCM=true;let o;try{o=await buildProject()}finally{AUTO_PCM=false}
+  try{await autoPut({savedAt:Date.now(),data:o});AUTO_DB.lite=false}
+  catch(e){await autoPut({savedAt:Date.now(),data:autoStripAudio(o)});AUTO_DB.lite=true;if(!AUTO_DB.warned){AUTO_DB.warned=true;toast('ブラウザの保存領域が足りないため、自動保存は音声を除いて保存しています（音声も残すには「保存」でファイルに）')}}
   autoLast=snap;
- }catch(e){toast('自動保存できませんでした(容量超過の可能性)。ファイル保存をお使いください')}
+  try{localStorage.removeItem(AUTO_KEY)}catch(e){}
+ }catch(e){if(!AUTO_DB.warned){AUTO_DB.warned=true;toast('自動保存できませんでした。こまめに「保存」でファイルに保存してください')}}
  finally{autoBusy=false}
 }
-function offerRecovery(){
- let raw=null;try{raw=localStorage.getItem(AUTO_KEY)}catch(e){}
- if(!raw)return;
- let obj;try{obj=JSON.parse(raw)}catch(e){return}
+async function offerRecovery(){
+ let obj=null;
+ try{obj=await autoGet()}catch(e){}
+ if(!obj){let raw=null;try{raw=localStorage.getItem(AUTO_KEY)}catch(e){}if(raw){try{obj=JSON.parse(raw)}catch(e){}}
+  if(obj){try{await autoPut(obj);localStorage.removeItem(AUTO_KEY)}catch(e){}}}   // 以前の保存場所から移す
+ if(!obj||!obj.data)return;
  recoveryPending=true;
  const when=new Date(obj.savedAt).toLocaleString('ja-JP');
  const done=()=>{recoveryPending=false;closeModal()};
  openModal('自動保存の復元',el('div',{},
-  el('p',{},`前回の自動保存（${when}）があります。復元しますか？`),
+  el('p',{},`前回の自動保存（${when}）があります。復元しますか？`+(obj.data._noAudio?'（容量の都合で、音声は入っていません）':'')),
   el('div',{style:'display:flex;gap:8px;margin-top:10px'},
    el('button',{onclick:async()=>{try{await loadProject(obj.data);toast('自動保存を復元しました')}catch(e){toast('復元できませんでした: '+e.message)}done()}},'復元する'),
-   el('button',{onclick:()=>{try{localStorage.removeItem(AUTO_KEY)}catch(e){}done()}},'破棄'))));
+   el('button',{onclick:()=>{autoDel();done()}},'破棄'))));
 }
 
 /* ---------- オーディオ書き出し（オフライン描画） ---------- */
@@ -3066,7 +3159,7 @@ function initIO(){
  $('#fMidiIn').onclick=()=>pickFile('.mid,.midi,audio/midi',f=>importMidi(f).catch(e=>toast('読み込めませんでした: '+e.message)));
  HIST.last=projSnap();HIST.saved=HIST.last;updateTitle();
  ['pointerup','keyup','change','drop','dragend'].forEach(ev=>document.addEventListener(ev,()=>setTimeout(checkHistory,0)));
- setInterval(autosaveTick,10000);
+ setInterval(()=>autosaveTick(),10000);
  offerRecovery();
 }
 /* =====================================================================
@@ -3247,7 +3340,7 @@ const CHORD_Q={
  maj9:{label:'メジャー9',sfx:'maj9',iv:[0,4,7,11,14]},m9:{label:'マイナー9',sfx:'m9',iv:[0,3,7,10,14]},'9':{label:'ナインス',sfx:'9',iv:[0,4,7,10,14]},
  m7b5:{label:'ハーフディミニッシュ',sfx:'m7(♭5)',iv:[0,3,6,10]},'7sus4':{label:'セブンサス4',sfx:'7sus4',iv:[0,5,7,10]}
 };
-const chordName=c=>NOTE_NAMES[c.root]+CHORD_Q[c.q].sfx+(c.bass!=null?'/'+NOTE_NAMES[c.bass]:'');
+const chordName=c=>NOTE_NAMES[c.root]+CHORD_Q[c.q].sfx+(c.bass!=null?(SLASH_STYLE==='on'?' on':'/')+NOTE_NAMES[c.bass]:'');   // オンコード: C/E（ふつう）または C onE
 function chordPitches(c){
  const ps=CHORD_Q[c.q].iv.map(i=>60+c.root+i);
  ps.unshift(36+(c.bass!=null?c.bass:c.root));
@@ -5219,7 +5312,10 @@ async function smpBytes(url){
  const r=await fetch(url);if(!r.ok)throw new Error(r.status+' '+url);SMP.net++;return r.arrayBuffer();
 }
 function smpDecode(url){
- if(!SMP.buf.has(url))SMP.buf.set(url,(async()=>{try{return await ensureAudio().decodeAudioData(await smpBytes(url))}catch(e){SMP.buf.delete(url);SMP.fail++;throw e}})());
+ /* このブラウザで読めない形式（Safari の OGG など）は、同じ場所の別形式（.m4a）を試す */
+ if(!SMP.buf.has(url))SMP.buf.set(url,(async()=>{try{return await ensureAudio().decodeAudioData(await smpBytes(url))}catch(e){
+  if(/\.(ogg|flac)$/i.test(url)){try{const alt=url.replace(/\.(ogg|flac)$/i,'.m4a');const b=await ensureAudio().decodeAudioData(await smpBytes(alt));WAC.altUsed=(WAC.altUsed||0)+1;return b}catch(e2){}}
+  SMP.buf.delete(url);SMP.fail++;throw e}})());
  return SMP.buf.get(url);
 }
 /* WebAudioFont の .js を eval せずに読む（zones の各 {…} から値を取り出す） */
@@ -6351,10 +6447,11 @@ const CH_ALIAS=(()=>{
  return m;
 })();
 const PC_OF={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
-function parsePC(s){const m=/^([A-Ga-g])([#b]*)$/.exec(s||'');if(!m)return null;let p=PC_OF[m[1].toUpperCase()];for(const c of m[2])p+=c==='#'?1:-1;return(p%12+12)%12}
+/* 音名 → 0〜11。B♭・Bb・B-（MML 風）・A#・A♯・A+ のどれでも読める */
+function parsePC(s){const m=/^([A-Ga-g])([#b♭♯+\-]*)$/.exec(String(s||'').trim());if(!m)return null;let p=PC_OF[m[1].toUpperCase()];for(const c of m[2])p+=(c==='#'||c==='♯'||c==='+')?1:-1;return(p%12+12)%12}
 function parseChord(str){
- let s=String(str||'').trim().replace(/[Ａ-Ｚａ-ｚ０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)).replace(/♯/g,'#').replace(/♭/g,'b').replace(/[（]/g,'(').replace(/[）]/g,')').replace(/\s*on\s*/i,'/').replace(/\s+/g,'');
- const m=/^([A-Ga-g][#b]?)(.*?)(?:\/([A-Ga-g][#b]?))?$/.exec(s);if(!m)return null;
+ let s=String(str||'').trim().replace(/[Ａ-Ｚａ-ｚ０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)).replace(/♯/g,'#').replace(/♭/g,'b').replace(/[（]/g,'(').replace(/[）]/g,')').replace(/\s*on\s*(?=[A-Ga-g])/i,'/').replace(/^([A-Ga-g][#b+\-]?)(.*?)\s*onbass\s*/i,'$1$2/').replace(/\s+/g,'');
+ const m=/^([A-Ga-g][#b+\-]?)(.*?)(?:\/([A-Ga-g][#b+\-]?))?$/.exec(s);if(!m)return null;
  const root=parsePC(m[1]);if(root==null)return null;
  let q=m[2],key=CH_ALIAS[q];
  if(key==null)key=CH_ALIAS[q.replace(/[()]/g,'')];
@@ -6399,7 +6496,7 @@ function barTextToChords(text){
  const B=qpbar(),out=[],errs=[];
  const bars=String(text||'').split(/[|\n]/).map(x=>x.trim()).filter(x=>x.length);
  bars.forEach((bar,bi)=>{
-  const toks=bar.split(/\s+/);const a=bi*B;
+  const toks=bar.replace(/\s+on\s*(?=[A-Ga-gＡ-Ｇ])/gi,'/').replace(/\s+\/\s*/g,'/').split(/\s+/);const a=bi*B;   // 「C on E」「C / E」も 1 つのコード（オンコード）
   const lens=toks.map(t=>{const m=/:([\d.]+)$/.exec(t);return m?+m[1]:null});
   const fixed=lens.reduce((x,l)=>x+(l||0),0),free=lens.filter(l=>l==null).length,each=free?(B-fixed)/free:0;
   let s=a;
@@ -6456,7 +6553,7 @@ function openChordEditor(t,c){
   });
   body.replaceChildren(
    el('h4',{},'小節ごとにまとめて入力'),
-   el('div',{class:'hint'},'「|」で小節を区切ります。1小節に複数書くと等分（C:3 G:1 のように拍数指定も可）。「-」は前のコードを伸ばす。テンションやオンコードも可: C7(♭9)  Fmaj7(♯11)  Dm7(11)  G7sus4  C/E  C on E  F#m7-5'),
+   el('div',{class:'hint'},'「|」で小節を区切ります。1小節に複数書くと等分（C:3 G:1 のように拍数指定も可）。「-」は前のコードを伸ばす。テンションやオンコードも可: C7(♭9)  Fmaj7(♯11)  Dm7(11)  G7sus4  オンコード C/E ＝ C on E  B♭ ＝ Bb ＝ B- ＝ A#  Fm7(♭5)'),el('button',{class:'cnhelp',onclick:()=>openChordNotation()},'📖 コードの書き方'),
    barTa,el('div',{class:'mrow'},el('button',{onclick:()=>{const r=barTextToChords(barTa.value);if(r.errs.length)toast('読めないコード: '+r.errs.join('、'));list.splice(0,list.length,...r.chords);if(r.len>c.len)c.len=r.len;sel=0;draw()}},'↓ 小節の入力を反映')),
    el('h4',{},'コードの一覧（選択中の行に MIDI/鍵盤 で入力できます）'),
    el('div',{class:'mrow'},capBtn,kbPut),capInfo,kb,
@@ -7793,7 +7890,7 @@ function a2mPlace(c,srcTrack,kind,notes,label,tone){
 }
 /* ---- 画面: オーディオ → MIDI（モード選択） ---- */
 const A2M_MODES=[['melody','🎤 メロディ（ボーカル・単音）'],['bass','🎸 ベース（単音・低音）'],['poly','🎹 和音（ピアノ・ギター）'],['drums','🥁 ドラム'],['beatbox','👄 ボイパ → ドラム'],['chords','🎼 コード（ガイドに）']];
-const A2M_DEF={mode:'melody',range:'vocalF',thr:.15,band:true,minLen:.25,grid:.25,keySnap:false,gate:-34,tempo:true,prange:'wide',poly:4,rel:.35,sens:1,cseg:1,cq:'basic',cback:true,bbKit:'kit_vd',bbAdapt:true,bbOpen:true,bbMethod:'daw',bbNR:true,bbHP:true,bbTR:true,bbNorm:false,bbHQ:true,cHQ:true};
+const A2M_DEF={mode:'melody',range:'vocalF',thr:.15,band:true,minLen:.25,grid:.25,keySnap:false,gate:-34,tempo:true,prange:'wide',poly:4,rel:.35,sens:1,cseg:0,cq:'basic',cback:true,bbKit:'kit_vd',bbAdapt:true,bbOpen:true,bbMethod:'daw',bbNR:true,bbHP:true,bbTR:true,bbNorm:false,bbHQ:true,cHQ:true};
 const A2M_OK={mode:A2M_MODES.map(m=>m[0]),range:()=>Object.keys(MEL_RANGES),prange:['wide','mid','high'],gate:[-28,-34,-42],minLen:[.125,.25,.5],grid:[0,.125,.25,.5,1],poly:[2,3,4,5,6],rel:[.5,.35,.22],sens:[.7,1,1.5],cseg:[1,2,0],cq:['basic','tension'],bbKit:()=>BB_KITS.map(k=>k[0]),bbMethod:['daw','ai']};
 /* 保存してある設定を点検: 古い版の値や壊れた値は既定値に戻す（ここが壊れていると毎回失敗していた）*/
 function a2mSanitize(o){
@@ -7836,12 +7933,12 @@ function openMelodyDialog(clipId,mode){
     el('div',{class:'mrow'},el('span',{},'変換方法'),selO('bbMethod',[['daw','DAW（声の特徴で分ける・すぐ終わる）'],['ai','AI（Gemini が音を聴いて分ける・タム・クラップも）']],'変換方法'),el('button',{onclick:()=>openBBGuide()},'📖 発音ガイド')),
     el('small',{class:'dim'},'「ブッ」「ドゥ」→ キック(36)、「カッ」「プシッ」→ スネア(38)、「ツ」「チ」→ ハイハット(42)、「ツー」→ オープン(46) に分けて、ドラムトラックにします'));
   }else{
-   rows.push(el('div',{class:'mrow'},el('span',{},'コードの細かさ'),selO('cseg',[[1,'拍ごと（小節内の変化も・おすすめ）'],[2,'半小節（2拍）ごと'],[0,'1小節ごと']],'細かさ'),el('span',{},'種類'),selO('cq',[['basic','三和音・7th'],['tension','テンション・sus も']],'種類'),ck('高精度（キー・ベース音・つながりで判断）','cHQ'),ck('演奏トラックも作る','cback')));
+   rows.push(el('div',{class:'mrow'},el('span',{},'コードの細かさ'),selO('cseg',[[0,'1 小節に 1 つ（基本・おすすめ。はっきり変わる所だけ小節の途中で）'],[2,'半小節（2 拍）ごと'],[1,'拍ごと（細かい）']],'細かさ'),el('span',{},'種類'),selO('cq',[['basic','三和音・7th'],['tension','テンション・sus も']],'種類'),ck('高精度（キー・ベース音・つながりで判断）','cHQ'),ck('演奏トラックも作る','cback')));
   }
   opts.replaceChildren(...rows);
  };
- if(o.prange==null){o.prange='wide';o.poly=4;o.rel=.35;o.sens=1;o.cseg=1;o.cq='basic';o.cback=true}
- if(!o.csegV2){o.csegV2=1;o.cseg=1}
+ if(o.prange==null){o.prange='wide';o.poly=4;o.rel=.35;o.sens=1;o.cseg=0;o.cq='basic';o.cback=true}
+ if(!o.csegV3){o.csegV3=1;o.cseg=0}
  drawOpts();
  const run=async()=>{
   a2mSanitize(o);btn.disabled=true;status.textContent='解析しています…（長い曲は数秒〜数十秒かかります）';
@@ -7873,7 +7970,7 @@ function openMelodyDialog(clipId,mode){
     nt=a2mPlace(c,pick.t,'beatbox',notes,'ボイパ→ドラム',o.bbKit);const cnt=p=>notes.filter(n=>n.p===p).length;msg=`キック ${cnt(36)}・スネア ${cnt(38)}・ハイハット ${cnt(42)}・オープン ${cnt(46)}`+(['37','39','45','48','49'].some(p=>cnt(+p))?`・その他 ${notes.filter(n=>![36,38,42,46].includes(n.p)).length}`:'')+(o.bbMethod==='ai'?'（AI）':'');
    }else{
     const seg=o.cseg||qpbar(),Q=o.cq==='tension'?['maj','min','7','maj7','m7','sus4','dim','m7b5','add9','maj9','m9','9','6','m6']:['maj','min','7','maj7','m7','sus4','dim'];
-    const chords=await chordsFromAudio(c,{seg,qualities:Q,hq:o.cHQ});if(!chords.length)throw new Error('コードを推定できませんでした');
+    const chords=await chordsFromAudio(c,{seg,qualities:Q,hq:o.cHQ,fine:o.cseg===1});if(!chords.length)throw new Error('コードを推定できませんでした');
     let g=S.tracks.find(t=>t.a2mOf===c.id&&t.a2mKind==='chords');
     if(!g){g=newTrack('chord');g.a2mOf=c.id;g.a2mKind='chords';g.name='コード ('+c.name+')';S.tracks.splice(S.tracks.indexOf(pick.t)+1,0,g)}
     g.guide=true;const L=Math.ceil((qAt(secAt(c.start)+c.dur)-c.start)/qpbar()-1e-9)*qpbar();
@@ -8875,9 +8972,10 @@ function openEvaluateDialog(){
  openModal('曲の評価と修正アドバイス',box);
  $('.modal').classList.add('wide');
 }
-const GAS_CODE="/**\n * DAW × Gemini 連携（Google Apps Script Web アプリ）\n *\n * 設定（スクリプトプロパティ）:\n *   GEMINI_API_KEY  … 必須。Google AI Studio で発行した API キー\n *   GEMINI_MODEL    … 任意。例 \"gemini-2.5-flash\"。空なら使えるモデルから最新の flash 系を自動で選ぶ\n *   DAW_TOKEN       … 任意。合言葉。設定すると DAW 側の「合言葉」と一致したときだけ応答する\n *\n * デプロイ: 「デプロイ」→「新しいデプロイ」→ 種類「ウェブアプリ」\n *   次のユーザーとして実行: 自分 / アクセスできるユーザー: 全員\n *   表示された URL（…/exec）を DAW の「⚙ 接続設定」に貼り付ける\n */\nconst API_BASE = 'https://generativelanguage.googleapis.com/v1beta';\nconst GAS_VER = '2026-11-24';   // DAW はこの日付で Code.gs が新しいかを確かめます\n\nfunction doGet() {\n  return json_({ ok: true, app: 'daw-ai', version: 1, message: 'DAW AI 連携は動いています。DAW から POST で使います。' });\n}\n\nfunction doPost(e) {\n  try {\n    const req = JSON.parse((e && e.postData && e.postData.contents) || '{}');\n    const P = PropertiesService.getScriptProperties();\n    const token = P.getProperty('DAW_TOKEN');\n    if (token && req.token !== token) return json_({ ok: false, error: '合言葉が違います（DAW の接続設定を確認してください）' });\n    const key = P.getProperty('GEMINI_API_KEY');\n    if (!key) return json_({ ok: false, error: 'GAS のスクリプトプロパティ GEMINI_API_KEY が未設定です' });\n\n    if (req.action === 'version') return json_({ ok: true, version: GAS_VER, actions: ['ping', 'models', 'version', 'chat', 'evaluate', 'task', 'pricing'] });\n    if (req.action === 'ping') return json_({ ok: true, version: GAS_VER, model: pickModel_(key, req.model || P.getProperty('GEMINI_MODEL')) });\n    if (req.action === 'models') return json_({ ok: true, models: listModels_(key).map(m => m.id) });\n    if (req.action === 'task') return json_(task_(key, P, req));\n    if (req.action === 'pricing') return json_(pricing_(key, P, req));\n    if (req.action !== 'chat' && req.action !== 'evaluate') return json_({ ok: false, error: '不明な action: ' + req.action });\n    const isEval = req.action === 'evaluate';\n    if (isEval) req.messages = [{ role: 'user', text: req.request || 'この曲を評価してください。' }];\n\n    const model = pickModel_(key, req.model || P.getProperty('GEMINI_MODEL'));\n    const contents = buildContents_(req);\n    const body = {\n      systemInstruction: { parts: [{ text: SYSTEM_PROMPT + (isEval ? EVAL_PROMPT : '') }] },\n      contents: contents,\n      generationConfig: { responseMimeType: 'application/json', temperature: 0.7, maxOutputTokens: 65536 }\n    };\n    const call = () => UrlFetchApp.fetch(API_BASE + '/models/' + encodeURIComponent(model) + ':generateContent', {\n      method: 'post', contentType: 'application/json', headers: { 'x-goog-api-key': key },\n      payload: JSON.stringify(body), muteHttpExceptions: true\n    });\n    let res = call();\n    // 出力上限が大きすぎてモデルに断られたら、小さくしてやり直す\n    if (res.getResponseCode() === 400 && /max.?output.?tokens|maxOutputTokens/i.test(res.getContentText())) { body.generationConfig.maxOutputTokens = 8192; res = call(); }\n    const code = res.getResponseCode(), txt = res.getContentText();\n    if (code !== 200) return json_({ ok: false, error: 'Gemini API エラー ' + code + ': ' + txt.slice(0, 400), model: model });\n    const data = JSON.parse(txt);\n    const cand = (data.candidates || [])[0];\n    if (!cand || !cand.content) return json_({ ok: false, error: '返事が空でした（安全フィルタ等）: ' + txt.slice(0, 300), model: model });\n    const out = (cand.content.parts || []).filter(p => !p.thought).map(p => p.text || '').join('');\n    const truncated = cand.finishReason === 'MAX_TOKENS';\n    const parsed = parseJson_(out) || (isEval ? null : salvage_(out));\n    if (isEval) {\n      if (!parsed || !parsed.scores) return json_({ ok: false, error: '評価の形式で返ってきませんでした: ' + out.slice(0, 300), model: model });\n      return json_({ ok: true, model: model, usage: data.usageMetadata || null, scores: parsed.scores, summary: String(parsed.summary || ''), strengths: parsed.strengths || [], advice: Array.isArray(parsed.advice) ? parsed.advice : [] });\n    }\n    if (!parsed) return json_({ ok: true, model: model, usage: data.usageMetadata || null, reply: out, actions: [], truncated: truncated });\n    return json_({ ok: true, model: model, usage: data.usageMetadata || null, reply: String(parsed.reply || '') + (truncated || parsed._salvaged ? '\\n（※ 返事が長すぎて途中で切れました。最後まで書けた操作だけを使います。続きは「足りない所」から頼めます）' : ''), actions: Array.isArray(parsed.actions) ? parsed.actions : [], truncated: truncated || !!parsed._salvaged });\n  } catch (err) {\n    return json_({ ok: false, error: String(err && err.stack || err) });\n  }\n}\n\n/* 汎用の作業（歌詞づくり・メロディから歌詞・音声の分析など）。返事は JSON。音声（base64）も渡せる */\nconst TASK_PROMPT = 'あなたは日本語の作詞家・作曲家・音楽アナリストです。返事は必ず JSON だけで返してください（説明文やコードブロックは不要）。歌詞を書くときはひらがなだけで書き、漢字・カタカナ・英字・記号は使わないでください（のばす音は「ー」）。歌詞以外の文章（説明・ひとこと・note・理由など）は、漢字かな交じりの普通の日本語で書いてください。';\nfunction task_(key, P, req) {\n  const model = pickModel_(key, req.model || P.getProperty('GEMINI_MODEL'));\n  const parts = [{ text: String(req.prompt || '') }];\n  if (req.audio && req.audio.data) parts.unshift({ inline_data: { mime_type: String(req.audio.mime || 'audio/mpeg'), data: String(req.audio.data) } });\n  const body = {\n    systemInstruction: { parts: [{ text: TASK_PROMPT + (req.system ? '\\n' + req.system : '') }] },\n    contents: [{ role: 'user', parts: parts }],\n    generationConfig: { responseMimeType: 'application/json', temperature: req.temperature != null ? +req.temperature : 0.8, maxOutputTokens: 32768 }\n  };\n  const call = () => UrlFetchApp.fetch(API_BASE + '/models/' + encodeURIComponent(model) + ':generateContent', {\n    method: 'post', contentType: 'application/json', headers: { 'x-goog-api-key': key }, payload: JSON.stringify(body), muteHttpExceptions: true\n  });\n  let res = call();\n  if (res.getResponseCode() === 400 && /max.?output.?tokens|maxOutputTokens/i.test(res.getContentText())) { body.generationConfig.maxOutputTokens = 8192; res = call(); }\n  const code = res.getResponseCode(), txt = res.getContentText();\n  if (code !== 200) return { ok: false, error: 'Gemini API エラー ' + code + ': ' + txt.slice(0, 400), model: model };\n  const data = JSON.parse(txt), cand = (data.candidates || [])[0];\n  if (!cand || !cand.content) return { ok: false, error: '返事が空でした（安全フィルタ等）: ' + txt.slice(0, 300), model: model };\n  const out = (cand.content.parts || []).filter(p => !p.thought).map(p => p.text || '').join('');\n  return { ok: true, model: model, usage: data.usageMetadata || null, data: parseJson_(out), text: out.slice(0, 4000), truncated: cand.finishReason === 'MAX_TOKENS' };\n}\n\nfunction buildContents_(req) {\n  const msgs = (req.messages || []).filter(m => m && m.text);\n  const ctx = req.context || {};\n  const contents = msgs.map(m => ({ role: m.role === 'model' ? 'model' : 'user', parts: [{ text: String(m.text) }] }));\n  // 最後のユーザー発言に、現在の曲の状態と使える部品を添える\n  const sc = ctx.scope || { mode: 'whole-song', description: '曲全体', allowGlobalChanges: true };\n  const extra = '\\n\\n【適用範囲（ユーザーが指定・最優先で守る）】\\n```json\\n' + JSON.stringify(sc) + '\\n```' +\n    '\\n\\n【現在の曲の状態（DAW から自動送信）】\\n```json\\n' + JSON.stringify(ctx.project || {}) + '\\n```' +\n    (ctx.evaluation ? '\\n\\n【DAW の自動評価】\\n' + ctx.evaluation : '') +\n    '\\n\\n【使える部品】\\n```json\\n' + JSON.stringify(ctx.capabilities || {}) + '\\n```' +\n    (ctx.help ? '\\n\\n【この DAW の機能の一覧（使い方の質問はこれに基づいて、画面のどこで何を押すかを具体的に答える。一覧にない機能は作り出さない）】\\n' + String(ctx.help).slice(0, 60000) : '');\n  for (let i = contents.length - 1; i >= 0; i--) {\n    if (contents[i].role === 'user') { contents[i].parts[0].text += extra; break; }\n  }\n  if (!contents.length) contents.push({ role: 'user', parts: [{ text: extra }] });\n  return contents;\n}\n\n/* 料金の確認: いま使っているモデルの料金を、Gemini に Google 検索で調べてもらう（検索が使えないときは知識で） */\nfunction pricing_(key, P, req) {\n  const model = pickModel_(key, req.model || P.getProperty('GEMINI_MODEL'));\n  const today = Utilities.formatDate(new Date(), 'Asia/Tokyo', 'yyyy-MM-dd');\n  const prompt = '今日は ' + today + ' です。Google の Gemini API（Google AI Studio の有料枠・Standard）で、モデル「' + model + '」の現在の料金を、公式の料金ページ（ai.google.dev/gemini-api/docs/pricing）で調べてください。\\n' +\n    '100万トークンあたりの米ドルで、入力（テキスト）・出力（考えるトークンを含む）・音声の入力を答えてください。期間限定の価格や、値上げ・値下げの予定があれば changes に入れてください。\\n' +\n    '返事は JSON だけ: {\"model\":\"' + model + '\",\"input\":数値,\"output\":数値,\"audioInput\":数値,\"freeTier\":true か false,\"changes\":[{\"from\":\"YYYY-MM-DD\",\"input\":数値,\"output\":数値,\"audioInput\":数値}],\"asOf\":\"YYYY-MM-DD\",\"source\":\"URL\",\"note\":\"ひとこと（日本語）\"}';\n  const body = { contents: [{ role: 'user', parts: [{ text: prompt }] }], tools: [{ google_search: {} }], generationConfig: { temperature: 0, maxOutputTokens: 4096 } };\n  const call = b => UrlFetchApp.fetch(API_BASE + '/models/' + encodeURIComponent(model) + ':generateContent', {\n    method: 'post', contentType: 'application/json', headers: { 'x-goog-api-key': key }, payload: JSON.stringify(b), muteHttpExceptions: true\n  });\n  let grounded = true, res = call(body);\n  if (res.getResponseCode() !== 200) { grounded = false; delete body.tools; res = call(body); }\n  const code = res.getResponseCode(), txt = res.getContentText();\n  if (code !== 200) return { ok: false, error: 'Gemini API エラー ' + code + ': ' + txt.slice(0, 300), model: model };\n  const data = JSON.parse(txt), cand = (data.candidates || [])[0];\n  const out = cand && cand.content ? (cand.content.parts || []).filter(p => !p.thought).map(p => p.text || '').join('') : '';\n  const meta = cand && cand.groundingMetadata, srcs = meta && meta.groundingChunks ? meta.groundingChunks.map(c => c.web && c.web.uri).filter(Boolean).slice(0, 5) : [];\n  return { ok: true, model: model, usage: data.usageMetadata || null, pricing: parseJson_(out), grounded: grounded && !!meta, sources: srcs, text: out.slice(0, 2000) };\n}\n\nfunction parseJson_(s) {\n  if (!s) return null;\n  let t = String(s).trim().replace(/^```(?:json)?\\s*/i, '').replace(/```\\s*$/, '');\n  try { return JSON.parse(t); } catch (e) {}\n  const a = t.indexOf('{'), b = t.lastIndexOf('}');\n  if (a >= 0 && b > a) { try { return JSON.parse(t.slice(a, b + 1)); } catch (e) {} }\n  return null;\n}\n\n/* 途中で切れた JSON から、最後まで書けた操作だけを取り出す */\nfunction salvage_(s) {\n  const t = String(s || '');\n  const i = t.indexOf('\"actions\"'); if (i < 0) return null;\n  const a = t.indexOf('[', i); if (a < 0) return null;\n  const acts = []; let depth = 0, start = -1, inStr = false, esc = false;\n  for (let k = a + 1; k < t.length; k++) {\n    const c = t[k];\n    if (inStr) { if (esc) esc = false; else if (c === '\\\\') esc = true; else if (c === '\"') inStr = false; continue; }\n    if (c === '\"') { inStr = true; continue; }\n    if (c === '{') { if (depth === 0) start = k; depth++; }\n    else if (c === '}') { depth--; if (depth === 0 && start >= 0) { try { acts.push(JSON.parse(t.slice(start, k + 1))); } catch (e) {} start = -1; } }\n    else if (c === ']' && depth === 0) break;\n  }\n  const m = t.match(/\"reply\"\\s*:\\s*\"((?:[^\"\\\\]|\\\\.)*)\"/);\n  return { reply: m ? JSON.parse('\"' + m[1] + '\"') : '', actions: acts, _salvaged: true };\n}\n\nfunction listModels_(key) {\n  const res = UrlFetchApp.fetch(API_BASE + '/models?pageSize=200', { headers: { 'x-goog-api-key': key }, muteHttpExceptions: true });\n  if (res.getResponseCode() !== 200) throw new Error('モデル一覧を取得できません: ' + res.getContentText().slice(0, 200));\n  const list = JSON.parse(res.getContentText()).models || [];\n  return list.filter(m => (m.supportedGenerationMethods || []).indexOf('generateContent') >= 0)\n    .map(m => ({ id: String(m.name).replace(/^models\\//, ''), name: m.displayName || '' }));\n}\n\n/** 指定がなければ、使えるモデルから「最新の flash 系」を選ぶ（6時間キャッシュ） */\nfunction pickModel_(key, want) {\n  if (want) return want;\n  const cache = CacheService.getScriptCache();\n  const hit = cache.get('daw_model');\n  if (hit) return hit;\n  let pick = 'gemini-flash-latest';\n  try {\n    const ids = listModels_(key).map(m => m.id)\n      .filter(id => /flash/.test(id) && !/(lite|image|tts|live|audio|embedding|vision|exp|preview|thinking)/.test(id));\n    const ver = id => { const m = id.match(/gemini-(\\d+(?:\\.\\d+)?)/); return m ? parseFloat(m[1]) : 0; };\n    ids.sort((a, b) => ver(b) - ver(a) || a.length - b.length);\n    if (ids.length) pick = ids[0];\n  } catch (e) {}\n  cache.put('daw_model', pick, 21600);\n  return pick;\n}\n\nfunction json_(o) {\n  return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);\n}\n\n/* ===================== Gemini への指示 ===================== */\nconst SYSTEM_PROMPT = `\nあなたはブラウザ DAW に組み込まれた、作曲・編曲・ミックスの専門アシスタントです。日本語で、ユーザーと対話しながら曲作りを手伝います。\n# 書き方（大事）: 返事・説明・提案・トラック名などの文章は、漢字かな交じりの普通の日本語で書く。ひらがなだけで書くのは歌詞（setLyrics の text など、歌う言葉）だけ。\n# 使い方の質問: 【この DAW の機能の一覧】が送られてきたら、それに基づいて、どの画面のどのボタン・メニューを使うかを手順で答える（actions は []）。\nジャンル、テンポ、キー、拍子、スウィング、曲の構成、楽器構成とアンサンブル、演奏技法、コーラス、部分的なアレンジ、歌詞の作成と割り付け、ドラムパターン、コードの技法（テンション・オンコード・セカンダリードミナント・借用和音など）、曲調の模倣（特定の作品のメロディや歌詞をそのまま写さず、テンポ感・和声・リズム・音色などのスタイルの特徴だけを参考にする）、エフェクト、パン、音量、曲の評価と修正提案まで扱います。\n\n# 出力形式（必ずこの JSON だけを返す）\n{\"reply\": \"ユーザーへの返事（日本語・要点を簡潔に。提案の理由も短く）\", \"actions\": [ 操作, ... ]}\n- 質問や相談だけで曲を変える必要がなければ actions は [] にする。\n- 曲を変える提案をするときは、DAW がそのまま実行できる操作を actions に入れる（ユーザーが確認してから適用する）。\n- 小節番号は 1 始まり。拍は四分音符 = 1。区間（section）は現在の曲の状態にある名前を使う。\n# 範囲を選んだ依頼（scope.mode が partial）\n- scope.mustFill に並んだトラックそれぞれに、範囲内を埋める操作（genPart、または section / range 付きの writeNotes・drumPattern）を必ず出す。返事の文章だけで終わらせない。\n- トラック名は scope.mustFill / project の名前をそのまま使う。\n\n# パートは曲の最初から最後まで（とても大事）\n- 新しく作るパートは、必ず曲の全区間（イントロ〜アウトロ）を埋める。メロディ（歌）はイントロ・間奏・アウトロ以外の全区間。\n- 長い曲の音符を1つずつ全部書かない（返事が長すぎると途中で切れる）。次の方法を優先する:\n  1) genPart … DAW がコードと拍子に合わせて丸ごと作る（ドラム・ベース・伴奏は基本これで十分）\n  2) writeNotes に section と repeat … 1〜2小節のパターンを区間いっぱいに繰り返す\n  3) drumPattern … section を省略すると全区間に入り、各区間の最後にフィルが入る\n  4) メロディだけは区間ごとに writeNotes で書いてよい（1回の返事で 2〜3 区間まで。残りは次の返事で）\n- 拍子を必ず守る（project.sig。3/4 なら 1小節 = 3拍、drumPattern の grid 16 は 12 ステップで1小節）。\n- 最後に、作ったパートが全区間を埋めているか確かめ、足りなければ genPart か fillGaps を足す。\n\n# エフェクトの提案\n- capabilities.fx には、しっかり効くもの（ott=OTT風マルチバンド強コンプ, fuzz, doubler, sweep=テンポ同期オートフィルター, slicer=トランスゲート, pshift=ピッチシフト）や、変わり種（shimmer, octaver, tapestop, stutter=グリッチ, robot, radio, lofi1）もある。\n- エフェクトを相談されたら、定番に加えて「しっかり効く案」と「変わり種の案」も1つずつ添える。\n\n# 生成する要素（generate）— 必ず守る\n- 毎回【生成する要素】が送られる（context.generate）。generate にある要素だけを作る・変更し、keep にある要素に触れる操作は出さない。\n  - 例: ドラムが keep なら drumPattern やドラムへの writeNotes を出さない。音量が keep なら setTrack に volume を入れない。曲調・ジャンルが keep なら今の曲調を保つ。\n  - keep の要素を変えたほうがよいと思ったら、reply で提案だけする。\n- 歌詞: すべてひらがな（「ー」「っ」「ゃゅょ」可）。漢字・カタカナ・英字・記号は使わない。区間（パート）ごとに分けて setLyrics を出し、1行を1フレーズにする。メロディの音数（各区間の音符の数）に合わせる。\n- capabilities.tones には内蔵・ネットの音源に加え、ユーザーの SoundFont（[SoundFont/カテゴリ]、ID は sf:…）や、オーディオから作った音源（[サンプリング]、ID は us_…）が含まれる。ユーザーが用意した音源を優先して提案してよい。\n- capabilities.userTones があるときは、楽器ごとのおすすめ SoundFont（byInstrument: drums/piano/bass/guitar/strings/pad/lead/brass/flute/choir など → 音色 ID）が入っている。prefer が true なら、addTrack・setTrack・createTrack の tone や setPerformance の tone には、楽器に合うこの ID を必ず使う。\n- 現在の曲の状態（project）を必ず読み、既存のトラック名・区間名・キーに合わせる。\n- 範囲の指定: \"section\": \"サビ\"（または [\"Aメロ\",\"サビ\"]）/ \"range\": {\"fromBar\":5,\"toBar\":8} / 指定なし = 曲全体。\n\n# 適用範囲（scope）— 必ず守る\n- 毎回【適用範囲】が送られる。mode が \"whole-song\" なら曲全体を自由に変えてよい。\n- mode が \"partial\" のときは、scope.bars（小節の範囲）・scope.sections・scope.tracks・scope.parts の中だけを変更する操作を出す。\n  - 範囲を持つ操作（setChords, setPerformance, drumPattern, writeNotes, transpose, quantize, harmonize）には、必ず scope 内の \"section\" / \"range\" / \"startBar\" を付ける。\n  - \"track\" は scope.tracks（または scope.parts の track）にあるものだけを使う。新しいトラックの追加（addTrack や存在しないトラックへの writeNotes）はしない。\n  - allowGlobalChanges が false なら、setTempo / setKey / setTimeSig / setSwing / setSections と、トラック全体に効く setTrack（音量・パン・音色）・setFx は出さない。必要だと思うときは reply で提案だけする。\n  - scope.notesInScope に範囲内の現在の音符（\"小節.拍:音名:長さ\"、ドラムは GM ノート番号）がある。アレンジや修正はこれを元にする。\n  - ユーザーの文章が範囲外のことを求めているときは、reply で「適用範囲を広げてください」と伝える。\n\n# 操作の一覧\n{\"type\":\"setTempo\",\"bpm\":120}\n{\"type\":\"setKey\",\"root\":\"C\",\"mode\":\"major\"}                 // root: C C# D … B / mode: major|minor\n{\"type\":\"setTimeSig\",\"n\":4,\"d\":4}\n{\"type\":\"setSwing\",\"value\":50}                               // 50=ストレート, 58=軽いハネ, 66=3連シャッフル（最大75）\n{\"type\":\"setSections\",\"sections\":[{\"name\":\"イントロ\",\"bars\":4},{\"name\":\"Aメロ\",\"bars\":8},{\"name\":\"サビ\",\"bars\":8}]}   // 曲の構成を丸ごと置き換え（同名の区間の歌詞は引き継ぐ）\n{\"type\":\"setChords\",\"section\":\"サビ\",\"bars\":\"| Fmaj7 | E7(♭9) | Am7 Am7/G | D7(9) G7sus4 |\"}\n   // 1小節を | で区切る。1小節に複数書くと等分。\"C:3 G:1\" で拍数指定。\"-\" は前のコードを伸ばす。\n   // 使える例: C Cm C7 Cmaj7 Cm7 Cm7(♭5) Cdim7 Caug C6 Cm6 Cadd9 Cm(add9) Csus4 Csus2 C7sus4 C9 Cmaj9 Cm9 C7(♭9) C7(♯9) C7(13) C7(♭13) C7(♯11) C7(9,13) C13 C11 Cm7(11) Cmaj7(♯11) C6(9) CmM7 C/E（オンコード）\n   // section を省くと startBar（省略時 1）から書く。コードは「ガイド」トラックに入り、演奏は setPerformance で作る。\n{\"type\":\"setPerformance\",\"pattern\":\"bk3\",\"section\":\"Aメロ\",\"tone\":\"smp_rhodes\"}\n   // コード（ガイド）から伴奏トラックを作る/変える。pattern は capabilities.patterns の ID（arp1-3 アルペジオ, bk1-3 バッキング, alt1-3 オルタネイト, lg1-3 ロング, st1-3 ショート, tr1-5 トランス系, oc1-3 オクターブ系）。tone は capabilities.tones の ID。\n{\"type\":\"addTrack\",\"kind\":\"midi\",\"name\":\"ストリングス\",\"tone\":\"waf_strings\"}   // kind: midi|drum|audio|chord\n{\"type\":\"setTrack\",\"track\":\"ベース\",\"volume\":-8,\"pan\":0,\"tone\":\"syn_fbass\",\"octave\":0,\"mute\":false}   // track は名前（\"master\" も可。volume は dB, pan は -1〜1）\n{\"type\":\"writeNotes\",\"track\":\"メロ\",\"startBar\":9,\"notes\":[[\"E4\",0,1,96],[\"G4\",1,0.5],[\"A4\",1.5,1.5]],\"createTrack\":{\"kind\":\"midi\",\"tone\":\"syn_lead\"}}\n   // notes: [音名(C4=中央のド) または MIDI番号, startBar からの拍位置, 長さ(拍), ベロシティ(省略可)]。同じ範囲の既存の音は置き換え。メロディやベース、対旋律、コーラス(ハモリ)の作成に使う。\n{\"type\":\"genPart\",\"role\":\"bass\",\"track\":\"ベース\",\"section\":\"サビ\",\"style\":\"root8\"}   // DAW の自動生成でパートを丸ごと作る（コードと拍子に合わせる）。role: drums / bass / guitar / keys / pad / melody / harmony。section 省略で曲全体。drums の style: auto / 16beat / half / four、bass の style: root8 / root4\n{\"type\":\"writeNotes\",\"track\":\"ベース\",\"section\":[\"Aメロ\",\"サビ\"],\"repeat\":true,\"notes\":[[\"C2\",0,1],[\"G2\",1,1]]}   // section を付けると、notes（1〜数小節のパターン）をその区間いっぱいに繰り返す\n{\"type\":\"fillGaps\"}                                          // 音が途中で切れているパートの足りない所を埋める（track を付けるとそのトラックだけ）\n{\"type\":\"drumPattern\",\"section\":\"サビ\",\"grid\":16,\"kick\":\"x...x...x...x...\",\"snare\":\"....x.......x...\",\"hat\":\"x.x.x.x.x.x.x.x.\",\"openhat\":\"..............x.\",\"fillLastBar\":true}\n   // 1文字 = 1/grid 小節。x=通常 X=強く o=弱く .=休み。使える楽器: kick snare rim clap hat pedalhat openhat crash ride ridebell tomh tomm toml floortom tambourine cowbell shaker。パターンは範囲内で繰り返す。\n{\"type\":\"setLyrics\",\"section\":\"Aメロ\",\"text\":\"あおいそらに\\\\nとどけこのうた\"}   // 歌詞は必ず「ひらがな」で、区間（パート）ごとに 1 つずつ出す（1行 = 1フレーズ）\n{\"type\":\"setLyrics\",\"sections\":{\"Aメロ\":\"あおいそらに\\\\nとどけこのうた\",\"サビ\":\"きみとならどこまでも\\\\nゆけるきがした\"}}   // 複数の区間をまとめて入れる形も可\n{\"type\":\"melodyFromLyrics\",\"track\":\"メロ\",\"section\":\"サビ\"}   // 区間の歌詞（文字数）に合わせて DAW がメロディを作り直し、1音1文字で割り付ける\n{\"type\":\"writeNotes\",\"track\":\"メロ\",\"section\":\"Aメロ\",\"notes\":[[\"E4\",0,0.5,90,\"あ\"],[\"G4\",0.5,0.5,90,\"お\"]]}   // notes の5番目に文字を入れると、その音に歌詞を付ける（歌詞に合わせたメロディを書くとき）\n{\"type\":\"sing\",\"track\":\"メロ\",\"section\":\"サビ\"}            // VOICEVOX で歌わせる（歌詞の割り当て後。section 省略で全区間）\n   // 歌詞は VOICEVOX で歌えるよう、ひらがな中心で。1行 = 1フレーズ。メロディの音数（project.melody）に合わせ、1音 = 1文字（きゃ・しゅ等は1音、ーは伸ばし）。\n{\"type\":\"assignLyrics\",\"section\":\"all\"}                     // 歌詞をメロディに割り付け（section 名 または \"all\"）\n{\"type\":\"setFx\",\"track\":\"ボーカル\",\"chain\":\"ボーカル/ポップ (明るく前に)\"}   // chain は capabilities.fxChains の名前（マスターは \"マスター/ナチュラル・マスタリング\" など）\n{\"type\":\"setFx\",\"track\":\"master\",\"add\":[{\"fx\":\"limiter\",\"params\":{\"thr\":-6,\"gain\":1.2}}],\"clear\":false}   // fx は capabilities.fx の ID\n{\"type\":\"quantize\",\"grid\":0.25,\"strength\":80,\"section\":\"サビ\",\"track\":\"メロ\"}\n{\"type\":\"transpose\",\"track\":\"メロ\",\"semitones\":2,\"section\":\"サビ\"}\n{\"type\":\"assignLyricsRange\",\"text\":\"1行目\\n2行目\"}   // いまユーザーが選んでいる範囲（セクションをまたいでもよい）のメロディに歌詞を順に割り当てる\n{\"type\":\"tempoChange\",\"bpm\":140,\"section\":\"サビ\",\"mode\":\"set\",\"restore\":true}   // 範囲のテンポを変える。mode: set=その範囲をこのテンポに / ramp=範囲の終わりに向けてだんだん変える（リタルダンド・アッチェレランド）/ from=ここから先ずっと。restore=false で範囲のあとも戻さない。section の代わりに fromBar/toBar も可\n{\"type\":\"modulate\",\"semitones\":1,\"section\":\"サビ\",\"toEnd\":true}   // 転調。範囲の MIDI（ドラム以外）とコードを半音単位で移す（伴奏はコードに付いてくる）。toEnd=true でそこから最後まで。audio=true でオーディオもピッチシフト（重い）\n{\"type\":\"rangeVolume\",\"track\":\"ギター\",\"section\":\"Aメロ\",\"db\":-4}   // その範囲だけ音量を上げ下げ（トラック全体は setTrack の volume）\n{\"type\":\"rangePan\",\"track\":\"シンセ\",\"section\":\"間奏\",\"mode\":\"lfo\",\"rate\":2,\"depth\":0.8}   // その範囲だけパン。mode: fixed（value -1〜1）/ move（from→to に流れる）/ lfo（rate 拍で往復, depth）/ ping（grid 拍ごとに左右, width）\n{\"type\":\"harmonize\",\"track\":\"メロ\",\"style\":\"below3\",\"section\":\"サビ\"}   // コードに沿ったハモリ（新しいトラックを作る）。style: above3=上3度 / below3=下3度 / below6=下6度 / two=上下2声 / close3=下に2声 / oct=オクターブ下。\"pass\":\"chord\" で経過音もコード音へ\n{\"type\":\"harmonize\",\"track\":\"メロ\",\"steps\":3}                // （旧方式）音階で3度上（-3 で 3度下）\n{\"type\":\"note\",\"text\":\"補足メモ\"}\n\n# 作曲・編曲の方針\n- 新しく曲を作るときは、まず setTempo / setKey / setTimeSig / setSwing / setSections を出し、続けてコード → 演奏方法 → ドラム → ベースやメロディ、の順に操作を並べる。\n- コードはキーと曲調に合わせる。ジャンルらしい技法（シティポップ: maj7/9・IVmaj7→III7→vim7、ジャズ: ii-V-I・テンション、ロック: パワーコード・ペダル、バラード: オンコードのベースライン 等）を使う。\n- ドラムはセクションごとに変化（Aメロは控えめ、サビは厚く、区切りにフィルやクラッシュ）。\n- アンサンブルは役割分担（リズム/低音/和音/メロディ）と音域の住み分けを意識し、パンで左右に配置する（ドラム・ベース・ボーカルは中央）。\n- ミックスの提案は具体的な数値（音量 dB、パン、エフェクトのパラメータ）で示す。\n- 評価を求められたら、リズム・コード・ハーモニー・アンサンブル・メロディ・エフェクト/ミックスの観点で、良い点と改善点を優先順位つきで述べ、直せるものは操作として出す。DAW の自動評価（evaluation）があれば参考にする。\n- 1回の返事の操作は多くても 25 個程度に抑え、大きな作業は「次に〇〇をしましょう」と分けて提案する。\n- 実在の曲の歌詞やメロディをそのまま書かない。\n`;\n\n/* 評価モード（action: \"evaluate\"）の追加指示 */\nconst EVAL_PROMPT = `\n\n# 評価モード（今回はこちらの形式で返す。上の {reply, actions} 形式は使わない）\n曲を作曲・編曲・ミックスの専門家として評価し、次の JSON だけを返す:\n{\n \"scores\": {\"rhythm\":0-100, \"chords\":0-100, \"harmony\":0-100, \"ensemble\":0-100, \"melody\":0-100, \"mix\":0-100, \"structure\":0-100},\n \"summary\": \"全体の講評（2〜4文）\",\n \"strengths\": [\"良い点\", ...],\n \"advice\": [\n  {\"cat\":\"rhythm|chords|harmony|ensemble|melody|mix|structure\", \"priority\":\"high|mid|low\", \"title\":\"短い見出し\", \"text\":\"何が問題で、どう直すとよいか（具体的に）\", \"actions\":[ 上の「操作の一覧」の操作, ... ]}\n ]\n}\n- 観点: rhythm=リズム・グルーヴ・ドラム, chords=コード進行・テンション, harmony=ハモリ・ボイシング・声部進行, ensemble=楽器の役割分担・音域の住み分け・密度, melody=旋律の輪郭・動機・山場, mix=音量・パン・エフェクト・音圧, structure=曲の構成・展開・長さ。\n- 点数は甘くしすぎない（普通=60〜70、良い=75〜85、非常に良い=90以上）。DAW の自動評価（ルールベース）も参考にするが、鵜呑みにしない。\n- advice は優先度の高い順に 3〜10 個。直せるものは actions に実行できる操作を入れる（適用範囲を守る）。操作にできない助言は actions を [] にする。\n`;\n";
+const GAS_CODE="/**\n * DAW × Gemini 連携（Google Apps Script Web アプリ）\n *\n * 設定（スクリプトプロパティ）:\n *   GEMINI_API_KEY  … 必須。Google AI Studio で発行した API キー\n *   GEMINI_MODEL    … 任意。DAW 側でモデルを選んでいないときに使うモデル。空なら gemini-flash-lite-latest\n *   （DAW の「AI のモデル」で、用途ごと（会話・作詞作曲・音声の解析・評価・楽曲の生成）にモデルを使い分けられます）\n *   DAW_TOKEN       … 任意。合言葉。設定すると DAW 側の「合言葉」と一致したときだけ応答する\n *\n * デプロイ: 「デプロイ」→「新しいデプロイ」→ 種類「ウェブアプリ」\n *   次のユーザーとして実行: 自分 / アクセスできるユーザー: 全員\n *   表示された URL（…/exec）を DAW の「⚙ 接続設定」に貼り付ける\n */\nconst API_BASE = 'https://generativelanguage.googleapis.com/v1beta';\nconst GAS_VER = '2026-11-25';   // DAW はこの日付で Code.gs が新しいかを確かめます\n\nfunction doGet() {\n  return json_({ ok: true, app: 'daw-ai', version: 1, message: 'DAW AI 連携は動いています。DAW から POST で使います。' });\n}\n\nfunction doPost(e) {\n  try {\n    const req = JSON.parse((e && e.postData && e.postData.contents) || '{}');\n    const P = PropertiesService.getScriptProperties();\n    const token = P.getProperty('DAW_TOKEN');\n    if (token && req.token !== token) return json_({ ok: false, error: '合言葉が違います（DAW の接続設定を確認してください）' });\n    const key = P.getProperty('GEMINI_API_KEY');\n    if (!key) return json_({ ok: false, error: 'GAS のスクリプトプロパティ GEMINI_API_KEY が未設定です' });\n\n    if (req.action === 'version') return json_({ ok: true, version: GAS_VER, actions: ['ping', 'models', 'version', 'chat', 'evaluate', 'task', 'pricing', 'music'] });\n    if (req.action === 'ping') return json_({ ok: true, version: GAS_VER, model: pickModel_(key, req.model || P.getProperty('GEMINI_MODEL')) });\n    if (req.action === 'models') return json_({ ok: true, models: listModels_(key).map(m => m.id) });\n    if (req.action === 'task') return json_(task_(key, P, req));\n    if (req.action === 'pricing') return json_(pricing_(key, P, req));\n    if (req.action === 'music') return json_(music_(key, P, req));\n    if (req.action !== 'chat' && req.action !== 'evaluate') return json_({ ok: false, error: '不明な action: ' + req.action });\n    const isEval = req.action === 'evaluate';\n    if (isEval) req.messages = [{ role: 'user', text: req.request || 'この曲を評価してください。' }];\n\n    const model = pickModel_(key, req.model || P.getProperty('GEMINI_MODEL'));\n    const contents = buildContents_(req);\n    const body = {\n      systemInstruction: { parts: [{ text: SYSTEM_PROMPT + (isEval ? EVAL_PROMPT : '') }] },\n      contents: contents,\n      generationConfig: thinkCfg_({ responseMimeType: 'application/json', maxOutputTokens: 65536 }, req.thinking)\n    };\n    const res = gen_(key, model, body);\n    const code = res.getResponseCode(), txt = res.getContentText();\n    if (code !== 200) return json_({ ok: false, error: 'Gemini API エラー ' + code + ': ' + txt.slice(0, 400), model: model });\n    const data = JSON.parse(txt);\n    const cand = (data.candidates || [])[0];\n    if (!cand || !cand.content) return json_({ ok: false, error: '返事が空でした（安全フィルタ等）: ' + txt.slice(0, 300), model: model });\n    const out = (cand.content.parts || []).filter(p => !p.thought).map(p => p.text || '').join('');\n    const truncated = cand.finishReason === 'MAX_TOKENS';\n    const parsed = parseJson_(out) || (isEval ? null : salvage_(out));\n    if (isEval) {\n      if (!parsed || !parsed.scores) return json_({ ok: false, error: '評価の形式で返ってきませんでした: ' + out.slice(0, 300), model: model });\n      return json_({ ok: true, model: model, usage: data.usageMetadata || null, scores: parsed.scores, summary: String(parsed.summary || ''), strengths: parsed.strengths || [], advice: Array.isArray(parsed.advice) ? parsed.advice : [] });\n    }\n    if (!parsed) return json_({ ok: true, model: model, usage: data.usageMetadata || null, reply: out, actions: [], truncated: truncated });\n    return json_({ ok: true, model: model, usage: data.usageMetadata || null, reply: String(parsed.reply || '') + (truncated || parsed._salvaged ? '\\n（※ 返事が長すぎて途中で切れました。最後まで書けた操作だけを使います。続きは「足りない所」から頼めます）' : ''), actions: Array.isArray(parsed.actions) ? parsed.actions : [], truncated: truncated || !!parsed._salvaged });\n  } catch (err) {\n    return json_({ ok: false, error: String(err && err.stack || err) });\n  }\n}\n\n/* 汎用の作業（歌詞づくり・メロディから歌詞・音声の分析など）。返事は JSON。音声（base64）も渡せる */\nconst TASK_PROMPT = 'あなたは日本語の作詞家・作曲家・音楽アナリストです。返事は必ず JSON だけで返してください（説明文やコードブロックは不要）。歌詞を書くときはひらがなだけで書き、漢字・カタカナ・英字・記号は使わないでください（のばす音は「ー」）。歌詞以外の文章（説明・ひとこと・note・理由など）は、漢字かな交じりの普通の日本語で書いてください。';\nfunction task_(key, P, req) {\n  const model = pickModel_(key, req.model || P.getProperty('GEMINI_MODEL'));\n  const parts = [{ text: String(req.prompt || '') }];\n  if (req.audio && req.audio.data) parts.unshift({ inline_data: { mime_type: String(req.audio.mime || 'audio/mpeg'), data: String(req.audio.data) } });\n  const body = {\n    systemInstruction: { parts: [{ text: TASK_PROMPT + (req.system ? '\\n' + req.system : '') }] },\n    contents: [{ role: 'user', parts: parts }],\n    generationConfig: thinkCfg_({ responseMimeType: 'application/json', maxOutputTokens: 32768 }, req.thinking)\n  };\n  const res = gen_(key, model, body);\n  const code = res.getResponseCode(), txt = res.getContentText();\n  if (code !== 200) return { ok: false, error: 'Gemini API エラー ' + code + ': ' + txt.slice(0, 400), model: model };\n  const data = JSON.parse(txt), cand = (data.candidates || [])[0];\n  if (!cand || !cand.content) return { ok: false, error: '返事が空でした（安全フィルタ等）: ' + txt.slice(0, 300), model: model };\n  const out = (cand.content.parts || []).filter(p => !p.thought).map(p => p.text || '').join('');\n  return { ok: true, model: model, usage: data.usageMetadata || null, data: parseJson_(out), text: out.slice(0, 4000), truncated: cand.finishReason === 'MAX_TOKENS' };\n}\n\nfunction buildContents_(req) {\n  const msgs = (req.messages || []).filter(m => m && m.text);\n  const ctx = req.context || {};\n  const contents = msgs.map(m => ({ role: m.role === 'model' ? 'model' : 'user', parts: [{ text: String(m.text) }] }));\n  // 最後のユーザー発言に、現在の曲の状態と使える部品を添える\n  const sc = ctx.scope || { mode: 'whole-song', description: '曲全体', allowGlobalChanges: true };\n  const extra = '\\n\\n【適用範囲（ユーザーが指定・最優先で守る）】\\n```json\\n' + JSON.stringify(sc) + '\\n```' +\n    '\\n\\n【現在の曲の状態（DAW から自動送信）】\\n```json\\n' + JSON.stringify(ctx.project || {}) + '\\n```' +\n    (ctx.evaluation ? '\\n\\n【DAW の自動評価】\\n' + ctx.evaluation : '') +\n    '\\n\\n【使える部品】\\n```json\\n' + JSON.stringify(ctx.capabilities || {}) + '\\n```' +\n    (ctx.help ? '\\n\\n【この DAW の機能の一覧（使い方の質問はこれに基づいて、画面のどこで何を押すかを具体的に答える。一覧にない機能は作り出さない）】\\n' + String(ctx.help).slice(0, 60000) : '');\n  for (let i = contents.length - 1; i >= 0; i--) {\n    if (contents[i].role === 'user') { contents[i].parts[0].text += extra; break; }\n  }\n  if (!contents.length) contents.push({ role: 'user', parts: [{ text: extra }] });\n  return contents;\n}\n\n/* 料金の確認: いま使っているモデルの料金を、Gemini に Google 検索で調べてもらう（検索が使えないときは知識で） */\nfunction pricing_(key, P, req) {\n  const model = pickModel_(key, req.model || P.getProperty('GEMINI_MODEL'));\n  const about = String(req.priceModel || model);   // 料金を調べたいモデル（Lyria など、別のモデルでもよい）\n  const today = Utilities.formatDate(new Date(), 'Asia/Tokyo', 'yyyy-MM-dd');\n  const prompt = '今日は ' + today + ' です。Google の Gemini API（Google AI Studio の有料枠・Standard）で、モデル「' + about + '」の現在の料金を、公式の料金ページ（ai.google.dev/gemini-api/docs/pricing）で調べてください。\\n' +\n    '100万トークンあたりの米ドルで、入力（テキスト）・出力（考えるトークンを含む）・音声の入力を答えてください。期間限定の価格や、値上げ・値下げの予定があれば changes に入れてください。\\n' +\n    (/lyria/.test(about) ? '音楽生成のモデルは 1 曲あたりの料金なので、perSong に 1 曲（1 回）あたりの米ドルを入れ、input と output は 0 にしてください。\\n' : '') +\n    '返事は JSON だけ: {\"model\":\"' + about + '\",\"perSong\":数値または null,\"input\":数値,\"output\":数値,\"audioInput\":数値,\"freeTier\":true か false,\"changes\":[{\"from\":\"YYYY-MM-DD\",\"input\":数値,\"output\":数値,\"audioInput\":数値}],\"asOf\":\"YYYY-MM-DD\",\"source\":\"URL\",\"note\":\"ひとこと（日本語）\"}';\n  const body = { contents: [{ role: 'user', parts: [{ text: prompt }] }], tools: [{ google_search: {} }], generationConfig: { maxOutputTokens: 4096 } };\n  const call = b => UrlFetchApp.fetch(API_BASE + '/models/' + encodeURIComponent(model) + ':generateContent', {\n    method: 'post', contentType: 'application/json', headers: { 'x-goog-api-key': key }, payload: JSON.stringify(b), muteHttpExceptions: true\n  });\n  let grounded = true, res = call(body);\n  if (res.getResponseCode() !== 200) { grounded = false; delete body.tools; res = call(body); }\n  const code = res.getResponseCode(), txt = res.getContentText();\n  if (code !== 200) return { ok: false, error: 'Gemini API エラー ' + code + ': ' + txt.slice(0, 300), model: model };\n  const data = JSON.parse(txt), cand = (data.candidates || [])[0];\n  const out = cand && cand.content ? (cand.content.parts || []).filter(p => !p.thought).map(p => p.text || '').join('') : '';\n  const meta = cand && cand.groundingMetadata, srcs = meta && meta.groundingChunks ? meta.groundingChunks.map(c => c.web && c.web.uri).filter(Boolean).slice(0, 5) : [];\n  return { ok: true, model: model, usage: data.usageMetadata || null, pricing: parseJson_(out), grounded: grounded && !!meta, sources: srcs, text: out.slice(0, 2000) };\n}\n\nfunction parseJson_(s) {\n  if (!s) return null;\n  let t = String(s).trim().replace(/^```(?:json)?\\s*/i, '').replace(/```\\s*$/, '');\n  try { return JSON.parse(t); } catch (e) {}\n  const a = t.indexOf('{'), b = t.lastIndexOf('}');\n  if (a >= 0 && b > a) { try { return JSON.parse(t.slice(a, b + 1)); } catch (e) {} }\n  return null;\n}\n\n/* 途中で切れた JSON から、最後まで書けた操作だけを取り出す */\nfunction salvage_(s) {\n  const t = String(s || '');\n  const i = t.indexOf('\"actions\"'); if (i < 0) return null;\n  const a = t.indexOf('[', i); if (a < 0) return null;\n  const acts = []; let depth = 0, start = -1, inStr = false, esc = false;\n  for (let k = a + 1; k < t.length; k++) {\n    const c = t[k];\n    if (inStr) { if (esc) esc = false; else if (c === '\\\\') esc = true; else if (c === '\"') inStr = false; continue; }\n    if (c === '\"') { inStr = true; continue; }\n    if (c === '{') { if (depth === 0) start = k; depth++; }\n    else if (c === '}') { depth--; if (depth === 0 && start >= 0) { try { acts.push(JSON.parse(t.slice(start, k + 1))); } catch (e) {} start = -1; } }\n    else if (c === ']' && depth === 0) break;\n  }\n  const m = t.match(/\"reply\"\\s*:\\s*\"((?:[^\"\\\\]|\\\\.)*)\"/);\n  return { reply: m ? JSON.parse('\"' + m[1] + '\"') : '', actions: acts, _salvaged: true };\n}\n\n/* 考える深さ（thinking_level: low / medium / high など）。空なら モデルの標準のまま */\nfunction thinkCfg_(gc, level) {\n  if (level) gc.thinkingConfig = { thinkingLevel: String(level) };\n  return gc;\n}\n/* generateContent を呼ぶ。モデルに断られた設定（出力上限・考える深さ・温度など）は外してやり直す */\nfunction gen_(key, model, body) {\n  const call = () => UrlFetchApp.fetch(API_BASE + '/models/' + encodeURIComponent(model) + ':generateContent', {\n    method: 'post', contentType: 'application/json', headers: { 'x-goog-api-key': key }, payload: JSON.stringify(body), muteHttpExceptions: true\n  });\n  let res = call();\n  for (let k = 0; k < 3 && res.getResponseCode() === 400; k++) {\n    const t = res.getContentText(), g = body.generationConfig || {};\n    if (/max.?output.?tokens|maxOutputTokens/i.test(t) && g.maxOutputTokens > 8192) g.maxOutputTokens = 8192;\n    else if (/thinking/i.test(t) && g.thinkingConfig) delete g.thinkingConfig;\n    else if (/temperature|top_?p|top_?k|sampling/i.test(t) && (g.temperature != null || g.topP != null || g.topK != null)) { delete g.temperature; delete g.topP; delete g.topK; }\n    else if (/response.?mime|json/i.test(t) && g.responseMimeType) delete g.responseMimeType;\n    else break;\n    res = call();\n  }\n  return res;\n}\n\n/* 楽曲の生成（Lyria 3.5 / Lyria 3 Clip）: 歌詞・構成のテキストと、音声（MP3 を base64）を返す\n   ・Lyria 3.5 は長さをプロンプトで指定（「2 分の曲」など）。Clip はいつも 30 秒\n   ・できた音声には、聞こえない電子透かし（SynthID）が入ります */\nfunction music_(key, P, req) {\n  const model = String(req.model || '');\n  if (!/lyria/.test(model)) return { ok: false, error: '楽曲の生成には Lyria のモデル（lyria-3.5 など）を選んでください（DAW の「AI のモデル」）' };\n  const parts = [{ text: String(req.prompt || '') }];\n  const body = { contents: [{ role: 'user', parts: parts }] };\n  if (req.wav) body.generationConfig = { responseModalities: ['AUDIO', 'TEXT'], responseFormat: { audio: { mimeType: 'AUDIO_WAV' } } };\n  const res = UrlFetchApp.fetch(API_BASE + '/models/' + encodeURIComponent(model) + ':generateContent', {\n    method: 'post', contentType: 'application/json', headers: { 'x-goog-api-key': key }, payload: JSON.stringify(body), muteHttpExceptions: true\n  });\n  const code = res.getResponseCode(), txt = res.getContentText();\n  if (code !== 200) return { ok: false, error: 'Gemini API エラー ' + code + ': ' + txt.slice(0, 400), model: model };\n  const data = JSON.parse(txt), cand = (data.candidates || [])[0];\n  if (!cand || !cand.content) return { ok: false, error: '音楽が返ってきませんでした（安全フィルタ等。歌手名や既存の歌詞を指定すると断られます）: ' + txt.slice(0, 300), model: model };\n  let audio = null; const texts = [];\n  for (const p of cand.content.parts || []) {\n    const d = p.inlineData || p.inline_data;\n    if (d && d.data) audio = { mime: d.mimeType || d.mime_type || 'audio/mpeg', data: d.data };\n    else if (p.text) texts.push(p.text);\n  }\n  if (!audio) return { ok: false, error: '音声のデータがありませんでした: ' + texts.join('\\n').slice(0, 300), model: model };\n  return { ok: true, model: model, usage: data.usageMetadata || null, audio: audio, text: texts.join('\\n').slice(0, 20000) };\n}\n\nfunction listModels_(key) {\n  const res = UrlFetchApp.fetch(API_BASE + '/models?pageSize=200', { headers: { 'x-goog-api-key': key }, muteHttpExceptions: true });\n  if (res.getResponseCode() !== 200) throw new Error('モデル一覧を取得できません: ' + res.getContentText().slice(0, 200));\n  const list = JSON.parse(res.getContentText()).models || [];\n  return list.filter(m => (m.supportedGenerationMethods || []).indexOf('generateContent') >= 0)\n    .map(m => ({ id: String(m.name).replace(/^models\\//, ''), name: m.displayName || '' }));\n}\n\n/** 指定がなければ、使えるモデルから「最新の flash 系」を選ぶ（6時間キャッシュ） */\nfunction pickModel_(key, want) {\n  if (want) return want;\n  return 'gemini-flash-lite-latest';   // 通常設定（Google が最新の Flash-Lite に自動で切り替える）\n}\nfunction pickModelAuto_(key, want) {\n  if (want) return want;\n  const cache = CacheService.getScriptCache();\n  const hit = cache.get('daw_model');\n  if (hit) return hit;\n  let pick = 'gemini-flash-latest';\n  try {\n    const ids = listModels_(key).map(m => m.id)\n      .filter(id => /flash/.test(id) && !/(lite|image|tts|live|audio|embedding|vision|exp|preview|thinking)/.test(id));\n    const ver = id => { const m = id.match(/gemini-(\\d+(?:\\.\\d+)?)/); return m ? parseFloat(m[1]) : 0; };\n    ids.sort((a, b) => ver(b) - ver(a) || a.length - b.length);\n    if (ids.length) pick = ids[0];\n  } catch (e) {}\n  cache.put('daw_model', pick, 21600);\n  return pick;\n}\n\nfunction json_(o) {\n  return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);\n}\n\n/* ===================== Gemini への指示 ===================== */\nconst SYSTEM_PROMPT = `\nあなたはブラウザ DAW に組み込まれた、作曲・編曲・ミックスの専門アシスタントです。日本語で、ユーザーと対話しながら曲作りを手伝います。\n# 書き方（大事）: 返事・説明・提案・トラック名などの文章は、漢字かな交じりの普通の日本語で書く。ひらがなだけで書くのは歌詞（setLyrics の text など、歌う言葉）だけ。\n# 使い方の質問: 【この DAW の機能の一覧】が送られてきたら、それに基づいて、どの画面のどのボタン・メニューを使うかを手順で答える（actions は []）。\nジャンル、テンポ、キー、拍子、スウィング、曲の構成、楽器構成とアンサンブル、演奏技法、コーラス、部分的なアレンジ、歌詞の作成と割り付け、ドラムパターン、コードの技法（テンション・オンコード・セカンダリードミナント・借用和音など）、曲調の模倣（特定の作品のメロディや歌詞をそのまま写さず、テンポ感・和声・リズム・音色などのスタイルの特徴だけを参考にする）、エフェクト、パン、音量、曲の評価と修正提案まで扱います。\n\n# 出力形式（必ずこの JSON だけを返す）\n{\"reply\": \"ユーザーへの返事（日本語・要点を簡潔に。提案の理由も短く）\", \"actions\": [ 操作, ... ]}\n- 質問や相談だけで曲を変える必要がなければ actions は [] にする。\n- 曲を変える提案をするときは、DAW がそのまま実行できる操作を actions に入れる（ユーザーが確認してから適用する）。\n- 小節番号は 1 始まり。拍は四分音符 = 1。区間（section）は現在の曲の状態にある名前を使う。\n# 範囲を選んだ依頼（scope.mode が partial）\n- scope.mustFill に並んだトラックそれぞれに、範囲内を埋める操作（genPart、または section / range 付きの writeNotes・drumPattern）を必ず出す。返事の文章だけで終わらせない。\n- トラック名は scope.mustFill / project の名前をそのまま使う。\n\n# パートは曲の最初から最後まで（とても大事）\n- 新しく作るパートは、必ず曲の全区間（イントロ〜アウトロ）を埋める。メロディ（歌）はイントロ・間奏・アウトロ以外の全区間。\n- 長い曲の音符を1つずつ全部書かない（返事が長すぎると途中で切れる）。次の方法を優先する:\n  1) genPart … DAW がコードと拍子に合わせて丸ごと作る（ドラム・ベース・伴奏は基本これで十分）\n  2) writeNotes に section と repeat … 1〜2小節のパターンを区間いっぱいに繰り返す\n  3) drumPattern … section を省略すると全区間に入り、各区間の最後にフィルが入る\n  4) メロディだけは区間ごとに writeNotes で書いてよい（1回の返事で 2〜3 区間まで。残りは次の返事で）\n- 拍子を必ず守る（project.sig。3/4 なら 1小節 = 3拍、drumPattern の grid 16 は 12 ステップで1小節）。\n- 最後に、作ったパートが全区間を埋めているか確かめ、足りなければ genPart か fillGaps を足す。\n\n# エフェクトの提案\n- capabilities.fx には、しっかり効くもの（ott=OTT風マルチバンド強コンプ, fuzz, doubler, sweep=テンポ同期オートフィルター, slicer=トランスゲート, pshift=ピッチシフト）や、変わり種（shimmer, octaver, tapestop, stutter=グリッチ, robot, radio, lofi1）もある。\n- エフェクトを相談されたら、定番に加えて「しっかり効く案」と「変わり種の案」も1つずつ添える。\n\n# 生成する要素（generate）— 必ず守る\n- 毎回【生成する要素】が送られる（context.generate）。generate にある要素だけを作る・変更し、keep にある要素に触れる操作は出さない。\n  - 例: ドラムが keep なら drumPattern やドラムへの writeNotes を出さない。音量が keep なら setTrack に volume を入れない。曲調・ジャンルが keep なら今の曲調を保つ。\n  - keep の要素を変えたほうがよいと思ったら、reply で提案だけする。\n- 歌詞: すべてひらがな（「ー」「っ」「ゃゅょ」可）。漢字・カタカナ・英字・記号は使わない。区間（パート）ごとに分けて setLyrics を出し、1行を1フレーズにする。メロディの音数（各区間の音符の数）に合わせる。\n- capabilities.tones には内蔵・ネットの音源に加え、ユーザーの SoundFont（[SoundFont/カテゴリ]、ID は sf:…）や、オーディオから作った音源（[サンプリング]、ID は us_…）が含まれる。ユーザーが用意した音源を優先して提案してよい。\n- capabilities.userTones があるときは、楽器ごとのおすすめ SoundFont（byInstrument: drums/piano/bass/guitar/strings/pad/lead/brass/flute/choir など → 音色 ID）が入っている。prefer が true なら、addTrack・setTrack・createTrack の tone や setPerformance の tone には、楽器に合うこの ID を必ず使う。\n- 現在の曲の状態（project）を必ず読み、既存のトラック名・区間名・キーに合わせる。\n- 範囲の指定: \"section\": \"サビ\"（または [\"Aメロ\",\"サビ\"]）/ \"range\": {\"fromBar\":5,\"toBar\":8} / 指定なし = 曲全体。\n\n# 適用範囲（scope）— 必ず守る\n- 毎回【適用範囲】が送られる。mode が \"whole-song\" なら曲全体を自由に変えてよい。\n- mode が \"partial\" のときは、scope.bars（小節の範囲）・scope.sections・scope.tracks・scope.parts の中だけを変更する操作を出す。\n  - 範囲を持つ操作（setChords, setPerformance, drumPattern, writeNotes, transpose, quantize, harmonize）には、必ず scope 内の \"section\" / \"range\" / \"startBar\" を付ける。\n  - コード進行（setChords など）は、基本は 1 小節に 1 コード。小節の途中で変えるのは、区間の終わり・決めどころなど演出として効く所だけ（多くても 4 小節に 1 回くらい）。\n  - コード名の黒鍵はフラットで書く（B♭・E♭・A♭・D♭・G♭）。オンコードは C/E の形。\n  - \"track\" は scope.tracks（または scope.parts の track）にあるものだけを使う。新しいトラックの追加（addTrack や存在しないトラックへの writeNotes）はしない。\n  - allowGlobalChanges が false なら、setTempo / setKey / setTimeSig / setSwing / setSections と、トラック全体に効く setTrack（音量・パン・音色）・setFx は出さない。必要だと思うときは reply で提案だけする。\n  - scope.notesInScope に範囲内の現在の音符（\"小節.拍:音名:長さ\"、ドラムは GM ノート番号）がある。アレンジや修正はこれを元にする。\n  - ユーザーの文章が範囲外のことを求めているときは、reply で「適用範囲を広げてください」と伝える。\n\n# 操作の一覧\n{\"type\":\"setTempo\",\"bpm\":120}\n{\"type\":\"setKey\",\"root\":\"C\",\"mode\":\"major\"}                 // root: C C# D … B / mode: major|minor\n{\"type\":\"setTimeSig\",\"n\":4,\"d\":4}\n{\"type\":\"setSwing\",\"value\":50}                               // 50=ストレート, 58=軽いハネ, 66=3連シャッフル（最大75）\n{\"type\":\"setSections\",\"sections\":[{\"name\":\"イントロ\",\"bars\":4},{\"name\":\"Aメロ\",\"bars\":8},{\"name\":\"サビ\",\"bars\":8}]}   // 曲の構成を丸ごと置き換え（同名の区間の歌詞は引き継ぐ）\n{\"type\":\"setChords\",\"section\":\"サビ\",\"bars\":\"| Fmaj7 | E7(♭9) | Am7 | Dm7 G7sus4 |\"}\n   // 1小節を | で区切る。1小節に複数書くと等分。\"C:3 G:1\" で拍数指定。\"-\" は前のコードを伸ばす。\n   // 使える例: C Cm C7 Cmaj7 Cm7 Cm7(♭5) Cdim7 Caug C6 Cm6 Cadd9 Cm(add9) Csus4 Csus2 C7sus4 C9 Cmaj9 Cm9 C7(♭9) C7(♯9) C7(13) C7(♭13) C7(♯11) C7(9,13) C13 C11 Cm7(11) Cmaj7(♯11) C6(9) CmM7 C/E（オンコード）\n   // section を省くと startBar（省略時 1）から書く。コードは「ガイド」トラックに入り、演奏は setPerformance で作る。\n{\"type\":\"setPerformance\",\"pattern\":\"bk3\",\"section\":\"Aメロ\",\"tone\":\"smp_rhodes\"}\n   // コード（ガイド）から伴奏トラックを作る/変える。pattern は capabilities.patterns の ID（arp1-3 アルペジオ, bk1-3 バッキング, alt1-3 オルタネイト, lg1-3 ロング, st1-3 ショート, tr1-5 トランス系, oc1-3 オクターブ系）。tone は capabilities.tones の ID。\n{\"type\":\"addTrack\",\"kind\":\"midi\",\"name\":\"ストリングス\",\"tone\":\"waf_strings\"}   // kind: midi|drum|audio|chord\n{\"type\":\"setTrack\",\"track\":\"ベース\",\"volume\":-8,\"pan\":0,\"tone\":\"syn_fbass\",\"octave\":0,\"mute\":false}   // track は名前（\"master\" も可。volume は dB, pan は -1〜1）\n{\"type\":\"writeNotes\",\"track\":\"メロ\",\"startBar\":9,\"notes\":[[\"E4\",0,1,96],[\"G4\",1,0.5],[\"A4\",1.5,1.5]],\"createTrack\":{\"kind\":\"midi\",\"tone\":\"syn_lead\"}}\n   // notes: [音名(C4=中央のド) または MIDI番号, startBar からの拍位置, 長さ(拍), ベロシティ(省略可)]。同じ範囲の既存の音は置き換え。メロディやベース、対旋律、コーラス(ハモリ)の作成に使う。\n{\"type\":\"genPart\",\"role\":\"bass\",\"track\":\"ベース\",\"section\":\"サビ\",\"style\":\"root8\"}   // DAW の自動生成でパートを丸ごと作る（コードと拍子に合わせる）。role: drums / bass / guitar / keys / pad / melody / harmony。section 省略で曲全体。drums の style: auto / 16beat / half / four、bass の style: root8 / root4\n{\"type\":\"writeNotes\",\"track\":\"ベース\",\"section\":[\"Aメロ\",\"サビ\"],\"repeat\":true,\"notes\":[[\"C2\",0,1],[\"G2\",1,1]]}   // section を付けると、notes（1〜数小節のパターン）をその区間いっぱいに繰り返す\n{\"type\":\"fillGaps\"}                                          // 音が途中で切れているパートの足りない所を埋める（track を付けるとそのトラックだけ）\n{\"type\":\"drumPattern\",\"section\":\"サビ\",\"grid\":16,\"kick\":\"x...x...x...x...\",\"snare\":\"....x.......x...\",\"hat\":\"x.x.x.x.x.x.x.x.\",\"openhat\":\"..............x.\",\"fillLastBar\":true}\n   // 1文字 = 1/grid 小節。x=通常 X=強く o=弱く .=休み。使える楽器: kick snare rim clap hat pedalhat openhat crash ride ridebell tomh tomm toml floortom tambourine cowbell shaker。パターンは範囲内で繰り返す。\n{\"type\":\"setLyrics\",\"section\":\"Aメロ\",\"text\":\"あおいそらに\\\\nとどけこのうた\"}   // 歌詞は必ず「ひらがな」で、区間（パート）ごとに 1 つずつ出す（1行 = 1フレーズ）\n{\"type\":\"setLyrics\",\"sections\":{\"Aメロ\":\"あおいそらに\\\\nとどけこのうた\",\"サビ\":\"きみとならどこまでも\\\\nゆけるきがした\"}}   // 複数の区間をまとめて入れる形も可\n{\"type\":\"melodyFromLyrics\",\"track\":\"メロ\",\"section\":\"サビ\"}   // 区間の歌詞（文字数）に合わせて DAW がメロディを作り直し、1音1文字で割り付ける\n{\"type\":\"writeNotes\",\"track\":\"メロ\",\"section\":\"Aメロ\",\"notes\":[[\"E4\",0,0.5,90,\"あ\"],[\"G4\",0.5,0.5,90,\"お\"]]}   // notes の5番目に文字を入れると、その音に歌詞を付ける（歌詞に合わせたメロディを書くとき）\n{\"type\":\"sing\",\"track\":\"メロ\",\"section\":\"サビ\"}            // VOICEVOX で歌わせる（歌詞の割り当て後。section 省略で全区間）\n   // 歌詞は VOICEVOX で歌えるよう、ひらがな中心で。1行 = 1フレーズ。メロディの音数（project.melody）に合わせ、1音 = 1文字（きゃ・しゅ等は1音、ーは伸ばし）。\n{\"type\":\"assignLyrics\",\"section\":\"all\"}                     // 歌詞をメロディに割り付け（section 名 または \"all\"）\n{\"type\":\"setFx\",\"track\":\"ボーカル\",\"chain\":\"ボーカル/ポップ (明るく前に)\"}   // chain は capabilities.fxChains の名前（マスターは \"マスター/ナチュラル・マスタリング\" など）\n{\"type\":\"setFx\",\"track\":\"master\",\"add\":[{\"fx\":\"limiter\",\"params\":{\"thr\":-6,\"gain\":1.2}}],\"clear\":false}   // fx は capabilities.fx の ID\n{\"type\":\"quantize\",\"grid\":0.25,\"strength\":80,\"section\":\"サビ\",\"track\":\"メロ\"}\n{\"type\":\"transpose\",\"track\":\"メロ\",\"semitones\":2,\"section\":\"サビ\"}\n{\"type\":\"assignLyricsRange\",\"text\":\"1行目\\n2行目\"}   // いまユーザーが選んでいる範囲（セクションをまたいでもよい）のメロディに歌詞を順に割り当てる\n{\"type\":\"tempoChange\",\"bpm\":140,\"section\":\"サビ\",\"mode\":\"set\",\"restore\":true}   // 範囲のテンポを変える。mode: set=その範囲をこのテンポに / ramp=範囲の終わりに向けてだんだん変える（リタルダンド・アッチェレランド）/ from=ここから先ずっと。restore=false で範囲のあとも戻さない。section の代わりに fromBar/toBar も可\n{\"type\":\"modulate\",\"semitones\":1,\"section\":\"サビ\",\"toEnd\":true}   // 転調。範囲の MIDI（ドラム以外）とコードを半音単位で移す（伴奏はコードに付いてくる）。toEnd=true でそこから最後まで。audio=true でオーディオもピッチシフト（重い）\n{\"type\":\"rangeVolume\",\"track\":\"ギター\",\"section\":\"Aメロ\",\"db\":-4}   // その範囲だけ音量を上げ下げ（トラック全体は setTrack の volume）\n{\"type\":\"rangePan\",\"track\":\"シンセ\",\"section\":\"間奏\",\"mode\":\"lfo\",\"rate\":2,\"depth\":0.8}   // その範囲だけパン。mode: fixed（value -1〜1）/ move（from→to に流れる）/ lfo（rate 拍で往復, depth）/ ping（grid 拍ごとに左右, width）\n{\"type\":\"harmonize\",\"track\":\"メロ\",\"style\":\"below3\",\"section\":\"サビ\"}   // コードに沿ったハモリ（新しいトラックを作る）。style: above3=上3度 / below3=下3度 / below6=下6度 / two=上下2声 / close3=下に2声 / oct=オクターブ下。\"pass\":\"chord\" で経過音もコード音へ\n{\"type\":\"harmonize\",\"track\":\"メロ\",\"steps\":3}                // （旧方式）音階で3度上（-3 で 3度下）\n{\"type\":\"note\",\"text\":\"補足メモ\"}\n\n# 作曲・編曲の方針\n- 新しく曲を作るときは、まず setTempo / setKey / setTimeSig / setSwing / setSections を出し、続けてコード → 演奏方法 → ドラム → ベースやメロディ、の順に操作を並べる。\n- コードはキーと曲調に合わせる。ジャンルらしい技法（シティポップ: maj7/9・IVmaj7→III7→vim7、ジャズ: ii-V-I・テンション、ロック: パワーコード・ペダル、バラード: オンコードのベースライン 等）を使う。\n- ドラムはセクションごとに変化（Aメロは控えめ、サビは厚く、区切りにフィルやクラッシュ）。\n- アンサンブルは役割分担（リズム/低音/和音/メロディ）と音域の住み分けを意識し、パンで左右に配置する（ドラム・ベース・ボーカルは中央）。\n- ミックスの提案は具体的な数値（音量 dB、パン、エフェクトのパラメータ）で示す。\n- 評価を求められたら、リズム・コード・ハーモニー・アンサンブル・メロディ・エフェクト/ミックスの観点で、良い点と改善点を優先順位つきで述べ、直せるものは操作として出す。DAW の自動評価（evaluation）があれば参考にする。\n- 1回の返事の操作は多くても 25 個程度に抑え、大きな作業は「次に〇〇をしましょう」と分けて提案する。\n- 実在の曲の歌詞やメロディをそのまま書かない。\n`;\n\n/* 評価モード（action: \"evaluate\"）の追加指示 */\nconst EVAL_PROMPT = `\n\n# 評価モード（今回はこちらの形式で返す。上の {reply, actions} 形式は使わない）\n曲を作曲・編曲・ミックスの専門家として評価し、次の JSON だけを返す:\n{\n \"scores\": {\"rhythm\":0-100, \"chords\":0-100, \"harmony\":0-100, \"ensemble\":0-100, \"melody\":0-100, \"mix\":0-100, \"structure\":0-100},\n \"summary\": \"全体の講評（2〜4文）\",\n \"strengths\": [\"良い点\", ...],\n \"advice\": [\n  {\"cat\":\"rhythm|chords|harmony|ensemble|melody|mix|structure\", \"priority\":\"high|mid|low\", \"title\":\"短い見出し\", \"text\":\"何が問題で、どう直すとよいか（具体的に）\", \"actions\":[ 上の「操作の一覧」の操作, ... ]}\n ]\n}\n- 観点: rhythm=リズム・グルーヴ・ドラム, chords=コード進行・テンション, harmony=ハモリ・ボイシング・声部進行, ensemble=楽器の役割分担・音域の住み分け・密度, melody=旋律の輪郭・動機・山場, mix=音量・パン・エフェクト・音圧, structure=曲の構成・展開・長さ。\n- 点数は甘くしすぎない（普通=60〜70、良い=75〜85、非常に良い=90以上）。DAW の自動評価（ルールベース）も参考にするが、鵜呑みにしない。\n- advice は優先度の高い順に 3〜10 個。直せるものは actions に実行できる操作を入れる（適用範囲を守る）。操作にできない助言は actions を [] にする。\n`;\n";
 const GAS_VER_NEED='2026-11-21';
 const GAS_VER_PRICING='2026-11-23';
+const GAS_VER_MUSIC='2026-11-25';
 /* =====================================================================
    AI アシスタント（Google Apps Script 経由で Gemini と対話）
    ・曲の状態を要約して送り、返事（文章）と「操作」の一覧を受け取る
@@ -9027,7 +9125,7 @@ function aiScCheck(a){
 /* ---------- 送受信 ---------- */
 async function aiCall(payload){
  if(!AI.url)throw new Error('GAS の URL が未設定です（⚙ 設定）');
- const body=JSON.stringify({...payload,token:AI.token||undefined,model:AI.model||undefined});
+ const body=JSON.stringify({...payload,token:AI.token||undefined,model:payload.model||AI.model||undefined});
  let r;
  try{r=await fetch(AI.url,{method:'POST',body,redirect:'follow'})}            // text/plain の単純リクエスト（GAS はプリフライト不要）
  catch(e){throw new Error('GAS に接続できません。URL と公開設定（全員がアクセス可）を確認してください。claude.ai 上ではブラウザの制限で接続できない場合があり、保存した HTML を開くと接続できます。（'+e.message+'）')}
@@ -9237,7 +9335,7 @@ async function aiApply(msg,only){
 const AI_QUICK=[
  ['🎯 選んだ要素を作る','「生成する要素」で選んだ要素だけを、今の曲に合わせて作ってください（選んでいない要素は変えない）。'],
  ['🎵 曲の骨組み','ジャンルは（例: シティポップ）。テンポ・キー・拍子・スウィング・曲の構成（各セクションの小節数）を提案して、設定してください。'],
- ['🎼 コード進行','今の曲調に合うコード進行を、セクションごとに提案してコードトラックに入れてください。テンションやオンコードも使って構いません。'],
+ ['🎼 コード進行','今の曲調に合うコード進行を、セクションごとに提案してコードトラックに入れてください。基本は 1 小節に 1 コードで、小節の途中で変えるのは決めどころだけ。テンションやオンコードも使って構いません。'],
  ['🥁 ドラム','曲調に合うドラムパターンを、セクションごとに変化をつけて作ってください（サビは盛り上げ、最後の小節にフィル）。'],
  ['🎹 アレンジ','楽器構成とアンサンブル（各パートの役割・演奏方法・音色）を提案して設定してください。'],
  ['✍️ 歌詞','テーマは（例: 夏の夕暮れ）。各セクションの歌詞を、メロディの音数に合わせて作ってください。歌詞はすべてひらがなで、パート（区間）ごとに分けて setLyrics で入れてください。'],
@@ -9319,7 +9417,7 @@ function aiRender(){
  const set=el('details',{class:'aiset',open:!AI.url},el('summary',{},'⚙ 接続設定（Google Apps Script）'),
   el('div',{class:'mrow'},el('span',{},'GAS の URL'),(()=>{const i=el('input',{type:'text',value:AI.url,placeholder:'https://script.google.com/macros/s/……/exec',style:'flex:1;min-width:260px'});i.addEventListener('change',()=>{AI.url=i.value.trim();aiSave()});return i})()),
   el('div',{class:'mrow'},el('span',{},'合言葉（任意）'),(()=>{const i=el('input',{type:'password',value:AI.token,placeholder:'GAS の DAW_TOKEN と同じ文字列',style:'width:200px'});i.addEventListener('change',()=>{AI.token=i.value;aiSave()});return i})(),
-   el('span',{},'モデル'),(()=>{const i=el('input',{type:'text',value:AI.model,placeholder:'空欄 = 自動（最新の flash）',style:'width:200px'});i.addEventListener('change',()=>{AI.model=i.value.trim();aiSave()});return i})()),
+   el('button',{title:'会話・作詞作曲・音声の解析・評価・楽曲の生成で、使う AI のモデルを分けられます',onclick:()=>openAiModels()},'🧠 AI のモデル（用途ごと）…')),
   el('div',{class:'mrow'},el('button',{onclick:async e=>{const b=e.target;b.disabled=true;b.textContent='確認中…';try{const j=await aiCall({action:'ping'});toast('接続OK: '+(j.model||'')+(AI.gasOld?' ／ ⚠ Code.gs が古い版です（最新をコピーして貼り替えてください）':' ／ Code.gs は最新です'));b.textContent='✓ 接続OK ('+(j.model||'')+')';aiRender()}catch(er){toast(er.message);b.textContent='接続テスト'}finally{b.disabled=false}}},'接続テスト'),
    el('button',{onclick:async()=>{try{const j=await aiCall({action:'models'});toast('使えるモデル: '+(j.models||[]).slice(0,8).join(', '))}catch(er){toast(er.message)}}},'使えるモデルを表示'),
    gasCopyBtn()),
@@ -10458,12 +10556,12 @@ function openTakeMenu(e,t,c){
  buildProject=async function(){
   const o=await _bp();
   for(let i=0;i<S.tracks.length;i++){const t=S.tracks[i];if(!t.takes||!t.takes.length){delete o.tracks[i].takes;continue}
-   o.tracks[i].takes=await Promise.all(t.takes.map(async c=>{const k={...c,buf:undefined,peaks:undefined};if(c.buf)k.wav=await blobToDataURL(encodeWav(chansOf(c.buf),c.buf.sampleRate,24));return k}))}
+   o.tracks[i].takes=await Promise.all(t.takes.map(async c=>{const k={...c,buf:undefined,peaks:undefined};if(c.buf)Object.assign(k,await audioPack(c.buf));return k}))}
   return o;
  };
  const _lp=loadProject;
  loadProject=async function(o){
-  if(o&&Array.isArray(o.tracks)){const ctx=ensureAudio();for(const t of o.tracks)if(Array.isArray(t.takes))for(const c of t.takes)if(c.wav){c._buf=await ctx.decodeAudioData(dataURLToBuffer(c.wav));delete c.wav}}
+  if(o&&Array.isArray(o.tracks)){const ctx=ensureAudio();for(const t of o.tracks)if(Array.isArray(t.takes))for(const c of t.takes)if(c.wav||c.pcm){c._buf=await audioUnpack(c);delete c.wav;delete c.pcm}}
   const r=await _lp(o);
   if(o&&Array.isArray(o.tracks))o.tracks.forEach((x,i)=>{const t=S.tracks[i];if(t&&Array.isArray(x.takes))t.takes=x.takes.map(c=>{const k={...c};if(k._buf){k.buf=k._buf;delete k._buf;BUFS.set(k.id,k.buf)}return k})});
   HIST.last=projSnap();HIST.saved=HIST.last;
@@ -11266,7 +11364,7 @@ function tkTempo(R,bpm,mode,restore){
  if(typeof renderTempoMarks==='function')renderTempoMarks();
 }
 /* ---------- 転調 ---------- */
-const tkRootIdx=x=>typeof x==='number'?x:Math.max(0,NOTE_NAMES.indexOf(x));
+const tkRootIdx=x=>typeof x==='number'?x:Math.max(0,NOTE_NAMES.indexOf(x)>=0?NOTE_NAMES.indexOf(x):(parsePC(x)??0));
 const tkKeyName=(root,d)=>NOTE_NAMES[((tkRootIdx(root)+d)%12+12)%12];
 function tkTargets(){
  if(TK.tracks==='sel'){const ids=S.selTrackIds&&S.selTrackIds.size?S.selTrackIds:new Set([S.sel]);const f=S.selClip&&findClip(S.selClip);if(f)ids.add(f.t.id);return S.tracks.filter(t=>ids.has(t.id))}
@@ -12815,6 +12913,7 @@ async function azAI(c){
  AZ.msg=`AI が聴いています…（${(au.bytes/1048576).toFixed(1)} MB・${au.dur.toFixed(0)} 秒。1 分ほどかかります）`;azRender();
  const prompt=`この音声の曲を、作曲・編曲の参考にするために詳しく分析してください。
 わかる範囲で答え、自信のない所は confidence を低くしてください。時間は曲の頭からの秒数です。
+コードは基本は 1 小節に 1 つ（小節の頭で変わる）で書き、小節の途中で変わるのは、はっきり変わる所（区間の終わり・決めどころ）だけにしてください。
 返事は JSON だけ:
 {"summary":"どんな曲か（2〜3文）","genre":"ジャンル","mood":"雰囲気","bpm":数値,"key":"例: A minor","timeSignature":"4/4",
  "sections":[{"name":"イントロ/Aメロ/Bメロ/サビ/間奏/アウトロ など","start":秒,"end":秒}],
@@ -13406,7 +13505,8 @@ function bsChords(A,o={}){
    return s})});
  /* 変わりやすさ: 小節頭 < 半小節 < その他の拍。「1小節ごと」「2拍ごと」では、それ以外で変えない */
  const grain=o.grain||'beat';
- const cost=k=>{const pos=((k-d)%bpb+bpb)%bpb;if(pos===0)return .1;if(bpb%2===0&&pos===bpb/2)return grain==='bar'?99:.2;if(grain!=='beat')return 99;return .34};
+ /* コードが変わるのは基本は小節の頭（1 小節 1 コード）。'auto' では小節の真ん中で変わるのは、はっきり変わったときだけ（演出） */
+ const cost=k=>{const pos=((k-d)%bpb+bpb)%bpb;if(pos===0)return .1;if(bpb%2===0&&pos===bpb/2)return grain==='bar'?99:grain==='auto'?1.1:.2;if(grain!=='beat')return 99;return .34};
  const lam=o.lam??1;
  let V=em[0].slice(),B=[];
  for(let k=1;k<nB;k++){let bi=0;for(let s=1;s<S2;s++)if(V[s]>V[bi])bi=s;const c=cost(k)*lam,nv=new Array(S2),bk=new Int32Array(S2);
@@ -13535,7 +13635,7 @@ const _chordsFromAudio0=chordsFromAudio;
 chordsFromAudio=async function(c,opt={}){
  if(opt.legacy)return _chordsFromAudio0(c,opt);
  let A;try{A=await bsAnalyze(c)}catch(e){return _chordsFromAudio0(c,opt)}
- const grain=opt.seg&&opt.seg>=qpbar()-1e-6?'bar':opt.seg&&opt.seg>=2?'half':'beat';
+ const grain=opt.grain||(opt.seg&&opt.seg>=qpbar()-1e-6?(opt.strictBar?'bar':'auto'):opt.seg&&opt.seg>=2?'half':opt.fine?'beat':'auto');   // ふつうは 1 小節 1 コード（auto）。拍ごとは fine のときだけ
  const G=bsOnDawGrid(c,A);
  if(G){const L2=bsChords(G,{qualities:opt.qualities&&opt.qualities.length?opt.qualities.filter(q=>CHORD_Q[q]):BS_Q_BASIC,grain});
   const out2=L2.map(x=>({s:G.q0+x.b0-c.start,l:x.b1-x.b0,root:x.root,q:x.q,bass:x.bass}));out2.beatInfo={bpm:A.bpm,down:G.down,swing:A.swing,key:A.key,snap:true,grid:true};return out2}
@@ -14149,29 +14249,29 @@ function cvRender(){
  CV.shown=i;
  /* 前のコードから順に「移りやすい形」をつないでおく（曲の頭から）*/
  const chain=[];let prevF=null,prevP=null;
- for(let k=0;k<=Math.min(L.length-1,i+1);k++){const ch=L[k].ch;const f=fretted?frPick(ch,inst,prevF):null,p=fretted?null:pnPick(ch,prevP,CV.inst);chain.push({f,p,prevF,prevP});if(f)prevF=f.near;if(p)prevP=p.near}
+ for(let k=0;k<=Math.min(L.length-1,i+2);k++){const ch=L[k].ch;const f=fretted?frPick(ch,inst,prevF):null,p=fretted?null:pnPick(ch,prevP,CV.inst);chain.push({f,p,prevF,prevP});if(f)prevF=f.near;if(p)prevP=p.near}
  const kb=big=>({from:36,to:84,ww:big?13:9});
  const fig=(v,ch,o={})=>fretted?gtSvg(v,{root:ch.root,tune:FRET_INST[inst].tune,...o}):pnSvg(v,{...kb(o.big),...o});
- const box=(k,big)=>{
-  const it=L[k],ch=it.ch,c=chain[k],prevName=k>0?chordName(L[k-1].ch):null;
+ /* 1 列 = 1 コード。上にスタンダード（と前から移りやすい形）、その下にバリエーションを縦に並べる */
+ const box=(k,role)=>{
+  const it=L[k],ch=it.ch,c=chain[k],prevName=k>0?chordName(L[k-1].ch):null,big=role==='now';
   const P=fretted?c.f:c.p,same=fretted?P.std===P.near:String(P.std.rh)===String(P.near.rh)&&P.std.lh===P.near.lh;
-  const pair=[['スタンダード',fig(P.std,ch,{big})],[prevName?`${prevName} から移りやすい形`:'移りやすい形',fig(P.near,ch,{big})]];
-  const card=el('div',{class:'cvcard'+(big?' big':'')},
+  const tag={now:CV.follow?'今のコード':'選んだコード',next:'次のコード',next2:'その次のコード'}[role];
+  const col=el('div',{class:'cvcol cv-'+role},
+   el('div',{class:'cvtag'},tag),
    el('div',{class:'cvname'},el('b',{},chordName(ch)),el('small',{class:'dim'},` ${barBeatOf(it.a)}`),el('button',{class:'cvplay',title:'鳴らす',onclick:()=>cvPlay(ch)},'▶')),
-   el('div',{class:'cvpair'},...pair.filter((x,j)=>!(same&&j===1)).map(([lab,g])=>el('div',{class:'cvone'},el('div',{class:'cvlab'},same?'スタンダード（移りやすさも同じ）':lab),g))));
-  if(big){
-   const vars=fretted?frVariants(ch,inst,c.prevF):pnVariants(ch,c.prevP);
-   card.append(el('div',{class:'cvvarhead'},el('b',{},'バリエーション'),el('span',{class:'dim'},fretted&&inst==='guitar'?'　ハイコード（セーハ）の形も入っています。クリックで鳴らせます':'　クリックで鳴らせます')),
-    el('div',{class:'cvvars'},...vars.map(x=>el('button',{class:'cvvi'+(x.tag==='barre'?' barre':''),title:x.lab,onclick:()=>cvPlayNotes(cvVoicePitches(x.v),fretted)},
-     el('span',{class:'cvvl'},x.lab),fretted?gtSvg(x.v,{root:ch.root,tune:FRET_INST[inst].tune,w:inst==='uke'?92:112,h:132,mini:false}):pnSvg(x.v,{from:36,to:79,ww:7.5,wh:42,mini:true})))));
-  }
-  return card;
+   el('div',{class:'cvone'},el('div',{class:'cvlab'},same?'スタンダード（移りやすさも同じ）':'スタンダード'),fig(P.std,ch,{big})),
+   same?'':el('div',{class:'cvone'},el('div',{class:'cvlab'},prevName?`${prevName} から移りやすい形`:'移りやすい形'),fig(P.near,ch,{big})));
+  const vars=fretted?frVariants(ch,inst,c.prevF):pnVariants(ch,c.prevP);
+  if(vars.length)col.append(el('div',{class:'cvvarhead'},el('b',{},'バリエーション'),el('span',{class:'dim'},'（クリックで鳴る）')),
+   el('div',{class:'cvvars cvvcol'},...vars.slice(0,big?12:6).map(x=>el('button',{class:'cvvi'+(x.tag==='barre'?' barre':''),title:x.lab,onclick:()=>cvPlayNotes(cvVoicePitches(x.v),fretted)},
+    el('span',{class:'cvvl'},x.lab),fretted?gtSvg(x.v,{root:ch.root,tune:FRET_INST[inst].tune,w:inst==='uke'?92:112,h:132,mini:false}):pnSvg(x.v,{from:36,to:79,ww:7.5,wh:42,mini:true})))));
+  return col;
  };
  const nav=el('div',{class:'mrow cvnav'},el('button',{onclick:()=>{CV.follow=false;CV.idx=Math.max(0,i-1);cvRender()}},'◀ 前のコード'),
   el('span',{class:'dim'},`${i+1} / ${L.length}`),el('button',{onclick:()=>{CV.follow=false;CV.idx=Math.min(L.length-1,i+1);cvRender()}},'次のコード ▶'),
   CV.follow&&S.playing&&i+1<L.length?el('span',{class:'cvcount'},`次まで あと ${Math.max(0,Math.ceil((L[i].b-S.pos)/qpb()))} 拍`):'');
- const body=el('div',{class:'cvbody'},el('div',{class:'cvnow'},el('div',{class:'cvtag'},CV.follow?'今のコード':'選んだコード'),box(i,true)),
-  i+1<L.length?el('div',{class:'cvnext'},el('div',{class:'cvtag'},'次のコード'),box(i+1,false)):'',CV.scale?cvScalePanel(L[i].ch):'',
+ const body=el('div',{class:'cvbody'},el('div',{class:'cvcols'},box(i,'now'),i+1<L.length?box(i+1,'next'):el('div',{class:'cvcol cvend dim'},'（最後のコード）'),i+2<L.length?box(i+2,'next2'):''),CV.scale?cvScalePanel(L[i].ch):'',
   el('div',{class:'hint'},fretted?'●の数字は指（1 人差し指・2 中指・3 薬指・4 小指）、×は弾かない弦、○は開放弦。濃い●はルート音。帯はセーハ（人差し指でまとめて押さえる）。'+(inst==='uke'?'ウクレレは左から 4弦(G)・3弦(C)・2弦(E)・1弦(A)。':''):'オレンジ＝右手（数字は指: 1 親指〜5 小指）、青＝左手のベース。「移りやすい形」は、前のコードから指の動きがいちばん少ない転回形です。'));
  w.replaceChildren(head,nav,body);
 }
@@ -16135,7 +16235,7 @@ function openAiSettings(){
   try{const j=await aiCall({action:'ping'});st.className='aisetst '+(AI.gasOld?'ng':'ok');st.textContent=(AI.gasOld?'⚠ つながりましたが、Code.gs が古い版です →「最新の Code.gs を書き出す」で貼り替えてください':'✓ 接続 OK ／ Code.gs は最新です')+(j.model?'（'+j.model+'）':'')}
   catch(e){st.className='aisetst ng';st.textContent='✕ '+e.message}finally{test.disabled=false;test.textContent='🔌 接続テスト';aiRender()}});
  const body=el('div',{class:'aisetdlg'},st,
-  el('div',{class:'kv'},el('label',{},'GAS の URL'),url),el('div',{class:'kv'},el('label',{},'合言葉'),tok),el('div',{class:'kv'},el('label',{},'モデル'),mdl),
+  el('div',{class:'kv'},el('label',{},'GAS の URL'),url),el('div',{class:'kv'},el('label',{},'合言葉'),tok),el('div',{class:'kv'},el('label',{},'モデル'),el('div',{class:'mrow'},el('span',{class:'aimsum'},aimSummary()),el('button',{onclick:()=>{closeModal();openAiModels()}},'🧠 用途ごとに選ぶ…'))),
   el('div',{class:'mrow'},test,el('button',{onclick:async()=>{try{const j=await aiCall({action:'models'});toast('使えるモデル: '+(j.models||[]).slice(0,8).join(', '))}catch(er){toast(er.message)}}},'使えるモデル'),el('span',{style:'flex:1'}),el('button',{class:AI.gasOld||!AI.url?'pri':'',onclick:()=>openGasExport()},'📄 最新の Code.gs を書き出す')),
   el('div',{class:'hint'},'はじめての人: ① 書き出した Code.gs を Google Apps Script（script.google.com）の新しいプロジェクトに貼る ② プロジェクトの設定 → スクリプトプロパティに GEMINI_API_KEY（必要なら DAW_TOKEN も）を入れる ③ デプロイ → 新しいデプロイ → 種類「ウェブアプリ」・アクセス「全員」→ 出てきた URL（…/exec）を上に貼る。API キーは GAS 側にだけ保存され、この DAW には保存されません。'));
  openModal('⚙ AI の設定（Google Apps Script）',body);document.querySelector('.modal').classList.add('wide');show();
@@ -16747,10 +16847,10 @@ function ccSig(){
   t.clips.map(c=>[c.id,c.start,c.len,c.gain||0,c.offset||0,c.dur||0,c.notes?c.notes.length+':'+c.notes.reduce((a,n)=>a+n.v+n.p+n.s*7,0):0,c.chords?c.chords.length:0])])])}catch(e){return String(Math.random())}
 }
 /* リミッターと安全クリップを外して計算し、ピークを測る */
-async function ccMeasure(rs,re,sr=16000,tracks=S.tracks){
+async function ccMeasure(rs,re,sr=16000,tracks=S.tracks,prog=null){
  const lim0=S.master.lim,msc=makeSafeClip;
  makeSafeClip=ctx=>ctx.createGain();S.master.lim=false;
- let buf;try{buf=await renderRange(tracks,rs,re,sr,true)}finally{makeSafeClip=msc;S.master.lim=lim0}
+ let buf;try{buf=await renderRange(tracks,rs,re,sr,true,prog)}finally{makeSafeClip=msc;S.master.lim=lim0}
  const n=Math.min(buf.length,Math.ceil((secAt(re)-secAt(rs))*sr)+Math.round(sr*.5));let pk=0,over=0;const hot=new Map(),base=secAt(rs),W=Math.max(1,Math.round(sr*.05)),env=new Float32Array(Math.ceil(n/W));
  for(let ch=0;ch<buf.numberOfChannels;ch++){const d=buf.getChannelData(ch);for(let i=0;i<n;i++){const a=Math.abs(d[i]);if(a>pk)pk=a;const k=(i/W)|0;if(a>env[k])env[k]=a;if(a>1){over++;const q=qAt(base+i/sr),b=Math.floor(q/qpbar());hot.set(b,(hot.get(b)||0)+1)}}}
  return{pk,db:20*Math.log10(Math.max(pk,1e-9)),over,env,envSec:W/sr,rs,re,bars:[...hot.entries()].sort((a,b)=>b[1]-a[1]).slice(0,5).map(x=>x[0]+1).sort((a,b)=>a-b)};
@@ -16763,26 +16863,43 @@ function ccLower(db,how){
  try{applyAll();applyMaster()}catch(e){}renderRows();checkHistory();
 }
 /* 自動: 再生の前 */
-async function ccBeforePlay(){
+async function ccBeforePlay(ui){
  const rs=Math.max(0,S.pos||0),re=Math.min(ccEnd(),qAt(secAt(rs)+40));if(re<=rs+1e-6)return null;
  const sig=ccSig();if(sig!==CC.sig){CC.sig=sig;CC.ranges=[]}
  if(CC.ranges.some(([a,b])=>rs>=a-1e-6&&re<=b+1e-6))return null;
- let m=await ccMeasure(rs,re),fixed=0;const m0=m;
+ const U=ui||{set(){},abort:false};
+ U.set(0,'楽器の音を読み込んでいます…');await instPreload(S.tracks);if(U.abort)return null;
+ U.set(.05,'曲の音を計算して、いちばん大きい所を測っています…');
+ let m=await ccMeasure(rs,re,16000,S.tracks,f=>U.set(.05+f*.75,'曲の音を計算して、いちばん大きい所を測っています…')),fixed=0;const m0=m;if(U.abort)return null;
  /* マスターのコンプなどで、下げた分そのままは小さくならないので、測り直して余裕ができるまで（最大 4 回）*/
- for(let i=0;i<4&&m.db>-0.5;i++){const d=+((m.db+1)*(i?1.8:1)).toFixed(1);ccLower(d,'master');fixed+=d;m=await ccMeasure(rs,re)}
+ for(let i=0;i<4&&m.db>-0.5;i++){const d=+((m.db+1)*(i?1.8:1)).toFixed(1);ccLower(d,'master');fixed+=d;U.set(.8+i*.05,`大きすぎる所があるので、全体を ${fixed.toFixed(1)} dB 下げて測り直しています…`);m=await ccMeasure(rs,re);if(U.abort)break}
  fixed=+fixed.toFixed(1);if(fixed)CC.sig=ccSig();m={...m,bars:m0.bars,db0:m0.db};
  CC.ranges.push([rs,re]);CC.last={...m,fixed,rs,re,t:Date.now()};ccLamp();
+ U.set(1,fixed?`✓ ${fixed} dB 下げました`:'✓ 音割れはありません');
  return CC.last;
 }
+/* 再生の前のチェックを、小さな別窓（進み具合のバー）で一時的に表示。「チェックせずに再生」で、すぐ再生 */
+function ccProgWin(){
+ const bar=el('div',{class:'ccbarin'}),txt=el('div',{class:'cctxt'},'準備しています…'),pct=el('b',{},'0%');
+ const skip=el('button',{class:'pri'},'⏭ チェックせずに再生');
+ const never=el('label',{class:'lyrck'},(()=>{const c=el('input',{type:'checkbox'});c.addEventListener('change',()=>{CC.auto=!c.checked;try{localStorage.setItem('daw.ccauto',CC.auto?'1':'0')}catch(e){}ccLamp()});return c})(),' 次からはチェックしない');
+ const w=el('div',{class:'ccwin',role:'dialog','aria-label':'再生前の音割れチェック'},el('div',{class:'cch'},el('b',{},'🔊 再生前の音割れチェック'),el('span',{style:'flex:1'}),pct),
+  el('div',{class:'ccbar'},bar),txt,el('div',{class:'mrow'},skip,never),el('div',{class:'hint'},'曲を読み込んだあとや、音量・エフェクトを変えたあとの最初の再生だけ行います（40 秒ぶん）。'));
+ document.body.append(w);try{wmMovable(w,'.cch')}catch(e){}
+ const U={abort:false,w,skip,set(f,msg){f=Math.max(0,Math.min(1,f));bar.style.width=(f*100).toFixed(0)+'%';pct.textContent=(f*100).toFixed(0)+'%';if(msg)txt.textContent=msg},close(ms){setTimeout(()=>w.remove(),ms||0)}};
+ return U;
+}
+try{const v=localStorage.getItem('daw.ccauto');if(v!=null)CC.auto=v==='1'}catch(e){}
 const _playCC=play;
 play=function(...a){
  if(!CC.auto||S.recording||S.playing||CC.busy)return _playCC.apply(this,a);
  const sig=ccSig(),rs=Math.max(0,S.pos||0);
  if(sig===CC.sig&&CC.ranges.some(([x,y])=>rs>=x-1e-6&&rs<y-1e-6))return _playCC.apply(this,a);
- CC.busy=true;const ov=el('div',{class:'ccov'},'🔊 音割れチェック中…');document.body.append(ov);
- ccBeforePlay().then(r=>{if(r&&r.fixed)toast(`音割れを防ぐため、全体の音量を ${r.fixed} dB 下げました（${r.bars.length?r.bars.join('・')+'小節目あたりが大きい・':''}元に戻す: Ctrl+Z）`)})
-  .catch(e=>console.warn('音割れチェック',e))
-  .finally(()=>{CC.busy=false;ov.remove();_playCC.apply(this,a)});
+ CC.busy=true;const U=ccProgWin();let started=false;const go=()=>{if(started)return;started=true;CC.busy=false;_playCC.apply(this,a)};
+ U.skip.addEventListener('click',()=>{U.abort=true;U.set(0,'チェックせずに再生しました');U.close(300);go()});
+ ccBeforePlay(U).then(r=>{if(!U.abort&&r&&r.fixed)toast(`音割れを防ぐため、全体の音量を ${r.fixed} dB 下げました（${r.bars.length?r.bars.join('・')+'小節目あたりが大きい・':''}元に戻す: Ctrl+Z）`)})
+  .catch(e=>{console.warn('音割れチェック',e);U.set(1,'チェックできませんでした（そのまま再生します）')})
+  .finally(()=>{if(!U.abort){U.close(600);go()}});
 };
 /* 手動: ① 分析（グラフ）→ ② 調整（方法と量を選ぶ）→ ③ 結果（前後のグラフ） */
 function ccGraph(cv,ms,cols){
@@ -17113,6 +17230,638 @@ function demoLoad(){
  };}
 /* ?demo= で開いたときは、読み込みを待ってからデモ曲にする */
 if(/[?&]demo=/.test(location.search))demoLoad().then(()=>{checkHistory();if(HIST.last===HIST.saved){const id=(location.search.match(/[?&]demo=([a-z0-9]+)/)||[])[1];if(id&&SAMPLE_SONGS.some(x=>x.id===id)){loadSample(id);HIST.saved=HIST.last=projSnap()}}}).catch(()=>{});
+/* =====================================================================
+   🧠 AI のモデルを用途ごとに使い分ける
+   ・通常は 1 つだけ（gemini-flash-lite-latest: Google が最新の Flash-Lite に自動で切り替える・安くて速い）
+   ・「用途ごとに分ける」をオンにすると、会話・作詞作曲・音声の解析・評価・楽曲の生成で別のモデルと「考える深さ」を選べる
+   ・おすすめの組み合わせ（無料枠のあるモデルだけ）: 会話 = Flash-Lite、作曲・音声の解析 = Gemini 4 Hydrogen、評価 = Flash
+   ・Lyria（楽曲の生成）は無料枠がないので、初めは「使わない」。使うときだけ選ぶ
+   ・Lyria RealTime は WebSocket で API キーを直接使う方式のため、キーを GAS の中だけに置くこの DAW では使えない（理由を表示）
+   ===================================================================== */
+const AIM_DEFAULT='gemini-flash-lite-latest';
+const AIM_ROLES=[
+ ['chat','会話・DAW の操作アシスト','AI の窓での相談、曲への変更（操作）、使い方の質問','text','low'],
+ ['write','作詞・作曲・アレンジの提案','歌詞、メロディ（MIDI 用の JSON）、コード進行、ソロ、楽器のおまかせ','text','medium'],
+ ['audio','音声の解析','鼻歌・曲の音声から、コード・構成・雰囲気を言葉にする／ボイパ・ボーカルの確認','text','medium'],
+ ['eval','曲の評価','「評価」の AI の講評とアドバイス','text','medium'],
+ ['music','楽曲の生成（フル尺・歌入り）','テキスト・歌詞の区間（Verse/Chorus）から、歌入りの曲を音声で作る','music',''],
+ ['clip','短いクリップ（30 秒）','ループやアイデア出し用の 30 秒の音声','music',''],
+];
+/* モデルごとの情報: 無料枠・向いている用途・費用対効果（選択肢と設定の窓に出す）
+   既定（ふだん・用途ごとの初期値・おすすめの組み合わせ）には、無料枠のあるモデルだけを使う */
+const AIM_INFO={
+ 'gemini-flash-lite-latest':{free:true,label:'Gemini Flash-Lite（最新）',note:'無料枠あり。いちばん安くて速い。会話・操作のアシスト・短い作詞に十分。費用対効果 ◎（迷ったらこれ）'},
+ 'gemini-flash-latest':{free:true,label:'Gemini Flash（最新）',note:'無料枠あり（1 日の回数は Flash-Lite より少なめ）。賢さと速さのバランスがよく、作曲・音声の解析もこなす。有料になると Flash-Lite の数倍。費用対効果 ○'},
+ 'gemini-4-hydrogen':{free:true,label:'Gemini 4 Hydrogen',note:'無料枠あり（回数の制限あり）。最新の世代で、音声の聞き取り・JSON の出力・操作の組み立てが得意。有料だと入力 $1.50・出力 $7.50／100 万トークン（Flash-Lite の約 10 倍）。質が効く「解析・作曲」向き。費用対効果 ○（無料枠の範囲なら ◎）'},
+ 'gemini-3.5-flash-lite':{free:true,label:'Gemini 3.5 Flash-Lite（版を固定）',note:'無料枠あり。版が勝手に変わらないので、毎回同じ調子の返事がほしいとき向き。新しい版の改善は入らない。費用対効果 ◎'},
+ 'lyria-3.5':{free:false,label:'Lyria 3.5（フル尺・歌入り）',note:'無料枠なし（有料のみ）。1 曲 約 $0.08（約 12 円）。歌入りの曲を丸ごと音声で作れる唯一の選択肢。デモやバッキングを作りたいときだけ。Google AI Pro の毎月のクラウド クレジット（課金の設定が必要）で払える場合あり'},
+ 'lyria-3-clip-preview':{free:false,label:'Lyria 3 Clip（30 秒）',note:'無料枠なし（有料のみ）。1 回 約 $0.04（約 6 円）。30 秒のループ・試聴用。アイデア出しを安く何度も回したいとき向き。プレビュー版なので変わることがある'},
+ 'lyria-3.5-clip-preview':{free:false,label:'Lyria 3.5 Clip（30 秒・新しい版）',note:'無料枠なし（有料のみ）。1 回 約 $0.04。Lyria 3 Clip の新しい版（音質・歌が改善）。プレビュー版'},
+};
+const aimLab=(id,base)=>{const i=AIM_INFO[id];return(base||(i&&i.label)||id)+(i?(i.free?'（無料枠あり）':'（有料のみ）'):'')};
+const AIM_TEXT_MODELS=['gemini-flash-lite-latest','gemini-flash-latest','gemini-4-hydrogen','gemini-3.5-flash-lite'].map(id=>[id,aimLab(id)]);
+const AIM_MUSIC_MODELS=[['','使わない（ふつう）'],...['lyria-3.5','lyria-3-clip-preview','lyria-3.5-clip-preview'].map(id=>[id,aimLab(id)])];
+const AIM_THINK=[['','標準（モデルにおまかせ）'],['low','低（速い・制作中の提案向き）'],['medium','中'],['high','高（じっくり考える）']];
+const AIM=Object.assign({split:false,main:AIM_DEFAULT,mainThink:'',roles:{}},(()=>{try{return JSON.parse(localStorage.getItem('daw.aimodels')||'{}')}catch(e){return{}}})());
+for(const [k,,,kind] of AIM_ROLES)AIM.roles[k]=Object.assign({model:kind==='music'?'':AIM.main,think:''},AIM.roles[k]||{});
+function aimSave(){try{localStorage.setItem('daw.aimodels',JSON.stringify(AIM))}catch(e){}}
+/* 用途 → 使うモデル・考える深さ */
+function aimFor(role){
+ const R=AIM_ROLES.find(r=>r[0]===role);if(!R)return{model:AIM.main,think:AIM.mainThink};
+ if(R[3]==='music')return{model:AIM.roles[role].model||'',think:''};
+ if(!AIM.split)return{model:AIM.main||AIM_DEFAULT,think:AIM.mainThink||''};
+ const x=AIM.roles[role];return{model:x.model||AIM.main||AIM_DEFAULT,think:x.think||''};
+}
+function aimRoleOf(p){
+ const a=p&&p.action;
+ if(a==='music')return p.kind==='clip'?'clip':'music';
+ if(a==='evaluate')return'eval';
+ if(a==='task')return p.audio&&p.audio.data?'audio':'write';
+ return'chat';
+}
+function aimSummary(){if(!AIM.split)return`すべて ${AIM.main||AIM_DEFAULT}`+(AIM.mainThink?`（考える深さ: ${AIM.mainThink}）`:'');const ms=[...new Set(AIM_ROLES.filter(r=>r[3]==='text').map(r=>aimFor(r[0]).model))];return'用途ごと: '+ms.join(' ／ ')+(AIM.roles.music.model?' ／ 楽曲: '+AIM.roles.music.model:'')}
+/* 送るたびに、用途に合ったモデルを付ける（自分でモデルを指定した呼び出しはそのまま） */
+{const _ac=aiCall;aiCall=function(p){
+ if(p&&!p.model&&!['models'].includes(p.action)){const r=aimFor(aimRoleOf(p));p={...p,model:r.model||undefined};if(r.think&&!['ping','version','pricing','music'].includes(p.action))p.thinking=r.think}
+ return _ac(p)}}
+AI.model='';try{aiSave()}catch(e){}   // 以前の「モデル」欄は使わない（用途ごとの設定に移った）
+/* 料金表: Gemini 4 Hydrogen と、Lyria（1 曲あたり） */
+if(typeof ACOST!=='undefined'){
+ if(!ACOST.prices.some(r=>r[0]==='4-hydrogen'))ACOST.prices.unshift(['4-hydrogen',1.5,7.5,1.5,'',0,0]);
+ const _cost=acCost;acCost=function(e){if(/lyria/i.test(e.model||'')){if(ACOST.free||!e.ok)return 0;return/clip/i.test(e.model)?(ACOST.clipUsd??.04):(ACOST.songUsd??.08)}return _cost(e)};
+}
+/* ---------- 設定の窓 ---------- */
+function openAiModels(){
+ const box=el('div',{class:'aimdlg'});
+ const sel=(list,val,on,custom)=>{const s=el('select',{},...list.map(([v,l])=>el('option',{value:v,selected:v===val},l)),custom?el('option',{value:'__c',selected:!list.some(x=>x[0]===val)},val&&!list.some(x=>x[0]===val)?'その他: '+val:'その他（名前を入れる）…'):'');
+  s.addEventListener('change',()=>{let v=s.value;if(v==='__c'){v=(prompt('モデルの名前（例: gemini-3.6-flash）',val||'')||'').trim();if(!v){draw();return}}on(v);aimSave();draw()});return s};
+ const draw=()=>{
+  const rows=AIM_ROLES.map(([k,name,desc,kind])=>{const x=AIM.roles[k],eff=aimFor(k),dis=kind==='text'&&!AIM.split;
+   const mid=kind==='text'?(dis?eff.model:x.model):x.model,inf=AIM_INFO[mid];
+   return el('div',{class:'aimrow'+(dis?' dis':'')},el('div',{},el('b',{},name),el('div',{class:'dim'},desc)),
+    el('div',{},kind==='text'?sel(AIM_TEXT_MODELS,mid,v=>x.model=v,true):sel(AIM_MUSIC_MODELS,x.model,v=>x.model=v,true),
+     el('div',{class:'aimnote'+(inf&&!inf.free?' paid':'')},inf?inf.note:mid?'一覧にないモデルです。無料枠や料金は Google の料金ページで確かめてください':'使いません（料金はかかりません）')),
+    kind==='text'?sel(AIM_THINK,dis?eff.think:x.think,v=>x.think=v):el('span',{class:'dim'},'— （Lyria には「考える深さ」はありません）'))});
+  rows.forEach(r=>{if(r.classList.contains('dis'))r.querySelectorAll('select').forEach(s=>s.disabled=true)});
+  const splitCk=el('input',{type:'checkbox'});splitCk.checked=AIM.split;splitCk.addEventListener('change',()=>{AIM.split=splitCk.checked;aimSave();draw()});
+  box.replaceChildren(
+   el('div',{class:'mrow'},el('b',{},'ふだん使うモデル'),sel(AIM_TEXT_MODELS,AIM.main,v=>AIM.main=v,true),el('span',{},'考える深さ'),sel(AIM_THINK,AIM.mainThink,v=>AIM.mainThink=v)),
+   el('div',{class:'aimnote'},(AIM_INFO[AIM.main]||{note:'一覧にないモデルです'}).note),
+   el('div',{class:'hint'},'通常はこの 1 つだけで動きます（gemini-flash-lite-latest は、Google がいつも最新の Flash-Lite につなぎ替える名前です）。'),
+   el('label',{class:'lyrck aimsplit'},splitCk,' 用途ごとにモデルを分ける'),
+   el('div',{class:'aimtbl'},el('div',{class:'aimrow aimh'},el('span',{},'用途'),el('span',{},'モデル'),el('span',{},'考える深さ')),...rows,
+    el('div',{class:'aimrow dis'},el('div',{},el('b',{},'リアルタイム生成（Lyria RealTime）'),el('div',{class:'dim'},'キー・テンポ・音の密度を動かしながら流し続ける生成。WebSocket で API キーを直接ブラウザに渡す方式のため、キーを GAS の中だけに置くこの DAW では使えません（一時キーにも対応していません）。')),el('span',{class:'dim'},'このDAWでは不可'),el('span',{},''))),
+   el('div',{class:'mrow'},
+    el('button',{class:'pri',onclick:()=>{Object.assign(AIM,{split:true});Object.assign(AIM.roles,{chat:{model:'gemini-flash-lite-latest',think:'low'},write:{model:'gemini-4-hydrogen',think:'medium'},audio:{model:'gemini-4-hydrogen',think:'medium'},eval:{model:'gemini-flash-latest',think:'medium'}});aimSave();draw();toast('おすすめの組み合わせにしました（無料枠のあるモデルだけ: 会話は Flash-Lite、作曲・解析は Gemini 4 Hydrogen、評価は Flash）')}},'✨ おすすめの組み合わせ（無料枠のみ）'),
+    el('button',{onclick:()=>{AIM.roles.music={model:'lyria-3.5',think:''};AIM.roles.clip={model:'lyria-3-clip-preview',think:''};aimSave();draw();toast('楽曲の生成に Lyria を選びました（有料のみ: フル尺 約 $0.08・クリップ 約 $0.04）')}},'🎵 楽曲の生成も使う（Lyria・有料）'),
+    el('button',{onclick:()=>{AIM.split=false;AIM.main=AIM_DEFAULT;AIM.mainThink='';for(const [k,,,kind] of AIM_ROLES)AIM.roles[k]={model:kind==='music'?'':AIM_DEFAULT,think:''};aimSave();draw();toast('通常（gemini-flash-lite-latest だけ）に戻しました')}},'↺ 通常に戻す'),
+    el('button',{onclick:async()=>{try{const j=await aiCall({action:'models'});toast('この API キーで使えるモデル: '+(j.models||[]).filter(m=>/gemini|lyria/.test(m)).slice(0,14).join(', '))}catch(e){toast(e.message)}}},'使えるモデルを見る')),
+   el('div',{class:'hint'},'初めの設定・おすすめの組み合わせには、無料枠のあるモデルだけを使います（無料枠は 1 日・1 分あたりの回数に上限があります）。Lyria（曲を音声で作る）は無料枠がなく有料だけなので、使いたいときだけ「🎵 楽曲の生成も使う」を押してください。Google AI Pro などの契約は Gemini のアプリや AI Studio の上限が増えるもので、この DAW（API キーで使う）の料金とは別です（毎月のクラウド クレジットを API の支払いに回せる場合があります）。料金は「💰 AI の料金」で確かめられます。'),
+   el('div',{class:'hint'},'楽曲の生成（Lyria）は、Code.gs が 2026-11-25 版以降で使えます。「🎵 AI で曲を作る（Lyria）」から。'));
+ };
+ draw();openModal('🧠 AI のモデル（用途ごとの使い分け）',box);document.querySelector('.modal').classList.add('wide');
+}
+FS_FEAT.push(['AI のモデルを用途ごとに使い分ける','ふだんは 1 つのモデル（gemini-flash-lite-latest）。会話・作詞作曲・音声の解析・評価・楽曲の生成で別のモデルと考える深さを選べます。おすすめの組み合わせ（Gemini 4 Hydrogen ＋ Lyria）もワンタッチ','AI の窓の「⚙ 接続設定」、または ⚙ 設定 →「AI の設定」',()=>openAiModels(),null,'モデル gemini hydrogen lyria flash lite 使い分け 考える深さ thinking']);
+
+/* ---------- 🎵 AI で曲を作る（Lyria 3.5 / Lyria 3 Clip）→ オーディオトラックに ---------- */
+function aimLyricsText(){
+ /* 区間の歌詞を [Verse 1] [Chorus] の形に（Lyria は区間の見出しを理解する） */
+ const tag=nm=>/サビ|コーラス|chorus/i.test(nm)?'Chorus':/Bメロ|プレ|pre/i.test(nm)?'Pre-Chorus':/ブリッジ|間奏|bridge|Cメロ/i.test(nm)?'Bridge':/イントロ|intro/i.test(nm)?'Intro':/アウトロ|終わり|outro/i.test(nm)?'Outro':'Verse';
+ const cnt={};const out=[];for(const s of S.sections||[]){if(!s.lyr||!String(s.lyr).trim())continue;const t=tag(s.name);cnt[t]=(cnt[t]||0)+1;out.push(`[${t}${t==='Verse'?' '+cnt[t]:''}]`,String(s.lyr).trim(),'')}
+ return out.join('\n').trim();
+}
+function openAiMusic(){
+ const st={kind:'music',len:'2',vocal:'lyrics',useSong:true,prompt:'',free:'',busy:false};
+ const lyr=aimLyricsText();if(!lyr)st.vocal='inst';
+ const box=el('div',{class:'aimusic'}),log=el('div',{class:'s2mlog'});
+ const p=el('textarea',{rows:3,placeholder:'どんな曲？（例: 夕暮れの海辺、アコギとウッドベースのやさしいボサノバ、女性ボーカル）',style:'width:100%'});
+ const fr=el('textarea',{rows:6,placeholder:'[Verse 1]\nここに歌詞\n\n[Chorus]\nサビの歌詞',style:'width:100%;display:none'});
+ const R=(name,val,lab)=>{const r=el('input',{type:'radio',name,value:val});r.checked=st[name]===val;r.addEventListener('change',()=>{st[name]=val;sync()});return el('label',{class:'lyrck'},r,' '+lab)};
+ const lenRow=el('div',{class:'mrow'},el('span',{},'長さ'),R('len','1','約 1 分'),R('len','2','約 2 分'),R('len','3','約 3 分'));
+ const useCk=el('input',{type:'checkbox'});useCk.checked=true;useCk.addEventListener('change',()=>st.useSong=useCk.checked);
+ const sync=()=>{lenRow.style.display=st.kind==='clip'?'none':'';fr.style.display=st.vocal==='free'?'':'none'};
+ const go=el('button',{class:'pri'},'🎵 作る');
+ const songInfo=()=>`テンポ ${Math.round(S.bpm)} BPM、キー ${NOTE_NAMES[S.key.root]}${S.key.mode==='minor'?' マイナー':' メジャー'}、${S.sig.n}/${S.sig.d} 拍子`;
+ go.addEventListener('click',async()=>{
+  const role=st.kind,m=aimFor(role).model;
+  if(!m){toast('楽曲の生成のモデルが「使わない」になっています。AI のモデルの設定で Lyria を選んでください');openAiModels();return}
+  const L=x=>log.append(el('div',{},'・'+x));log.replaceChildren();go.disabled=true;
+  let text=(p.value.trim()||'明るいポップス')+'。'+(st.useSong?songInfo()+'。':'');
+  if(st.kind==='music')text+=`約 ${st.len} 分の曲を作ってください。`;
+  if(st.vocal==='inst')text+='\nInstrumental only, no vocals.';
+  else{const ly=st.vocal==='lyrics'?lyr:fr.value.trim();if(ly)text+='\n\n歌詞（この区間の順に歌う）:\n'+ly}
+  L(`${m} で作っています…（30 秒〜数分かかります）`);
+  try{
+   const j=await aiCall({action:'music',kind:st.kind,model:m,prompt:text});
+   const bin=atob(j.audio.data),u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);
+   const buf=await ensureAudio().decodeAudioData(u8.buffer);
+   await histGroup(async()=>{const t=newTrack('audio');t.name=(st.kind==='clip'?'AI クリップ':'AI の曲')+'（'+m+'）';t.monitor=false;t.color=TRACK_COLORS[4];
+    const at=st.useSong?0:snapTo(S.marker||0);const c={id:uid('c'),start:at,buf,offset:0,dur:buf.duration,name:p.value.trim().slice(0,20)||'AI の曲'};BUFS.set(c.id,buf);t.clips.push(c);S.tracks.push(t);S.sel=t.id;
+    const need=Math.ceil(qAt(secAt(at)+buf.duration)/qpbar());if(need>S.bars)S.bars=need;renderAll();checkHistory()});
+   L(`できました（${buf.duration.toFixed(1)} 秒・${buf.sampleRate/1000} kHz）。新しいオーディオトラックに置きました`);
+   if(j.text)log.append(el('details',{},el('summary',{},'歌詞・曲の構成（AI の返事）'),el('pre',{class:'aimtxt'},j.text)));
+   L('音声には聞こえない電子透かし（SynthID）が入っています。テンポは指定どおりにならないことがあるので、「拍に揃える」で合わせられます');
+  }catch(e){L('✕ '+(/不明な action/.test(e.message)?'Code.gs が古い版です。AI の設定 →「最新の Code.gs」で貼り替えてください（2026-11-25 版以降）':e.message))}
+  finally{go.disabled=false}
+ });
+ box.append(
+  el('div',{class:'mrow'},el('span',{},'種類'),R('kind','music','フル尺（'+(aimFor('music').model||'未設定')+'）'),R('kind','clip','30 秒のクリップ（'+(aimFor('clip').model||'未設定')+'）')),
+  lenRow,p,
+  el('div',{class:'mrow'},el('span',{},'歌'),R('vocal','lyrics','この曲の歌詞（区間ごと）'+(lyr?'':'（まだありません）')),R('vocal','free','歌詞をここに書く'),R('vocal','inst','歌なし（インスト）')),fr,
+  el('label',{class:'lyrck'},useCk,' 今の曲のテンポ・キー・拍子を伝える（'+songInfo()+'）'),
+  el('div',{class:'mrow'},go,el('button',{onclick:()=>{closeModal();openAiModels()}},'🧠 モデルの設定')),log,
+  el('div',{class:'hint'},'有名な歌手の声や、既存の曲の歌詞を指定すると断られます。料金はフル尺 1 曲 約 $0.08、クリップ 1 回 約 $0.04（無料枠なし）。1 回で 1 曲を作るだけで、続けて手直しはできません。'));
+ sync();openModal('🎵 AI で曲を作る（Lyria）',box);document.querySelector('.modal').classList.add('wide');
+}
+FS_FEAT.push(['AI で曲を作る（Lyria）','テキストと歌詞（[Verse]/[Chorus]）から、歌入りの曲（Lyria 3.5）や 30 秒のクリップ（Lyria 3 Clip）を音声で作り、オーディオトラックに置きます','AI の窓の「🎵 曲を作る」、またはここから',()=>openAiMusic(),null,'lyria 生成 作曲 自動作曲 バッキング デモ 音声 ボーカル 歌入り']);
+/* AI の窓の見出しにボタン */
+{const _r=aiRender;aiRender=function(){_r();const h=document.querySelector('#aiWin .aihead');if(!h||h.querySelector('.aimusbtn'))return;const b=el('button',{class:'aimusbtn',title:'Lyria で歌入りの曲や 30 秒のクリップを音声で作る'},'🎵 曲を作る');b.addEventListener('click',()=>openAiMusic());const s=h.querySelector('.aisetbtn');if(s)s.before(b);else h.append(b)}}
+/* =====================================================================
+   コードの書き方（📖）と、表示の切り替え
+   ・黒鍵はフラットで表示（A# → B♭）。入力は B♭ / Bb / B- / A# / A+ のどれでも同じ音
+   ・オンコード（分数コード）は「C/E」または「C on E」。表示は「C/E」か「C onE」を選べる
+   ===================================================================== */
+function noteStyleSet(st,sl){
+ if(st&&NOTE_STYLES[st]){NOTE_STYLE=st;NOTE_NAMES.splice(0,12,...NOTE_STYLES[st]);try{localStorage.setItem('daw.accidental',st)}catch(e){}}
+ if(sl){SLASH_STYLE=sl;try{localStorage.setItem('daw.slashstyle',sl)}catch(e){}}
+ document.querySelectorAll('#keyRoot option').forEach((o,i)=>{if(i<12)o.textContent=NOTE_NAMES[+o.value||i]});
+ try{renderAll();syncTop&&syncTop()}catch(e){}
+}
+function notationSelects(){
+ const a=el('select',{'aria-label':'黒鍵の書き方'},...[['flat','♭（B♭・E♭・A♭）ふつう'],['mml','-（B-・E-・A-）MML 風'],['sharp','#（A#・D#・G#）']].map(([v,l])=>el('option',{value:v,selected:NOTE_STYLE===v},l)));
+ a.addEventListener('change',()=>noteStyleSet(a.value));
+ const b=el('select',{'aria-label':'オンコードの書き方'},...[['slash','C/E'],['on','C onE']].map(([v,l])=>el('option',{value:v,selected:SLASH_STYLE===v},l)));
+ b.addEventListener('change',()=>noteStyleSet(null,b.value));
+ return el('div',{class:'mrow'},el('span',{},'黒鍵の書き方'),a,el('span',{},'オンコード'),b);
+}
+function openChordNotation(){
+ const row=(k,v)=>el('tr',{},el('th',{},k),el('td',{},v));
+ const tbl=(rows)=>el('table',{class:'cntbl'},...rows.map(([k,v])=>row(k,v)));
+ const box=el('div',{class:'cndlg'},
+  el('h4',{},'表示'),notationSelects(),
+  el('h4',{},'ルート（いちばん下になる音の名前）'),
+  tbl([['白鍵','C D E F G A B'],['黒鍵','B♭ E♭ A♭ D♭ G♭（表示）。入力は B♭ / Bb / B- / A# / A+ のどれでも同じ音（A# は B♭ と読みます）'],['注意','このDAWでは「-」はフラットの意味です（ジャズの「C-7＝Cm7」の書き方ではありません）。マイナーは「m」']]),
+  el('h4',{},'コードの種類'),
+  tbl([['C','メジャー（ド・ミ・ソ）'],['Cm','マイナー'],['C7 / Cm7','セブンス / マイナーセブンス'],['Cmaj7（CM7・C△7）','メジャーセブンス'],['Cm7(♭5)（Cm7-5）','ハーフディミニッシュ'],['Cdim / Cdim7 / Caug','ディミニッシュ / オーギュメント'],['Csus4 / Csus2 / C7sus4','サスペンデッド'],['C6 / C69 / Cadd9','6th / 6・9th / アド9'],['C9 / C11 / C13','テンション（7 を含む）'],['C7(♭9) / C7(♯11) / C7(13)','カッコで追加のテンション（♭は b、♯は # でも可）']]),
+  el('h4',{},'オンコード（分数コード）'),
+  el('p',{},'ベースの音だけを、ルートと違う音にするコードです。「コード/ベースの音」か「コード on ベースの音」と書きます（スペースはあってもなくても可）。'),
+  tbl([['C/E ＝ C on E ＝ ConE','C（ド・ミ・ソ）の和音で、ベースはミ（転回形）'],['Am/G','Am の和音で、ベースは G（下降するベースライン）'],['F/G','F の和音で、ベースは G（ベースがコードの音でなくてもよい・ソウル/ゴスペル風）'],['D/F# ＝ D/G♭','D の和音で、ベースは F#（表示は D/G♭）'],['Cm7/B♭','Cm7 の和音で、ベースは B♭']]),
+  el('h4',{},'小節での書き方（コードの一括入力）'),
+  tbl([['| C | Am | F G |','「|」で小節を区切る。1 小節に 2 つ書くと半分ずつ'],['C:3 G:1','拍の数を指定（3 拍と 1 拍）'],['| C | - |','「-」だけは「前のコードを伸ばす」（B- のように音名に付けたときはフラット）']]),
+  el('div',{class:'hint'},'一番上のコードの列でも、コードトラックでも、AI への指示でも、同じ書き方が使えます。'));
+ openModal('📖 コードの書き方',box);document.querySelector('.modal').classList.add('wide');
+}
+FS_FEAT.push(['コードの書き方（オンコード・フラットの表記）','A# は B♭ と読みます（B- / Bb でも入力可）。オンコードは C/E または C on E。テンションの書き方の一覧も','コードの一括入力の「📖 コードの書き方」、またはここから',()=>openChordNotation(),null,'オンコード 分数コード on ベース スラッシュ フラット シャープ B- MML 表記 書き方 テンション']);
+/* 設定（別窓）の「画面」にも */
+{const _o=openDevWin;openDevWin=function(){const w=_o();try{const body=w.querySelector('.dwbody');if(body&&!body.querySelector('.cnrow')){const r=notationSelects();r.classList.add('cnrow');const h=[...body.querySelectorAll('h4')].find(x=>/画面/.test(x.textContent));if(h)h.after(r);else body.prepend(r)}}catch(e){}return w}}
+/* 一番上のコード欄の右クリックにも */
+{const _m=typeof mcMenu==='function'?mcMenu:null;if(_m)mcMenu=function(...a){const sm=showMenu;showMenu=function(x,y,items){showMenu=sm;return sm(x,y,[...items,'-',['📖 コードの書き方（オンコード・♭）…',()=>openChordNotation()]])};try{return _m.apply(this,a)}finally{showMenu=sm}}}
+/* =====================================================================
+   🎙 鼻歌から作曲モード
+   ① 鼻歌を録る（メトロノームに合わせて）／ 録ってあるオーディオ・ファイルを使う
+   ② メロディを音符にする（伴奏入りでも取れるやり方と、ソロの声のやり方の良い方）→ 拍にそろえる → キーを推定
+   ③ メロディに合うコードを付ける（パターン: 1 小節ずつ全体のつながりで最適化 ／ AI: 鼻歌を聞かせてコードと曲調を提案）
+   ④ ドラム・ベース・鍵盤の伴奏を作る（スタイルを選べる）。元の鼻歌はトラックに残す
+   ===================================================================== */
+const H2S=Object.assign({range:'vocalM',grid:.25,keyMode:'auto',chordRate:'bar',style:'pop8',method:'pattern',melTone:'tj_flute',parts:{melody:true,chords:true,drums:true,bass:true,keys:true},muteHum:false},
+ (()=>{try{return JSON.parse(localStorage.getItem('daw.h2s')||'{}')}catch(e){return{}}})());
+function h2sSave(){try{localStorage.setItem('daw.h2s',JSON.stringify(H2S))}catch(e){}}
+const H2S_STYLES=[['pop8','ポップ（8 ビート）','',  'bk2'],['ballad','バラード（ゆったり）','half','lg2'],['beat16','16 ビート（軽快）','16beat','bk1'],['four','4 つ打ち（ダンス）','four','bk2'],['waltz','ワルツ（3 拍子）','','arp1'],['folk','弾き語り風（ドラムなし）','none','arp1']];
+/* 音の高さの並び（長さで重みづけ）からキーを推定（Krumhansl） */
+function h2sKey(notes){
+ const h=new Array(12).fill(0);for(const n of notes)h[((n.p%12)+12)%12]+=Math.max(.25,n.l);
+ const cor=(a,b)=>{const ma=a.reduce((x,y)=>x+y,0)/12,mb=b.reduce((x,y)=>x+y,0)/12;let s=0,sa=0,sb=0;for(let i=0;i<12;i++){s+=(a[i]-ma)*(b[i]-mb);sa+=(a[i]-ma)**2;sb+=(b[i]-mb)**2}return s/Math.sqrt(sa*sb||1)};
+ let best={r:0,mode:'major',sc:-9};for(let r=0;r<12;r++)for(const [mode,P] of [['major',KK_MAJ],['minor',KK_MIN]]){const rot=P.map((_,i)=>P[(i-r+12)%12]);const sc=cor(h,rot);if(sc>best.sc)best={r,mode,sc}}
+ /* 最後の音がルートなら少し後押し（鼻歌はたいてい主音で終わる） */
+ return{root:best.r,mode:best.mode,conf:best.sc};
+}
+/* メロディに合うコードを、区切りごとに候補から選ぶ（つながりも見て全体で最適に: ビタビ） */
+function h2sHarmonize(notes,q0,q1,key,step){
+ const maj=key.mode!=='minor',r=key.root;
+ const C=maj?[[0,'maj'],[2,'m'],[4,'m'],[5,'maj'],[7,'maj'],[9,'m'],[7,'7'],[5,'maj7'],[0,'maj7'],[2,'m7'],[9,'m7'],[10,'maj']]
+            :[[0,'m'],[5,'m'],[7,'m'],[8,'maj'],[3,'maj'],[10,'maj'],[7,'7'],[2,'dim'],[0,'m7'],[5,'m7'],[8,'maj7']];
+ const cand=C.filter(([d,q])=>CHORD_Q[q]).map(([d,q])=>({root:(r+d)%12,q,deg:d,pcs:CHORD_Q[q].iv.map(i=>(r+d+i)%12)}));
+ const sc=(maj?SCALES.major:SCALES.minor).map(i=>(r+i)%12);
+ const segs=[];for(let a=q0;a<q1-1e-6;a+=step)segs.push({a,b:Math.min(q1,a+step)});
+ const fit=(c,s)=>{let v=0;for(const n of notes){const o=Math.min(s.b,n.q+n.l)-Math.max(s.a,n.q);if(o<=0)continue;const pc=((n.p%12)+12)%12,strong=Math.abs(((n.q-s.a)%1))<1e-6&&n.q>=s.a-1e-6;
+   v+=o*(c.pcs.includes(pc)?(strong?2.4:1.8):sc.includes(pc)?.15:-1.2)}
+  return v-(['maj7','m7','7'].includes(c.q)?.7:0)-(c.q==='dim'?1:0)};
+ /* つながり: V→I、IV→V、ii→V などは好み、同じコードの連続は少しだけ減点 */
+ const tr=(p,c)=>{let v=0;const d=((c.root-p.root)+12)%12;if(d===5)v+=.6;if(d===7)v+=.2;if(d===2&&maj)v+=.15;if(p.deg===7&&c.deg===0)v+=.8;if(p.root===c.root&&p.q===c.q)v-=.3;return v};
+ const N=segs.length,K=cand.length,D=[...Array(N)].map(()=>new Array(K).fill(-1e9)),BK=[...Array(N)].map(()=>new Array(K).fill(0));
+ const isTon=c=>c.deg===0&&(c.q==='maj'||c.q==='m');
+ for(let k=0;k<K;k++)D[0][k]=fit(cand[k],segs[0])+(isTon(cand[k])?1.5:0);
+ for(let i=1;i<N;i++)for(let k=0;k<K;k++){const f=fit(cand[k],segs[i]);for(let j=0;j<K;j++){const v=D[i-1][j]+tr(cand[j],cand[k])+f;if(v>D[i][k]){D[i][k]=v;BK[i][k]=j}}}
+ /* 最後は主和音に落ち着きやすく */
+ const lastN=notes.filter(n=>n.q<q1).pop(),tonPcs=[0,maj?4:3,7].map(i=>(r+i)%12),endTon=lastN&&tonPcs.includes(((lastN.p%12)+12)%12);
+ let bk=0,bv=-1e9;for(let k=0;k<K;k++){const v=D[N-1][k]+(isTon(cand[k])?(endTon?3:1):0);if(v>bv){bv=v;bk=k}}
+ const pick=new Array(N);for(let i=N-1;i>=0;i--){pick[i]=bk;bk=BK[i][bk]}
+ const out=[];segs.forEach((s,i)=>{const c=cand[pick[i]],p=out[out.length-1];if(p&&p.ch.root===c.root&&p.ch.q===c.q)p.b=s.b;else out.push({a:s.a,b:s.b,ch:{root:c.root,q:c.q,bass:null}})});
+ return out;
+}
+/* 鼻歌 → 音符（クリップの中の位置 → 曲の位置） */
+async function h2sMelody(c,o){
+ const R=MEL_RANGES[o.range]||MEL_RANGES.vocalM;
+ let r=null;try{r=await melodyBest(c,o.range)}catch(e){}
+ if(!r||!r.notes.length)r=await melodyFromAudio(c,{lo:R[1],hi:R[2],thr:.15,gate:-42,minSec:.08,grid:o.grid,band:true,keySnap:false,tempo:false});
+ const g=o.grid;let N=(r.notes||[]).map(n=>{const q=Math.round((c.start+n.s)/g)*g,e=Math.max(q+g,Math.round((c.start+n.s+n.l)/g)*g);return{p:Math.round(n.p),q,l:e-q,v:clamp(n.v||96,60,118)}});
+ N.sort((a,b)=>a.q-b.q);const out=[];for(const n of N){const p=out[out.length-1];if(p&&Math.abs(p.q-n.q)<1e-6){if(n.l>p.l)out[out.length-1]=n;continue}if(p&&p.q+p.l>n.q)p.l=Math.max(g,n.q-p.q);if(p&&p.p===n.p&&Math.abs(p.q+p.l-n.q)<1e-6&&n.l<g*2){p.l+=n.l;continue}out.push(n)}
+ /* 1 音だけ飛び離れたオクターブ違いを直す */
+ for(let i=1;i<out.length-1;i++){const a=out[i-1].p,b=out[i+1].p,x=out[i].p;if(Math.abs(x-a)>=10&&Math.abs(x-b)>=10){const y=x+(x>a?-12:12);if(Math.abs(y-a)<Math.abs(x-a))out[i].p=y}}
+ return out;
+}
+/* 鼻歌を AI に聞かせて、コード進行・曲調を提案してもらう */
+async function h2sAskAI(c,mel,q0,q1,key,step){
+ const B=qpbar(),wav=encodeWav([c.buf.getChannelData(0).slice(Math.floor((c.offset||0)*c.buf.sampleRate),Math.floor(((c.offset||0)+Math.min(c.dur,90))*c.buf.sampleRate))],c.buf.sampleRate,16);
+ const b64=await new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(String(fr.result).split(',')[1]);fr.readAsDataURL(wav)});
+ const per=step>=B?'1 小節':'2 拍';const nSeg=Math.round((q1-q0)/step);
+ const melTxt=mel.map(n=>`${Math.floor((n.q-q0)/B)+1}小節${(((n.q-q0)%B)+1).toFixed(2)}拍:${NOTE_NAMES[((n.p%12)+12)%12]}${Math.floor(n.p/12)-1}(${n.l}拍)`).join(' ');
+ const prompt=`鼻歌の音声と、DAW がそれを音符にしたものを送ります。テンポ ${Math.round(S.bpm)} BPM、${S.sig.n}/${S.sig.d} 拍子、DAW の推定キー ${NOTE_NAMES[key.root]} ${key.mode==='minor'?'マイナー':'メジャー'}。\n音符: ${melTxt}\n`+
+  `このメロディに合うコード進行を、${per}ごとに ${nSeg} 個（${q0/B+1} 小節目から）考えてください。コード名は英語表記（例: C, Am7, F/G, B♭maj7）。曲調に合うドラムのスタイルも 1 つ選んでください（pop8 / ballad / beat16 / four / waltz / folk）。\n`+
+  `返事は JSON だけ: {"key":"C major のように","chords":["…",…],"style":"pop8 など","genre":"ジャンル（日本語）","mood":"雰囲気（日本語）","comment":"ひとこと（日本語・漢字かな交じり）"}`;
+ const j=await aiCall({action:'task',prompt,audio:{mime:'audio/wav',data:b64}});
+ const d=j.data||{};const list=Array.isArray(d.chords)?d.chords:[];
+ const out=[];list.slice(0,nSeg).forEach((nm,i)=>{const ch=parseChord(String(nm));if(!ch)return;const a=q0+i*step,p=out[out.length-1];if(p&&p.ch.root===ch.root&&p.ch.q===ch.q&&p.ch.bass===ch.bass&&Math.abs(p.b-a)<1e-6)p.b=a+step;else out.push({a,b:a+step,ch})});
+ return{chords:out,style:d.style,genre:d.genre,mood:d.mood,comment:d.comment,key:d.key};
+}
+async function hum2song(c,o,log){
+ const B=qpbar(),src=S.tracks.find(t=>t.clips.includes(c));
+ log('鼻歌を音符にしています…');
+ const mel=await h2sMelody(c,o);if(mel.length<3)throw new Error('メロディが取れませんでした（声が小さい・雑音が多い可能性）。もう少し大きく、はっきり歌ってみてください');
+ let key=o.keyMode==='auto'?h2sKey(mel):{root:S.key.root,mode:S.key.mode};
+ const sc=(key.mode==='minor'?SCALES.minor:SCALES.major).map(i=>(key.root+i)%12);
+ for(const n of mel){const pc=((n.p%12)+12)%12;if(!sc.includes(pc)&&n.l<1)n.p+=sc.includes((pc+1)%12)?1:-1}   // 短い音の外れは音階に寄せる
+ const q0=Math.floor(mel[0].q/B)*B,q1=Math.ceil((mel[mel.length-1].q+mel[mel.length-1].l)/B-1e-6)*B;
+ log(`メロディ ${mel.length} 音（${(q1-q0)/B} 小節）・キー ${NOTE_NAMES[key.root]}${key.mode==='minor'?' マイナー':' メジャー'}${o.keyMode==='auto'?'（推定）':''}`);
+ const step=o.chordRate==='half'&&B>=4?B/2:B;let chords=null,style=o.style;
+ if(o.method==='ai'){log('AI に鼻歌を聞かせて、コード進行と曲調を考えてもらっています…');
+  try{const r=await h2sAskAI(c,mel,q0,q1,key,step);if(r.chords.length){chords=r.chords;if(H2S_STYLES.some(x=>x[0]===r.style))style=r.style;log(`AI: ${r.genre||''} ${r.mood?'・'+r.mood:''} ${r.comment?'／ '+r.comment:''}`.trim())}else log('AI の返事にコードがなかったので、DAW の中で付けます')}
+  catch(e){log('AI に聞けませんでした（'+e.message+'）。DAW の中で付けます')}}
+ if(!chords)chords=h2sHarmonize(mel,q0,q1,key,step);
+ log('コード: '+chords.map(x=>chordName(x.ch)).join(' → '));
+ const ST=H2S_STYLES.find(x=>x[0]===style)||H2S_STYLES[0];
+ if(style==='waltz'&&!(S.sig.n===3))log('（ワルツは 3 拍子の曲で使ってください。今の拍子のまま作ります）');
+ await histGroup(async()=>{
+  S.key.root=key.root;S.key.mode=key.mode;
+  const at=src?S.tracks.indexOf(src)+1:S.tracks.length,made=[];
+  const mk=(type,name,tone,vol,notes,clip)=>{const t=newTrack(type);t.name=name;if(tone)t.tone=tone;t.vol=vol;t.color=TRACK_COLORS[(at+made.length)%TRACK_COLORS.length];if(notes&&notes.length)fillWrite(t,q0,q1,notes,clip);made.push(t);return t};
+  if(o.parts.chords){const g=newTrack('chord');g.name='コード（鼻歌から）';g.tone='smp_rhodes';g.vol=-14;g.guide=!o.parts.keys?false:true;g.mute=!!o.parts.keys;g.color=TRACK_COLORS[5];
+   g.clips=[{id:uid('c'),start:q0,len:q1-q0,name:'鼻歌のコード',chords:chords.map(x=>({s:x.a-q0,l:x.b-x.a,root:x.ch.root,q:x.ch.q,bass:x.ch.bass}))}];made.push(g)}
+  if(o.parts.melody)mk('midi','メロディ（鼻歌から）',o.melTone,-8,mel,'鼻歌のメロディ');
+  if(o.parts.drums&&ST[2]!=='none')mk('drum','ドラム','kit_vd',-10,genDrumsMeter(q0,q1,{style:ST[2]||'auto'}),ST[1]);
+  if(o.parts.bass)mk('midi','ベース','smp_upright',-9,genBassMeter(chords,q0,q1,{style:style==='ballad'?'root4':''}),'ベース');
+  if(o.parts.keys)mk('midi',style==='folk'?'アコースティックギター':'鍵盤（伴奏）',style==='folk'?'tj_guitar-acoustic':'smp_sal_hq',-12,genCompMeter(chords,q0,q1,style==='folk'?'guitar':'keys',ST[3]),'伴奏');
+  S.tracks.splice(at,0,...made);
+  if(src&&o.muteHum)src.mute=true;
+  if(q1/B>S.bars)S.bars=Math.ceil(q1/B);
+  for(const t of made)if(t.tone)try{instLoad(t.tone)}catch(e){}
+  renderAll();syncTop&&syncTop();checkHistory();
+ });
+ log('✓ できました。メロディ・コード・伴奏のトラックを足しました（元に戻す: Ctrl+Z）');
+ return{mel,chords,key};
+}
+function openHum2Song(clipId){
+ const st={clip:clipId||null,rec:false};
+ const box=el('div',{class:'h2sdlg'}),log=el('div',{class:'s2mlog'});
+ const clips=()=>S.tracks.filter(t=>t.type==='audio').flatMap(t=>t.clips.filter(c=>c.buf).map(c=>({t,c})));
+ const pickSel=el('select',{'aria-label':'鼻歌のオーディオ'});
+ const refill=()=>{const L=clips();if(!st.clip&&L.length)st.clip=(L.find(x=>x.c.id===S.selClip)||L[L.length-1]).c.id;pickSel.replaceChildren(...(L.length?L.map(x=>el('option',{value:x.c.id,selected:x.c.id===st.clip},`${x.t.name} / ${x.c.name||'クリップ'}（${x.c.dur.toFixed(1)} 秒）`)):[el('option',{value:''},'（まだありません。下で録音するか、ファイルを読み込んでください）')]))};
+ pickSel.addEventListener('change',()=>st.clip=pickSel.value);
+ const recBtn=el('button',{class:'recbtn'},'● 鼻歌を録音（メトロノームに合わせて）');
+ recBtn.addEventListener('click',()=>{
+  if(S.recording){toggleRecord();return}
+  let t=S.tracks.find(x=>x.type==='audio'&&x.name==='鼻歌');if(!t){t=newTrack('audio');t.name='鼻歌';t.inProf='vo';S.tracks.push(t)}
+  S.tracks.forEach(x=>x.arm=x===t);S.sel=t.id;setPos(0);S.metro=true;renderAll();
+  const before=new Set(t.clips.map(c=>c.id));toggleRecord();recBtn.textContent='■ 録音を止める';
+  const w=setInterval(()=>{if(S.recording)return;clearInterval(w);recBtn.textContent='● 鼻歌を録音（メトロノームに合わせて）';const nc=t.clips.find(c=>!before.has(c.id)&&c.buf);if(nc){st.clip=nc.id;refill();toast('録れました。「🎼 作曲する」を押してください')}},300);
+ });
+ const fileBtn=el('button',{onclick:()=>{const n=S.tracks.length;openAudioImport();const w=setInterval(()=>{if(S.tracks.length>n){clearInterval(w);const t=S.tracks[S.tracks.length-1];const c=t.clips[0];if(c){c.start=0;st.clip=c.id;renderAll();refill()}}},300);setTimeout(()=>clearInterval(w),120000)}},'📂 ファイルから');
+ const R=(k,v,l)=>{const r=el('input',{type:'radio',name:'h2s_'+k,value:v});r.checked=H2S[k]===v;r.addEventListener('change',()=>{H2S[k]=v;h2sSave()});return el('label',{class:'lyrck'},r,' '+l)};
+ const S2=(k,list)=>{const s=el('select',{},...list.map(([v,l])=>el('option',{value:v,selected:String(H2S[k])===String(v)},l)));s.addEventListener('change',()=>{H2S[k]=isNaN(+s.value)||s.value===''?s.value:+s.value;h2sSave()});return s};
+ const CK=(k,l)=>{const c=el('input',{type:'checkbox'});c.checked=!!H2S.parts[k];c.addEventListener('change',()=>{H2S.parts[k]=c.checked;h2sSave()});return el('label',{class:'lyrck'},c,' '+l)};
+ const mute=el('input',{type:'checkbox'});mute.checked=H2S.muteHum;mute.addEventListener('change',()=>{H2S.muteHum=mute.checked;h2sSave()});
+ const go=el('button',{class:'pri'},'🎼 作曲する');
+ go.addEventListener('click',async()=>{const f=st.clip&&findClip(st.clip);if(!f||!f.c.buf){toast('先に鼻歌を録音するか、オーディオを選んでください');return}
+  go.disabled=true;log.replaceChildren();const L=m=>log.append(el('div',{},'・'+m));
+  try{await hum2song(f.c,{...H2S},L)}catch(e){L('✕ '+e.message)}finally{go.disabled=false}});
+ box.append(
+  el('h4',{},'① 鼻歌'),el('div',{class:'mrow'},pickSel),el('div',{class:'mrow'},recBtn,fileBtn,el('span',{class:'dim'},'「ふふふ」「ラララ」など、はっきり歌うとよく取れます。テンポは今の '+Math.round(S.bpm)+' BPM（上のテンポで変えられます）')),
+  el('h4',{},'② 音符にする'),
+  el('div',{class:'mrow'},el('span',{},'声'),S2('range',[['vocalM','男声（C3〜G5）'],['vocalF','女声（G3〜C6）'],['inst','口笛・楽器']]),el('span',{},'細かさ'),S2('grid',[[.5,'8 分音符'],[.25,'16 分音符']]),el('span',{},'キー'),S2('keyMode',[['auto','自動で推定'],['keep','今のキーのまま']])),
+  el('h4',{},'③ コードと伴奏'),
+  el('div',{class:'mrow'},el('span',{},'付け方'),R('method','pattern','パターン（DAW の中で・速い・無料）'),R('method','ai','AI（鼻歌を聞かせて提案）')),
+  el('div',{class:'mrow'},el('span',{},'コードの変わる間隔'),S2('chordRate',[['bar','1 小節ごと'],['half','2 拍ごと']]),el('span',{},'スタイル'),S2('style',H2S_STYLES.map(x=>[x[0],x[1]])),el('span',{},'メロディの楽器'),S2('melTone',[['tj_flute','フルート'],['smp_sal_hq','ピアノ'],['tj_saxophone','サックス'],['tj_violin','バイオリン'],['waf_oohs','声（ウー）'],['tj_guitar-acoustic','アコギ']])),
+  el('div',{class:'mrow'},el('span',{},'作るもの'),CK('melody','メロディ'),CK('chords','コード'),CK('drums','ドラム'),CK('bass','ベース（ウッドベース）'),CK('keys','伴奏（鍵盤／アコギ）')),
+  el('label',{class:'lyrck'},mute,' 元の鼻歌はミュートする（トラックは残ります）'),
+  el('div',{class:'mrow'},go),log,
+  el('div',{class:'hint'},'できたメロディはピアノロールで、コードは一番上のコードの列で直せます。AI で付けるときは「🧠 AI のモデル」の「音声の解析」のモデルを使います。'));
+ refill();openModal('🎙 鼻歌から作曲',box);document.querySelector('.modal').classList.add('wide');
+}
+FS_FEAT.push(['鼻歌から作曲','鼻歌を録音（またはオーディオを選ぶ）すると、メロディを音符にして、キーを推定し、合うコード・ドラム・ベース・伴奏まで作ります（パターン または AI）','上のバーの「🎙 鼻歌から作曲」、オーディオのクリップの右クリック',()=>openHum2Song(),null,'鼻歌 ハミング 作曲 メロディ 自動伴奏 コード付け ハモ 歌から']);
+/* 上のバーにボタン、オーディオの右クリックにも */
+{const tb=document.getElementById('fAudioIn');if(tb&&!document.getElementById('fHum')){const b=el('button',{id:'fHum',class:'fb',title:'鼻歌を録音して、メロディ・コード・伴奏を作る'},'🎙 鼻歌から作曲');b.addEventListener('click',()=>openHum2Song());tb.after(b)}}
+{const _ci=nfClipItems;nfClipItems=function(id){const L=_ci(id);try{const f=findClip(id);if(f&&f.c.buf)L.push(['🎙 この鼻歌から作曲（メロディ・コード・伴奏）…',()=>openHum2Song(id)])}catch(e){}return L}}
+/* =====================================================================
+   🎸 ソロを作る
+   ・範囲: 選んだ区間 ／ ループの範囲 ／ 小節を指定
+   ・スケール: コードに合わせて自動 ／ ペンタトニック・ブルース・ドリアン・ミクソリディアン・和風 など
+   ・組み立て（パターン）: モチーフ展開・問いと答え・だんだん盛り上がる・アルペジオ・ブルースのリック・速いラン
+   ・細かさ: 4 分〜16 分・3 連（1〜5）
+   ・ニュアンス: 装飾音（前打音）・すべり込み・間（休符）・アクセント・揺れ・スタッカート/レガート
+   ・作り方: パターン（DAW の中で）／ AI（コードとスケールを伝えて、音符を JSON で作ってもらう）
+   ===================================================================== */
+const SOLO=Object.assign({scale:'auto',pattern:'motif',density:3,space:2,grace:true,slide:true,accent:true,human:true,legato:'normal',method:'pattern',tone:'tj_saxophone',seed:1},(()=>{try{return JSON.parse(localStorage.getItem('daw.solo')||'{}')}catch(e){return{}}})());
+function soloSave(){try{localStorage.setItem('daw.solo',JSON.stringify(SOLO))}catch(e){}}
+const SOLO_SCALES={auto:['自動（コードとキーに合わせる）',null],majpenta:['メジャー・ペンタトニック',[0,2,4,7,9]],minpenta:['マイナー・ペンタトニック',[0,3,5,7,10]],blues:['ブルース',[0,3,5,6,7,10]],
+ major:['メジャー（イオニアン）',[0,2,4,5,7,9,11]],minor:['ナチュラル・マイナー',[0,2,3,5,7,8,10]],dorian:['ドリアン',[0,2,3,5,7,9,10]],mixo:['ミクソリディアン',[0,2,4,5,7,9,10]],harm:['ハーモニック・マイナー',[0,2,3,5,7,8,11]],
+ yona:['和風（ヨナ抜き）',[0,2,4,7,9]],ryukyu:['琉球（沖縄）',[0,4,5,7,11]],miyako:['都節（和風・短調）',[0,1,5,7,8]]};
+const SOLO_PATS={motif:['モチーフ展開（短い動機を少しずつ変えて繰り返す）'],callres:['問いと答え（2 小節で問い → 2 小節で答え）'],climb:['だんだん盛り上がる（音域と細かさが上がっていく）'],arp:['アルペジオ（コードの音を上下に）'],blues:['ブルースのリック（3 連・すべり込み・同じ音のくり返し）'],run:['速いラン（スケールを駆け上がる・駆け下りる）']};
+const SOLO_TONES=[['tj_saxophone','サックス'],['waf_clean_gtr','エレキギター（クリーン）'],['tj_guitar-acoustic','アコースティックギター'],['tj_flute','フルート'],['tj_trumpet','トランペット'],['tj_violin','バイオリン'],['smp_sal_hq','ピアノ'],['smp_rhodes','ローズ'],['waf_lead_saw','シンセ・リード'],['waf_harmonica','ハーモニカ']];
+const SOLO_RANGE={tj_saxophone:[58,82],waf_clean_gtr:[57,86],'tj_guitar-acoustic':[52,81],tj_flute:[67,93],tj_trumpet:[58,82],tj_violin:[60,93],smp_sal_hq:[60,88],smp_rhodes:[57,84],waf_lead_saw:[60,88],waf_harmonica:[60,84]};
+/* その時点で使う音（スケール） */
+function soloPcs(o,ch){
+ const r=S.key.root;
+ if(o.scale!=='auto'){const iv=SOLO_SCALES[o.scale][1];const base=['blues','minpenta','dorian','minor','harm','miyako'].includes(o.scale)&&S.key.mode==='major'?(r+9)%12:r;return iv.map(i=>(base+i)%12)}
+ /* 自動: キーの音階 ＋ 今のコードの音。ドミナント 7 ではミクソリディアン寄り */
+ const sc=(S.key.mode==='minor'?SCALES.minor:SCALES.major).map(i=>(r+i)%12);
+ if(!ch)return sc;const s=new Set(sc);for(const p of ch.pcs)s.add(p);
+ if(ch&&CHORD_Q[ch.q]&&CHORD_Q[ch.q].iv.includes(10)&&CHORD_Q[ch.q].iv.includes(4)){s.delete((ch.root+11)%12);s.add((ch.root+10)%12)}
+ return[...s];
+}
+/* 細かさ → リズム（1 拍の中の区切り） */
+function soloRhythm(rnd,dens,beat){
+ const opts=[[[0,1]],[[0,.5],[.5,.5]],[[0,.75],[.75,.25]],[[0,1/3],[1/3,1/3],[2/3,1/3]],[[0,.25],[.25,.25],[.5,.25],[.75,.25]],[[0,.5],[.5,.25],[.75,.25]],[[0,.25],[.25,.25],[.5,.5]]];
+ const w=[[6,2,1,0,0,0,0],[3,5,2,1,0,1,1],[1,4,2,2,1,2,2],[0,2,1,2,3,2,2],[0,1,0,2,5,2,2]][clamp(dens,1,5)-1];
+ let t=w.reduce((a,b)=>a+b,0)*rnd(),k=0;while(k<w.length-1&&(t-=w[k])>0)k++;return opts[k].map(([s,l])=>[s*beat,l*beat]);
+}
+function soloGenPattern(o,q0,q1,chords){
+ const rnd=rngOf(o.seed*7919+q0*13+1),B=qpbar(),beat=qpb(),[lo,hi]=SOLO_RANGE[o.tone]||[60,84],out=[];
+ const poolAt=q=>{const ch=chordPcsAt(chords,q),pcs=soloPcs(o,ch),ps=[];for(let p=lo;p<=hi;p++)if(pcs.includes(p%12))ps.push(p);return{ch,ps}};
+ const near=(ps,p)=>ps.reduce((b,x)=>Math.abs(x-p)<Math.abs(b-p)?x:b,ps[0]);
+ const bars=Math.max(1,Math.round((q1-q0)/B));let prev=Math.round(lo+(hi-lo)*.4),dir=1;
+ let motif=null;   // [[拍内の位置,長さ,音程の動き]]
+ for(let b=0;b<bars;b++){
+  const s0=q0+b*B,prog=bars>1?b/(bars-1):0,phrase=b%4,isEnd=phrase===3||b===bars-1;
+  let dens=o.density;if(o.pattern==='climb')dens=clamp(Math.round(1+prog*4+(o.density-3)*.5),1,5);if(o.pattern==='run'&&phrase%2===1)dens=5;
+  const top=o.pattern==='climb'?lo+(hi-lo)*(.55+.45*prog):hi;
+  /* 1 小節分のリズム（間＝休符を入れる） */
+  let rhy=[];for(let k=0;k<S.sig.n;k++){const r=soloRhythm(rnd,dens,beat);for(const [s,l] of r)rhy.push([k*beat+s,l])}
+  const restP=[0,.08,.18,.3,.42][clamp(o.space,0,4)];
+  if(isEnd&&o.pattern!=='run'){const cut=B*(rnd()<.5?.5:.62);rhy=rhy.filter(x=>x[0]<cut);if(rhy.length){const l=rhy[rhy.length-1];l[1]=Math.max(l[1],B-l[0]-beat*.5)}}
+  if(o.pattern==='callres'&&phrase===1){rhy=rhy.filter(x=>x[0]<B*.55)}
+  /* モチーフ: 最初の小節で作って、あとで音程をずらして使う */
+  let useMot=false;if((o.pattern==='motif'||o.pattern==='callres')&&motif&&(phrase===1||phrase===2)&&rnd()<.75){rhy=motif.map(m=>[m[0],m[1]]);useMot=true}
+  const steps=[];
+  rhy.forEach(([s,l],i)=>{
+   if(i>0&&rnd()<restP&&o.pattern!=='run'&&!useMot)return;
+   const q=s0+s,{ch,ps}=poolAt(q);if(!ps.length)return;
+   let p;
+   if(o.pattern==='arp'&&ch){const ct=[];for(let x=lo;x<=top;x++)if(ch.pcs.includes(x%12))ct.push(x);const i0=ct.indexOf(near(ct,prev));p=ct[clamp(i0+dir,0,ct.length-1)];if(p===ct[0]||p===ct[ct.length-1])dir=-dir}
+   else if(o.pattern==='run'&&phrase%2===1){const i0=ps.indexOf(near(ps,prev));p=ps[clamp(i0+dir,0,ps.length-1)];if(p>=top-1||p<=lo+1)dir=-dir}
+   else if(useMot&&motif){const m=motif[i]||[0,0,0];p=near(ps,prev+m[2]+(phrase===2?(rnd()<.5?2:-2):0))}
+   else if(o.pattern==='blues'&&i%3===2&&rnd()<.5){p=prev}
+   else{const jump=rnd()<.72?(rnd()<.6?1:2):(rnd()<.5?3:4);const i0=ps.indexOf(near(ps,prev));p=ps[clamp(i0+jump*dir,0,ps.length-1)];if(rnd()<.22)dir=-dir}
+   if(p>top){p=near(ps.filter(x=>x<=top),top);dir=-1}if(p>=hi-1)dir=-1;if(p<=lo+1)dir=1;
+   /* 強拍・長い音はコードの音に */
+   const strong=Math.abs(s/beat-Math.round(s/beat))<1e-6&&Math.round(s/beat)%2===0;
+   if(ch&&(strong||l>=beat*1.5)&&!ch.pcs.includes(p%12)){const ct=ps.filter(x=>ch.pcs.includes(x%12));if(ct.length)p=near(ct,p)}
+   /* フレーズの最後はコードの根音か 3 度で落ち着く */
+   if(isEnd&&i===rhy.length-1&&ch){const ct=ps.filter(x=>x%12===ch.root%12||x%12===ch.pcs[1]);if(ct.length)p=near(ct,p)}
+   steps.push({q,l,p,v:strong?96:84,dp:p-prev});prev=p;
+  });
+  if(!motif&&(o.pattern==='motif'||o.pattern==='callres')&&steps.length>=2){motif=steps.map(x=>[x.q-s0,x.l,x.dp])}
+  for(const x of steps){
+   let l=x.l*(o.legato==='staccato'?.5:o.legato==='legato'?1:.88),v=x.v;
+   if(o.accent){if(Math.abs((x.q-s0)/beat%1)<1e-6&&Math.round((x.q-s0)/beat)%2===1)v+=8;if(x.l<beat*.3)v-=8}
+   if(o.human){v+=Math.round((rnd()-.5)*10)}
+   const q=x.q+(o.human?(rnd()-.5)*.02:0);
+   /* 装飾音: 長めの音の前に、上か下の音を短く */
+   if(o.grace&&x.l>=beat*.75&&rnd()<.35&&q-q0>.1){let g=x.p+(rnd()<.6?-1:2);if(g<lo)g=x.p+2;if(g>hi)g=x.p-1;out.push({p:g,q:q-.08,l:.07,v:v-18})}
+   /* すべり込み: 半音下から（ブルース・サックス・ギターらしく） */
+   else if(o.slide&&x.p-1>=lo&&x.l>=beat*.5&&rnd()<(o.pattern==='blues'?.45:.18)&&q-q0>.1){out.push({p:x.p-1,q:q-.06,l:.06,v:v-14})}
+   out.push({p:x.p,q,l:Math.max(.06,l),v:clamp(v,40,124)});
+  }
+ }
+ return out.filter(n=>n.q>=q0-.1&&n.q<q1).sort((a,b)=>a.q-b.q);
+}
+async function soloGenAI(o,q0,q1,chords){
+ const B=qpbar(),[lo,hi]=SOLO_RANGE[o.tone]||[60,84],bars=Math.round((q1-q0)/B);
+ const chTxt=chords.filter(c=>c.b>q0&&c.a<q1).map(c=>`${Math.floor((Math.max(c.a,q0)-q0)/B)+1}小節${(((Math.max(c.a,q0)-q0)%B)+1).toFixed(1)}拍〜:${chordName(c.ch)}`).join(' ');
+ const scName=o.scale==='auto'?'コードに合わせて自由に':SOLO_SCALES[o.scale][0];
+ const prompt=`${bars} 小節のソロ（アドリブ）を作ってください。楽器: ${(SOLO_TONES.find(x=>x[0]===o.tone)||['','楽器'])[1]}（音域 MIDI ${lo}〜${hi}）。テンポ ${Math.round(S.bpm)} BPM、${S.sig.n}/${S.sig.d} 拍子、キー ${NOTE_NAMES[S.key.root]}${S.key.mode==='minor'?' マイナー':' メジャー'}、スウィング ${S.swing}%。\n`+
+  `コード: ${chTxt}\nスケール: ${scName}。組み立て: ${SOLO_PATS[o.pattern][0]}。細かさ: ${['ゆったり（4 分中心）','やや少なめ（8 分中心）','ふつう（8 分＋16 分）','細かい（16 分・3 連多め）','とても細かい（16 分のラン）'][o.density-1]}。間（休符）: ${['ほぼなし','少し','ふつう','多め','たっぷり'][o.space]}。\n`+
+  `ニュアンス: ${[o.grace&&'装飾音（短い前打音）',o.slide&&'半音下からのすべり込み',o.accent&&'アクセント',o.legato==='staccato'?'短く切る':o.legato==='legato'?'つなげて':'' ].filter(Boolean).join('・')||'なし'}。強拍やフレーズの終わりはコードの音に。\n`+
+  `返事は JSON だけ: {"notes":[{"bar":1から,"beat":1から（小数可・1.5 は 1 拍目の裏）,"len":拍の数,"pitch":MIDI 番号,"vel":1〜127}],"comment":"ひとこと（日本語・漢字かな交じり）"}`;
+ const j=await aiCall({action:'task',prompt});
+ const L=(j.data&&Array.isArray(j.data.notes))?j.data.notes:[];
+ const out=[];for(const n of L){const bar=+n.bar,bt=+n.beat,len=+n.len;let p=Math.round(+n.pitch);if(!(bar>=1&&bt>=1&&len>0&&p>0))continue;while(p<lo)p+=12;while(p>hi)p-=12;const q=q0+(bar-1)*B+(bt-1);if(q>=q1)continue;out.push({p,q,l:Math.min(len,q1-q),v:clamp(Math.round(+n.vel||96),30,127)})}
+ if(!out.length)throw new Error('AI の返事に音符がありませんでした');
+ return{notes:out,comment:j.data&&j.data.comment};
+}
+function soloRange(){
+ const B=qpbar();
+ if(S.loop&&S.loop.on&&S.loop.end>S.loop.start)return[S.loop.start,S.loop.end,'ループの範囲'];
+ const sec=secRanges().find(r=>S.pos>=r.q0-1e-6&&S.pos<r.q1-1e-6);if(sec)return[sec.q0,sec.q1,'区間「'+sec.s.name+'」'];
+ const a=Math.floor((S.pos||0)/B)*B;return[a,a+8*B,'再生位置から 8 小節'];
+}
+function openSoloGen(){
+ const B=qpbar();let [q0,q1,lab]=soloRange();
+ const box=el('div',{class:'solodlg'}),log=el('div',{class:'s2mlog'});
+ const fromI=el('input',{type:'number',min:1,value:q0/B+1,style:'width:64px'}),toI=el('input',{type:'number',min:1,value:q1/B,style:'width:64px'});
+ const secSel=el('select',{},el('option',{value:''},'— 区間から選ぶ —'),...secRanges().map((r,i)=>el('option',{value:i},`${r.s.name}（${r.q0/B+1}〜${r.q1/B} 小節）`)));
+ secSel.addEventListener('change',()=>{const r=secRanges()[+secSel.value];if(r){fromI.value=r.q0/B+1;toI.value=r.q1/B}});
+ const S2=(k,list,num)=>{const s=el('select',{},...list.map(([v,l])=>el('option',{value:v,selected:String(SOLO[k])===String(v)},l)));s.addEventListener('change',()=>{SOLO[k]=num?+s.value:s.value;soloSave()});return s};
+ const CK=(k,l)=>{const c=el('input',{type:'checkbox'});c.checked=!!SOLO[k];c.addEventListener('change',()=>{SOLO[k]=c.checked;soloSave()});return el('label',{class:'lyrck'},c,' '+l)};
+ const R=(k,v,l)=>{const r=el('input',{type:'radio',name:'solo_'+k,value:v});r.checked=SOLO[k]===v;r.addEventListener('change',()=>{SOLO[k]=v;soloSave()});return el('label',{class:'lyrck'},r,' '+l)};
+ const dens=el('input',{type:'range',min:1,max:5,step:1,value:SOLO.density}),dv=el('b',{},'');const dl=['4 分中心','8 分中心','ふつう','16 分・3 連','とても細かい'];const du=()=>dv.textContent=dl[SOLO.density-1];dens.addEventListener('input',()=>{SOLO.density=+dens.value;du();soloSave()});du();
+ const sp=el('input',{type:'range',min:0,max:4,step:1,value:SOLO.space}),sv=el('b',{},'');const sl=['ほぼなし','少し','ふつう','多め','たっぷり'];const su=()=>sv.textContent=sl[SOLO.space];sp.addEventListener('input',()=>{SOLO.space=+sp.value;su();soloSave()});su();
+ const trSel=el('select',{},el('option',{value:'new'},'新しいトラックに作る'),...S.tracks.filter(t=>t.type==='midi'&&!t.drum).map(t=>el('option',{value:t.id},'「'+t.name+'」に入れる（範囲の中は書き換え）')));
+ const go=el('button',{class:'pri'},'🎸 ソロを作る'),again=el('button',{},'🎲 別の案');
+ const run=async(newSeed)=>{
+  if(newSeed){SOLO.seed=Math.floor(Math.random()*1e6);soloSave()}
+  const a=(Math.max(1,+fromI.value)-1)*B,b=Math.max(a+B,(+toI.value)*B);const chords=fillChords();
+  log.replaceChildren();const L=m=>log.append(el('div',{},'・'+m));
+  if(!chords.length){L('✕ コード進行がありません。一番上のコードの列か、コードトラックにコードを入れてください');return}
+  go.disabled=again.disabled=true;
+  try{let notes,comment=null;
+   if(SOLO.method==='ai'){L('AI にソロを考えてもらっています…');try{const r=await soloGenAI(SOLO,a,b,chords);notes=r.notes;comment=r.comment}catch(e){L('AI で作れませんでした（'+e.message+'）。パターンで作ります');notes=soloGenPattern(SOLO,a,b,chords)}}
+   else notes=soloGenPattern(SOLO,a,b,chords);
+   await histGroup(async()=>{let t=trSel.value!=='new'&&S.tracks.find(x=>x.id===trSel.value);
+    if(!t){t=newTrack('midi');t.name='ソロ（'+(SOLO_TONES.find(x=>x[0]===SOLO.tone)||['',''])[1]+'）';t.tone=SOLO.tone;t.vol=-8;t.color=TRACK_COLORS[4];t.fx=[smpFx('eq',{hp:150}),smpFx('reverb',{mix:.14,decay:1.6,pre:.015,tone:8000})];S.tracks.push(t);S.sel=t.id;trSel.append(el('option',{value:t.id,selected:true},'「'+t.name+'」に入れる（範囲の中は書き換え）'))}
+    fillWrite(t,a,b,notes,'ソロ');try{instLoad(t.tone)}catch(e){}renderAll();checkHistory()});
+   L(`${notes.length} 音のソロを作りました（${a/B+1}〜${b/B} 小節・${SOLO_PATS[SOLO.pattern][0].split('（')[0]}・${SOLO_SCALES[SOLO.scale][0]}）`);if(comment)L('AI: '+comment);
+  }catch(e){L('✕ '+e.message)}finally{go.disabled=again.disabled=false}
+ };
+ go.addEventListener('click',()=>run(false));again.addEventListener('click',()=>run(true));
+ box.append(
+  el('div',{class:'mrow'},el('span',{},'範囲'),fromI,el('span',{},'〜'),toI,el('span',{},'小節'),secSel,el('span',{class:'dim'},'（初めは '+lab+'）')),
+  el('div',{class:'mrow'},el('span',{},'楽器'),S2('tone',SOLO_TONES),trSel),
+  el('div',{class:'mrow'},el('span',{},'スケール'),S2('scale',Object.entries(SOLO_SCALES).map(([k,v])=>[k,v[0]]))),
+  el('div',{class:'mrow'},el('span',{},'組み立て'),S2('pattern',Object.entries(SOLO_PATS).map(([k,v])=>[k,v[0]]))),
+  el('div',{class:'mrow'},el('span',{},'細かさ'),dens,dv,el('span',{},'間（休符）'),sp,sv),
+  el('div',{class:'mrow'},el('span',{},'ニュアンス'),CK('grace','装飾音（前打音）'),CK('slide','すべり込み'),CK('accent','アクセント'),CK('human','人間らしい揺れ'),S2('legato',[['normal','ふつう'],['legato','つなげる（レガート）'],['staccato','短く切る（スタッカート）']])),
+  el('div',{class:'mrow'},el('span',{},'作り方'),R('method','pattern','パターン（速い・無料・何度でも）'),R('method','ai','AI（コードとスケールを伝えて作ってもらう）')),
+  el('div',{class:'mrow'},go,again),log,
+  el('div',{class:'hint'},'コードは一番上のコードの列（またはコードトラック）から読みます。「🎲 別の案」で同じ設定のまま別のフレーズに。AI は「🧠 AI のモデル」の「作詞・作曲」のモデルを使います。'));
+ openModal('🎸 ソロを作る',box);document.querySelector('.modal').classList.add('wide');
+}
+FS_FEAT.push(['ソロを作る（アドリブ）','コード進行に合わせて、ソロ（アドリブ）を作ります。スケール・組み立て（モチーフ展開・問いと答え・盛り上がり・アルペジオ・ブルース・ラン）・細かさ・間・ニュアンスを選べます（パターン または AI）','区間・トラックの右クリック、またはここから',()=>openSoloGen(),null,'ソロ アドリブ リード フレーズ ペンタトニック ブルース スケール 即興 ギターソロ サックス']);
+/* 区間の右クリック・MIDI トラックの右クリックにも */
+{const _tm=trackMenu;trackMenu=function(x,y,t){const sm=showMenu;showMenu=function(a,b,items){showMenu=sm;return sm(a,b,t&&t.type==='midi'&&!t.drum?[...items,'-',['🎸 ソロを作る…',()=>openSoloGen()]]:items)};try{return _tm(x,y,t)}finally{showMenu=sm}}}
+{const _sm=typeof secMenu==='function'?secMenu:null;if(_sm)secMenu=function(e,s){const sm=showMenu;showMenu=function(a,b,items){showMenu=sm;return sm(a,b,[...items,'-',['🎸 この区間にソロを作る…',()=>{const r=secRanges().find(x=>x.s===s);if(r){S.pos=r.q0}openSoloGen()}]])};try{return _sm(e,s)}finally{showMenu=sm}}}
+/* =====================================================================
+   🥁 ドラムの鍵盤の割り当て（ドラムマップ）
+   ドラムトラックの「⋯」（トラックメニュー）から開く。どの鍵盤（音の高さ）が、バスドラ・スネア・ハイハット…なのかを
+   一覧と鍵盤の図で表示。クリックで試聴、このトラックで使っている音には印、今のキットに音がない所も分かる
+   ===================================================================== */
+const GM_DRUM_JA={35:'アコースティック・バスドラム',36:'バスドラム（キック）',37:'サイドスティック（リム）',38:'スネア',39:'ハンドクラップ（手拍子）',40:'エレクトリック・スネア',41:'フロアタム（低）',42:'ハイハット（閉じ）',43:'フロアタム（高）',44:'ハイハット（ペダル）',45:'ロータム',46:'ハイハット（開き）',47:'ミッドタム（低）',48:'ミッドタム（高）',49:'クラッシュ・シンバル 1',50:'ハイタム',51:'ライド・シンバル 1',52:'チャイナ・シンバル',53:'ライド・ベル',54:'タンバリン',55:'スプラッシュ・シンバル',56:'カウベル',57:'クラッシュ・シンバル 2',58:'ビブラスラップ',59:'ライド・シンバル 2',60:'ボンゴ（高）',61:'ボンゴ（低）',62:'コンガ（ミュート）',63:'コンガ（高）',64:'コンガ（低）',65:'ティンバレス（高）',66:'ティンバレス（低）',67:'アゴゴ（高）',68:'アゴゴ（低）',69:'カバサ',70:'マラカス',71:'ホイッスル（短）',72:'ホイッスル（長）',73:'ギロ（短）',74:'ギロ（長）',75:'クラベス',76:'ウッドブロック（高）',77:'ウッドブロック（低）',78:'クイーカ（ミュート）',79:'クイーカ（開き）',80:'トライアングル（ミュート）',81:'トライアングル（開き）'};
+const GM_DRUM_GROUP=[['キック・スネア',[35,36,37,38,39,40]],['ハイハット・シンバル',[42,44,46,49,51,52,53,55,57,59]],['タム',[41,43,45,47,48,50]],['パーカッション',[54,56,58,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81]]];
+const PC_KEY_OF=(()=>{const m={};for(const [code,d] of Object.entries(KEYMAP))m[d]=code.replace('Key','');return m})();
+function dmHasSample(t,p){const tn=toneById(t.tone||'');if(!tn||!tn.map)return null;return!!tn.map[p]}
+function dmPlay(t,p){try{ensureAudio();const v=voice(t,p,100,AE.ctx.currentTime+.02);v.release(AE.ctx.currentTime+.6)}catch(e){}}
+function openDrumMap(t){
+ t=t||S.tracks.find(x=>x.id===S.sel);if(!t||!(t.drum||t.type==='drum')){toast('ドラムのトラックを選んでください');return}
+ const used={};for(const n of (typeof evNotesOf==='function'?evNotesOf(t):t.clips.flatMap(c=>c.notes||[])))used[n.p]=(used[n.p]||0)+1;
+ const kbBase=(S.kbOct+1)*12;
+ const pcKey=p=>{const d=p-kbBase;return d>=0&&d<=15?PC_KEY_OF[d]:''};
+ const row=p=>{const has=dmHasSample(t,p);return el('button',{class:'dmrow'+(used[p]?' used':'')+(has===false?' nos':''),title:'クリックで鳴らす',onclick:()=>dmPlay(t,p)},
+  el('span',{class:'dmn'},noteName(p)),el('span',{class:'dmm'},p),el('b',{class:'dmj'},GM_DRUM_JA[p]||'—'),
+  el('span',{class:'dmu'},used[p]?`この曲で ${used[p]} 回`:''),el('span',{class:'dmk'},pcKey(p)?'PC: '+pcKey(p):''),has===false?el('span',{class:'dmx'},'このキットに音なし（代わりの音）'):'')};
+ /* 鍵盤の図（35〜81）。白鍵・黒鍵に短い名前 */
+ const short={35:'B.D2',36:'キック',37:'リム',38:'スネア',39:'クラップ',40:'Sn2',41:'Ftom',42:'HH閉',43:'Ftom',44:'HHペ',45:'Ltom',46:'HH開',47:'Mtom',48:'Mtom',49:'Crash',50:'Htom',51:'Ride',52:'China',53:'Bell',54:'Tamb',55:'Splash',56:'Cow',57:'Crash2',58:'Vibra',59:'Ride2'};
+ const isB=p=>[1,3,6,8,10].includes(p%12),from=35,to=60,wk=[];for(let p=from;p<=to;p++)if(!isB(p))wk.push(p);
+ const ww=40,wh=120,W=wk.length*ww,svgNS='http://www.w3.org/2000/svg',sv=document.createElementNS(svgNS,'svg');sv.setAttribute('viewBox',`0 0 ${W} ${wh+4}`);sv.setAttribute('class','dmkb');sv.setAttribute('width',W);sv.setAttribute('height',wh+4);
+ const mk=(tag,a)=>{const e=document.createElementNS(svgNS,tag);for(const k in a)e.setAttribute(k,a[k]);return e};
+ const xOf=p=>!isB(p)?wk.indexOf(p)*ww:wk.indexOf(p-1)*ww+ww*.66;
+ const key=(p,b)=>{const g=mk('g',{class:'dmkey'+(b?' b':'')+(used[p]?' used':''),'data-p':p});g.append(mk('rect',{x:xOf(p),y:0,width:b?ww*.68:ww-1,height:b?wh*.6:wh,rx:3}));
+  const tx=mk('text',{x:xOf(p)+(b?ww*.34:ww/2-.5),y:b?wh*.6-24:wh-30,'text-anchor':'middle'});tx.textContent=short[p]||'';g.append(tx);
+  const nn=mk('text',{x:xOf(p)+(b?ww*.34:ww/2-.5),y:b?wh*.6-8:wh-10,'text-anchor':'middle',class:'nn'});nn.textContent=noteName(p);g.append(nn);
+  g.addEventListener('click',()=>dmPlay(t,p));const tt=mk('title',{});tt.textContent=`${noteName(p)}（${p}）: ${GM_DRUM_JA[p]||''}`;g.append(tt);return g};
+ for(const p of wk)sv.append(key(p,false));for(let p=from;p<=to;p++)if(isB(p))sv.append(key(p,true));
+ const box=el('div',{class:'dmdlg'},
+  el('div',{class:'hint'},`「${t.name}」（${(toneById(t.tone||'')||{}).name||t.tone||''}）の鍵盤の割り当てです。GM（General MIDI）の決まりと同じ並びです。鍵盤やリストをクリックすると鳴ります。黄色はこの曲で使っている音。`),
+  el('div',{class:'dmkbwrap'},sv),
+  ...GM_DRUM_GROUP.map(([g,ps])=>el('div',{class:'dmgrp'},el('h4',{},g),...ps.map(row))),
+  el('div',{class:'hint'},`MIDI キーボードの C1（36）がバスドラム、D1（38）がスネア、F#1（42）がハイハットです。PC のキーボード（仮想鍵盤 ON）では、今のオクターブ（C${S.kbOct}）から A=${noteName(kbBase)} として並びます（Z/X でオクターブを変えると、ドラムの音に届きます）。`));
+ openModal('🥁 鍵盤の割り当て（ドラムマップ）',box);document.querySelector('.modal').classList.add('wide');
+}
+FS_FEAT.push(['ドラムの鍵盤の割り当て（ドラムマップ）','ドラムトラックで、どの鍵盤がバスドラ・スネア・ハイハット…かを一覧と鍵盤の図で表示。クリックで試聴','ドラムトラックの「⋯」（トラックメニュー）',()=>openDrumMap(),null,'ドラムマップ 割り当て キック バスドラ スネア ハイハット 鍵盤 GM ノート番号']);
+/* ドラムトラックの「⋯」（トラックメニュー）の最初に */
+{const _tm=trackMenu;trackMenu=function(x,y,t){if(!t||!(t.drum||t.type==='drum'))return _tm(x,y,t);const sm=showMenu;showMenu=function(a,b,items){showMenu=sm;return sm(a,b,[['🥁 鍵盤の割り当て（ドラムマップ）を表示…',()=>openDrumMap(t)],'-',...items])};try{return _tm(x,y,t)}finally{showMenu=sm}}}
+/* =====================================================================
+   入力の小ささの補正
+   ① ボーカル（オーディオ入力）
+     ・入力ゲイン（デジタル）: 楽器の入力ごと（ボーカル／ギター…）に −6〜＋30 dB。モニターにも録音にも効く
+     ・「🎙 自動で合わせる」: 5 秒歌ってもらい、いちばん大きい所が −6 dB になるように決める
+     ・録り終わったとき、小さすぎる（ピーク −15 dB 未満）録音は、クリップの音量を自動で持ち上げる（−3 dB まで・元に戻せる）
+   ② 鍵盤（MIDI 機器）のベロシティ
+     ・カーブ: そのまま／軽いタッチでも大きく／自動（弾いた強さを覚えて、ふつうに弾くと 100 前後になるよう補正）／固定
+   ===================================================================== */
+const INFX=Object.assign({gain:{vo:6},autoRaise:true,velMode:'auto',velFixed:100,velHist:[]},(()=>{try{return JSON.parse(localStorage.getItem('daw.infix')||'{}')}catch(e){return{}}})());
+INFX.velHist=Array.isArray(INFX.velHist)?INFX.velHist.slice(-64):[];
+function infxSave(){try{localStorage.setItem('daw.infix',JSON.stringify({...INFX,velHist:INFX.velHist.slice(-64)}))}catch(e){}}
+function infxGainDb(){try{const p=curProf();return INFX.gain[p.id]??0}catch(e){return 0}}
+function infxApply(){try{if(cap&&cap.src&&AE.ctx)cap.src.gain.setTargetAtTime(dbToGain(infxGainDb()),AE.ctx.currentTime,.02)}catch(e){}}
+{const _ei=ensureInput;ensureInput=async function(...a){const r=await _ei.apply(this,a);infxApply();return r}}
+/* 自動で合わせる: いま入っている音を 5 秒測って、ピークが −6 dB になるゲインを決める */
+async function infxAutoCalib(sec,onProg){
+ await ensureInput();const an=cap.meterAn,buf=new Float32Array(an.fftSize),g0=infxGainDb();let pk=0,t0=performance.now();sec=sec||5;
+ while(performance.now()-t0<sec*1000){an.getFloatTimeDomainData(buf);for(const v of buf){const a=Math.abs(v);if(a>pk)pk=a}if(onProg)onProg((performance.now()-t0)/(sec*1000),pk);await new Promise(r=>setTimeout(r,50))}
+ if(pk<1e-4)throw new Error('音が入ってきませんでした（マイク・入力の機器・入力チャンネルを確かめてください）');
+ const raw=pk/dbToGain(g0),want=dbToGain(-6),db=Math.max(-6,Math.min(30,Math.round(20*Math.log10(want/raw)*2)/2));
+ const p=curProf();INFX.gain[p.id]=db;infxSave();infxApply();return{db,peakDb:20*Math.log10(pk),p};
+}
+/* 録り終わったら、小さすぎる録音を持ち上げる */
+{let was=false,before=new Set();setInterval(()=>{
+ if(S.recording&&!was){before=new Set(S.tracks.flatMap(t=>t.clips.map(c=>c.id)))}
+ if(!S.recording&&was&&INFX.autoRaise){setTimeout(()=>{try{for(const t of S.tracks){if(t.type!=='audio')continue;for(const c of t.clips){if(before.has(c.id)||!c.buf||c.gain)continue;const pk=mfPeakOf(c);if(pk<=0)continue;const db=20*Math.log10(pk);
+   if(db<-15){const up=Math.min(24,Math.round((-3-db)*2)/2);c.gain=up;renderLanes();checkHistory();toast(`録音が小さかったので、このクリップを +${up} dB 持ち上げました（いちばん大きい所 ${db.toFixed(1)} dB → −3 dB）。次から入力も大きくするには、設定の「入力ゲイン」→「🎙 自動で合わせる」`)}}}}catch(e){console.warn('録音の持ち上げ',e)}},600)}
+ was=!!S.recording},250)}
+/* ---------- 鍵盤のベロシティ ---------- */
+function infxVel(v){
+ v=+v||0;if(v<=0)return v;
+ if(INFX.velMode==='raw')return v;
+ if(INFX.velMode==='fixed')return INFX.velFixed;
+ if(INFX.velMode==='light')return Math.max(1,Math.min(127,Math.round(127*Math.pow(v/127,.6))));
+ /* 自動: これまでに弾いた強さ（上位 1 割）を覚えて、ふつうに強く弾くと 112 くらいになるように */
+ INFX.velHist.push(v);if(INFX.velHist.length>64)INFX.velHist.shift();
+ const h=[...INFX.velHist].sort((a,b)=>a-b);let p90=h[Math.floor(h.length*.9)]||v;if(h.length<8)p90=Math.max(p90,70);   // 弾き始めは控えめに
+ if(INFX.velHist.length%16===0)infxSave();
+ if(p90>=112)return v;   // もともと強く弾ける鍵盤はそのまま
+ /* 強弱の差は残したまま、ふだんの強さ（上位 1 割）が 112 になるように */
+ return Math.max(1,Math.min(127,Math.round(112*Math.pow(v/p90,.9))));
+}
+{const _om=onMidi;onMidi=function(ev){try{const d=ev.data,cmd=d[0]&0xf0;if(cmd===0x90&&d[2]>0){const v=infxVel(d[2]);return _om.call(this,{data:[d[0],d[1],v],target:ev.target,timeStamp:ev.timeStamp})}}catch(e){}return _om.call(this,ev)}}
+/* ---------- 設定（別窓）に ---------- */
+function infxPanel(){
+ const p=(()=>{try{return curProf()}catch(e){return{id:'vo',name:'ボーカル（マイク）'}}})();
+ const g=el('input',{type:'range',min:-6,max:30,step:.5,value:INFX.gain[p.id]??0,'aria-label':'入力ゲイン'}),gv=el('b',{},'');
+ const gu=()=>gv.textContent=(+g.value>0?'+':'')+g.value+' dB';gu();
+ g.addEventListener('input',()=>{INFX.gain[p.id]=+g.value;gu();infxApply()});g.addEventListener('change',infxSave);
+ const cal=el('button',{},'🎙 自動で合わせる（5 秒歌う）'),msg=el('span',{class:'dim'});
+ cal.addEventListener('click',async()=>{cal.disabled=true;try{const r=await infxAutoCalib(5,(f,pk)=>msg.textContent=`歌ってください… ${Math.round(f*100)}%（いま ${(20*Math.log10(Math.max(pk,1e-5))).toFixed(0)} dB）`);g.value=r.db;gu();msg.textContent=`✓ 「${r.p.name}」の入力ゲインを ${r.db>0?'+':''}${r.db} dB にしました`}catch(e){msg.textContent='✕ '+e.message}finally{cal.disabled=false}});
+ const ar=el('input',{type:'checkbox'});ar.checked=INFX.autoRaise;ar.addEventListener('change',()=>{INFX.autoRaise=ar.checked;infxSave()});
+ const vm=el('select',{'aria-label':'ベロシティ'},...[['auto','自動（弾いた強さを覚えて補正・おすすめ）'],['light','軽いタッチでも大きく'],['raw','そのまま（鍵盤の値）'],['fixed','いつも同じ強さ']].map(([v,l])=>el('option',{value:v,selected:INFX.velMode===v},l)));
+ vm.addEventListener('change',()=>{INFX.velMode=vm.value;infxSave()});
+ const vf=el('input',{type:'number',min:1,max:127,value:INFX.velFixed,style:'width:60px','aria-label':'固定のベロシティ'});vf.addEventListener('change',()=>{INFX.velFixed=clamp(+vf.value||100,1,127);infxSave()});
+ const reset=el('button',{onclick:()=>{INFX.velHist=[];infxSave();toast('覚えた強さを消しました（これから弾く強さで、また覚えます）')}},'覚えた強さを消す');
+ return el('div',{class:'infxbox'},
+  el('div',{class:'mrow'},el('span',{},`入力ゲイン（${p.name}）`),g,gv,cal,msg),
+  el('label',{class:'lyrck'},ar,' 録音が小さかったら、録り終わったときに自動で持ち上げる（ピーク −3 dB まで・Ctrl+Z で戻せる）'),
+  el('div',{class:'mrow'},el('span',{},'鍵盤のベロシティ'),vm,el('span',{class:'dim'},'固定の値'),vf,reset),
+  el('div',{class:'hint'},'入力ゲインは、録音するトラックの入力（ボーカル／ギター…）ごとに覚えます。オーディオインターフェースのつまみを上げられるなら、そちらを上げるのがいちばんきれいです。'));
+}
+{const _o=openDevWin;openDevWin=function(){const w=_o();try{const body=w.querySelector('.dwbody');if(body&&!body.querySelector('.infxbox')){const h=[...body.querySelectorAll('h4')].find(x=>/録音と再生/.test(x.textContent));const box=infxPanel();if(h)h.after(box);else body.append(box)}}catch(e){}return w}}
+FS_FEAT.push(['入力ゲイン・録音の自動持ち上げ・鍵盤のベロシティ','ボーカルなど入力が小さいときの入力ゲイン（自動で合わせる）、小さすぎる録音の自動持ち上げ、鍵盤のベロシティのカーブ（自動補正）','設定（⚙）の「録音と再生」',()=>openPrefs(),null,'入力 小さい ゲイン マイク ボーカル 音量 ベロシティ 強さ 鍵盤 タッチ カーブ']);
+/* =====================================================================
+   🔊 Web Audio の対応状況（下のバーのランプ → 別窓）
+   このブラウザで、音を出す・書き出す・録音・MIDI 機器・出力先の切り替え・各音声形式などが使えるかを一覧に
+   使えないものは、何ができなくなるか・どうすればよいかを書く。音が止まっている（suspended）ときは、押して音を出せる
+   ===================================================================== */
+function wacCanPlay(t){try{const a=document.createElement('audio');return!!a.canPlayType&&a.canPlayType(t).replace(/no/,'')!==''}catch(e){return false}}
+function wacCheck(){
+ const W=window,ctx=AE.ctx,C=W.AudioContext,P=C&&C.prototype;
+ const L=[
+  ['音を出す（AudioContext）',!!C,C?(ctx?`動いています（${ctx.state==='running'?'再生できます':ctx.state==='suspended'?'一時停止中: 画面をクリックすると音が出ます':'閉じています'}）・${ctx.sampleRate} Hz`:'使えます（最初に音を出すときに動き出します）'):'このブラウザでは音が出せません','必須',C?'':'Chrome・Edge・Firefox・Safari の新しい版で開いてください'],
+  ['書き出し・解析（OfflineAudioContext）',!!W.OfflineAudioContext,'WAV/MP3 の書き出し、音割れチェック、音量の自動調整、解析','大事','使えないと書き出しと解析ができません。ブラウザを新しくしてください'],
+  ['低遅延の録音（AudioWorklet）',!!(ctx?ctx.audioWorklet:(P&&'audioWorklet' in P)),'録音の取りこぼし・遅れが少ない方式','あると良い','使えないときは古い方式（ScriptProcessor）で録音します（少し遅れやすい）'],
+  ['マイク・ライン入力（getUserMedia）',!!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)&&W.isSecureContext!==false,W.isSecureContext===false?'安全でない接続（http）なので、ブラウザがマイクを許可しません':'録音・モニター・チューナー・コード判定','大事','https のページか、保存した HTML（file://）で開いてください'],
+  ['MIDI 機器（Web MIDI）',!!navigator.requestMIDIAccess,'MIDI キーボード（A-49 など）で弾く・録る','あると良い','Safari は Web MIDI に対応していません。Chrome か Edge を使うか、画面の鍵盤・PC のキーボード（仮想鍵盤）で弾いてください'],
+  ['出力先の切り替え（setSinkId）',!!(P&&P.setSinkId),'設定の「出力」でオーディオインターフェースを選ぶ','あると良い','使えないときは、OS（Windows のサウンド設定）で出力先を選んでください'],
+  ['音声処理の負荷（renderCapacity）',!!(ctx&&ctx.renderCapacity),'下のバーの CPU メーターの「音声処理」','あってもなくても','無いときは、推定の CPU だけを表示します'],
+  ['自動保存（IndexedDB）',!!W.indexedDB,'音声も入る自動保存','大事','使えないとき（プライベートモードなど）は、こまめに「保存」でファイルに保存してください'],
+  ['MP3 を読む',wacCanPlay('audio/mpeg'),'MP3 の読み込み・ずんだもんの歌声','大事','使えないときは WAV に変換して読み込んでください'],
+  ['OGG を読む',wacCanPlay('audio/ogg; codecs="vorbis"'),'一部の楽器の音（ドラムマシン・ウッドベースなど）','あると良い',`使えないときは、同じ楽器の M4A を自動で使います${WAC.altUsed?`（これまでに ${WAC.altUsed} 個を代わりに読みました）`:''}。それも無い楽器は内蔵の音になります`],
+  ['FLAC を読む',wacCanPlay('audio/flac'),'グランドピアノ・ローズ・生ドラムの音','あると良い','使えないときは内蔵の音（合成）になります'],
+  ['M4A（AAC）を読む',wacCanPlay('audio/mp4; codecs="mp4a.40.2"'),'M4A の読み込み・OGG の代わり','あってもなくても',''],
+ ];
+ const latency=ctx?`遅れ: 基本 ${((ctx.baseLatency||0)*1000).toFixed(1)} ms ／ 出力 ${((ctx.outputLatency||0)*1000).toFixed(1)} ms`:'';
+ const bad=L.filter(x=>!x[1]),lv=!C||bad.some(x=>x[3]==='必須')?'ng':bad.some(x=>x[3]==='大事')?'warn':(ctx&&ctx.state==='suspended')?'sus':'ok';
+ return{L,lv,latency,patched:WAC.patched.slice(),ua:navigator.userAgent};
+}
+function wacLamp(){const b=document.getElementById('waBtn');if(!b)return;const r=wacCheck();b.className='walamp '+r.lv;
+ b.textContent=r.lv==='ok'?'🔊 Web Audio':r.lv==='sus'?'🔇 クリックで音を出す':r.lv==='warn'?'⚠ Web Audio':'✕ 音が出せません';
+ b.title=r.lv==='ok'?'Web Audio は問題なく使えます（クリックで詳しく）':r.lv==='sus'?'音が一時停止しています。クリックすると音が出るようになります':r.lv==='warn'?'このブラウザでは使えない機能があります（クリックで詳しく）':'このブラウザでは音が出せません（クリックで詳しく）'}
+function openWebAudioStatus(){
+ const r=wacCheck();
+ const rows=r.L.map(([name,ok,what,imp,fix])=>el('tr',{class:ok?'ok':'ng'},el('td',{},ok?'✓':'✕'),el('th',{},name),el('td',{},el('div',{},what),!ok&&fix?el('div',{class:'wafix'},'→ '+fix):''),el('td',{class:'dim'},imp)));
+ const box=el('div',{class:'wadlg'},
+  el('div',{class:'mrow'},el('b',{},r.lv==='ok'?'✓ このブラウザで、この DAW の機能はすべて使えます':r.lv==='sus'?'🔇 音が一時停止しています（ブラウザの決まりで、画面を一度クリックするまで音が出ません）':r.lv==='warn'?'⚠ 使えない機能があります（下の ✕ の行）':'✕ このブラウザでは音が出せません'),
+   AE.ctx&&AE.ctx.state!=='running'?el('button',{class:'pri',onclick:async()=>{try{await ensureAudio().resume()}catch(e){}wacLamp();closeModal();openWebAudioStatus()}},'🔊 音を出せるようにする'):''),
+  el('table',{class:'watbl'},...rows),
+  r.latency?el('div',{class:'dim'},r.latency):'',
+  r.patched.length?el('div',{class:'hint'},'このブラウザ向けに自動で補ったもの: '+r.patched.join('・')):'',
+  el('div',{class:'hint'},'おすすめのブラウザ: Windows は Chrome か Edge（MIDI 機器・出力先の切り替えまで全部使えます）。Safari は MIDI 機器が使えません。'),
+  el('div',{class:'dim',style:'font-size:11px'},r.ua));
+ openModal('🔊 Web Audio の対応状況',box);document.querySelector('.modal').classList.add('wide');
+}
+{const bar=document.getElementById('bottom');if(bar&&!document.getElementById('waBtn')){const b=el('button',{id:'waBtn',class:'walamp'},'🔊 Web Audio');
+  b.addEventListener('click',async()=>{if(AE.ctx&&AE.ctx.state==='suspended'){try{await AE.ctx.resume()}catch(e){}wacLamp();if(AE.ctx.state==='running'){toast('音が出るようになりました');return}}openWebAudioStatus()});
+  const rm=document.getElementById('resMeter');if(rm)rm.after(b);else bar.append(b)}}
+setInterval(wacLamp,1500);setTimeout(wacLamp,300);
+/* 音が出ない環境では、最初に知らせる */
+if(!window.AudioContext)setTimeout(()=>{try{toast('このブラウザでは音が出せません。Chrome・Edge・Firefox・Safari の新しい版で開いてください');openWebAudioStatus()}catch(e){}},1200);
+FS_FEAT.push(['Web Audio の対応状況','このブラウザで、音を出す・書き出し・録音・MIDI 機器・出力先の切り替え・音声の形式が使えるかを一覧に。使えないときの対処も','下のバーの「🔊 Web Audio」',()=>openWebAudioStatus(),'#waBtn','web audio 対応 ブラウザ 音が出ない safari 互換 midi 使えない']);
 /* =====================================================================
    🎚 音量バランスを自動で整える
    トラックごとに実際の音を書き出して大きさ（聞こえる大きさ・LUFS に近い計り方）を測り、役割ごとの目安に合わせる
