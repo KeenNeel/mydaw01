@@ -11,6 +11,7 @@
  *   表示された URL（…/exec）を DAW の「⚙ 接続設定」に貼り付ける
  */
 const API_BASE = 'https://generativelanguage.googleapis.com/v1beta';
+const GAS_VER = '2026-11-24';   // DAW はこの日付で Code.gs が新しいかを確かめます
 
 function doGet() {
   return json_({ ok: true, app: 'daw-ai', version: 1, message: 'DAW AI 連携は動いています。DAW から POST で使います。' });
@@ -25,8 +26,11 @@ function doPost(e) {
     const key = P.getProperty('GEMINI_API_KEY');
     if (!key) return json_({ ok: false, error: 'GAS のスクリプトプロパティ GEMINI_API_KEY が未設定です' });
 
-    if (req.action === 'ping') return json_({ ok: true, model: pickModel_(key, req.model || P.getProperty('GEMINI_MODEL')) });
+    if (req.action === 'version') return json_({ ok: true, version: GAS_VER, actions: ['ping', 'models', 'version', 'chat', 'evaluate', 'task', 'pricing'] });
+    if (req.action === 'ping') return json_({ ok: true, version: GAS_VER, model: pickModel_(key, req.model || P.getProperty('GEMINI_MODEL')) });
     if (req.action === 'models') return json_({ ok: true, models: listModels_(key).map(m => m.id) });
+    if (req.action === 'task') return json_(task_(key, P, req));
+    if (req.action === 'pricing') return json_(pricing_(key, P, req));
     if (req.action !== 'chat' && req.action !== 'evaluate') return json_({ ok: false, error: '不明な action: ' + req.action });
     const isEval = req.action === 'evaluate';
     if (isEval) req.messages = [{ role: 'user', text: req.request || 'この曲を評価してください。' }];
@@ -55,13 +59,37 @@ function doPost(e) {
     const parsed = parseJson_(out) || (isEval ? null : salvage_(out));
     if (isEval) {
       if (!parsed || !parsed.scores) return json_({ ok: false, error: '評価の形式で返ってきませんでした: ' + out.slice(0, 300), model: model });
-      return json_({ ok: true, model: model, scores: parsed.scores, summary: String(parsed.summary || ''), strengths: parsed.strengths || [], advice: Array.isArray(parsed.advice) ? parsed.advice : [] });
+      return json_({ ok: true, model: model, usage: data.usageMetadata || null, scores: parsed.scores, summary: String(parsed.summary || ''), strengths: parsed.strengths || [], advice: Array.isArray(parsed.advice) ? parsed.advice : [] });
     }
-    if (!parsed) return json_({ ok: true, model: model, reply: out, actions: [], truncated: truncated });
-    return json_({ ok: true, model: model, reply: String(parsed.reply || '') + (truncated || parsed._salvaged ? '\n（※ 返事が長すぎて途中で切れました。最後まで書けた操作だけを使います。続きは「足りない所」から頼めます）' : ''), actions: Array.isArray(parsed.actions) ? parsed.actions : [], truncated: truncated || !!parsed._salvaged });
+    if (!parsed) return json_({ ok: true, model: model, usage: data.usageMetadata || null, reply: out, actions: [], truncated: truncated });
+    return json_({ ok: true, model: model, usage: data.usageMetadata || null, reply: String(parsed.reply || '') + (truncated || parsed._salvaged ? '\n（※ 返事が長すぎて途中で切れました。最後まで書けた操作だけを使います。続きは「足りない所」から頼めます）' : ''), actions: Array.isArray(parsed.actions) ? parsed.actions : [], truncated: truncated || !!parsed._salvaged });
   } catch (err) {
     return json_({ ok: false, error: String(err && err.stack || err) });
   }
+}
+
+/* 汎用の作業（歌詞づくり・メロディから歌詞・音声の分析など）。返事は JSON。音声（base64）も渡せる */
+const TASK_PROMPT = 'あなたは日本語の作詞家・作曲家・音楽アナリストです。返事は必ず JSON だけで返してください（説明文やコードブロックは不要）。歌詞を書くときはひらがなだけで書き、漢字・カタカナ・英字・記号は使わないでください（のばす音は「ー」）。歌詞以外の文章（説明・ひとこと・note・理由など）は、漢字かな交じりの普通の日本語で書いてください。';
+function task_(key, P, req) {
+  const model = pickModel_(key, req.model || P.getProperty('GEMINI_MODEL'));
+  const parts = [{ text: String(req.prompt || '') }];
+  if (req.audio && req.audio.data) parts.unshift({ inline_data: { mime_type: String(req.audio.mime || 'audio/mpeg'), data: String(req.audio.data) } });
+  const body = {
+    systemInstruction: { parts: [{ text: TASK_PROMPT + (req.system ? '\n' + req.system : '') }] },
+    contents: [{ role: 'user', parts: parts }],
+    generationConfig: { responseMimeType: 'application/json', temperature: req.temperature != null ? +req.temperature : 0.8, maxOutputTokens: 32768 }
+  };
+  const call = () => UrlFetchApp.fetch(API_BASE + '/models/' + encodeURIComponent(model) + ':generateContent', {
+    method: 'post', contentType: 'application/json', headers: { 'x-goog-api-key': key }, payload: JSON.stringify(body), muteHttpExceptions: true
+  });
+  let res = call();
+  if (res.getResponseCode() === 400 && /max.?output.?tokens|maxOutputTokens/i.test(res.getContentText())) { body.generationConfig.maxOutputTokens = 8192; res = call(); }
+  const code = res.getResponseCode(), txt = res.getContentText();
+  if (code !== 200) return { ok: false, error: 'Gemini API エラー ' + code + ': ' + txt.slice(0, 400), model: model };
+  const data = JSON.parse(txt), cand = (data.candidates || [])[0];
+  if (!cand || !cand.content) return { ok: false, error: '返事が空でした（安全フィルタ等）: ' + txt.slice(0, 300), model: model };
+  const out = (cand.content.parts || []).filter(p => !p.thought).map(p => p.text || '').join('');
+  return { ok: true, model: model, usage: data.usageMetadata || null, data: parseJson_(out), text: out.slice(0, 4000), truncated: cand.finishReason === 'MAX_TOKENS' };
 }
 
 function buildContents_(req) {
@@ -73,12 +101,34 @@ function buildContents_(req) {
   const extra = '\n\n【適用範囲（ユーザーが指定・最優先で守る）】\n```json\n' + JSON.stringify(sc) + '\n```' +
     '\n\n【現在の曲の状態（DAW から自動送信）】\n```json\n' + JSON.stringify(ctx.project || {}) + '\n```' +
     (ctx.evaluation ? '\n\n【DAW の自動評価】\n' + ctx.evaluation : '') +
-    '\n\n【使える部品】\n```json\n' + JSON.stringify(ctx.capabilities || {}) + '\n```';
+    '\n\n【使える部品】\n```json\n' + JSON.stringify(ctx.capabilities || {}) + '\n```' +
+    (ctx.help ? '\n\n【この DAW の機能の一覧（使い方の質問はこれに基づいて、画面のどこで何を押すかを具体的に答える。一覧にない機能は作り出さない）】\n' + String(ctx.help).slice(0, 60000) : '');
   for (let i = contents.length - 1; i >= 0; i--) {
     if (contents[i].role === 'user') { contents[i].parts[0].text += extra; break; }
   }
   if (!contents.length) contents.push({ role: 'user', parts: [{ text: extra }] });
   return contents;
+}
+
+/* 料金の確認: いま使っているモデルの料金を、Gemini に Google 検索で調べてもらう（検索が使えないときは知識で） */
+function pricing_(key, P, req) {
+  const model = pickModel_(key, req.model || P.getProperty('GEMINI_MODEL'));
+  const today = Utilities.formatDate(new Date(), 'Asia/Tokyo', 'yyyy-MM-dd');
+  const prompt = '今日は ' + today + ' です。Google の Gemini API（Google AI Studio の有料枠・Standard）で、モデル「' + model + '」の現在の料金を、公式の料金ページ（ai.google.dev/gemini-api/docs/pricing）で調べてください。\n' +
+    '100万トークンあたりの米ドルで、入力（テキスト）・出力（考えるトークンを含む）・音声の入力を答えてください。期間限定の価格や、値上げ・値下げの予定があれば changes に入れてください。\n' +
+    '返事は JSON だけ: {"model":"' + model + '","input":数値,"output":数値,"audioInput":数値,"freeTier":true か false,"changes":[{"from":"YYYY-MM-DD","input":数値,"output":数値,"audioInput":数値}],"asOf":"YYYY-MM-DD","source":"URL","note":"ひとこと（日本語）"}';
+  const body = { contents: [{ role: 'user', parts: [{ text: prompt }] }], tools: [{ google_search: {} }], generationConfig: { temperature: 0, maxOutputTokens: 4096 } };
+  const call = b => UrlFetchApp.fetch(API_BASE + '/models/' + encodeURIComponent(model) + ':generateContent', {
+    method: 'post', contentType: 'application/json', headers: { 'x-goog-api-key': key }, payload: JSON.stringify(b), muteHttpExceptions: true
+  });
+  let grounded = true, res = call(body);
+  if (res.getResponseCode() !== 200) { grounded = false; delete body.tools; res = call(body); }
+  const code = res.getResponseCode(), txt = res.getContentText();
+  if (code !== 200) return { ok: false, error: 'Gemini API エラー ' + code + ': ' + txt.slice(0, 300), model: model };
+  const data = JSON.parse(txt), cand = (data.candidates || [])[0];
+  const out = cand && cand.content ? (cand.content.parts || []).filter(p => !p.thought).map(p => p.text || '').join('') : '';
+  const meta = cand && cand.groundingMetadata, srcs = meta && meta.groundingChunks ? meta.groundingChunks.map(c => c.web && c.web.uri).filter(Boolean).slice(0, 5) : [];
+  return { ok: true, model: model, usage: data.usageMetadata || null, pricing: parseJson_(out), grounded: grounded && !!meta, sources: srcs, text: out.slice(0, 2000) };
 }
 
 function parseJson_(s) {
@@ -141,6 +191,8 @@ function json_(o) {
 /* ===================== Gemini への指示 ===================== */
 const SYSTEM_PROMPT = `
 あなたはブラウザ DAW に組み込まれた、作曲・編曲・ミックスの専門アシスタントです。日本語で、ユーザーと対話しながら曲作りを手伝います。
+# 書き方（大事）: 返事・説明・提案・トラック名などの文章は、漢字かな交じりの普通の日本語で書く。ひらがなだけで書くのは歌詞（setLyrics の text など、歌う言葉）だけ。
+# 使い方の質問: 【この DAW の機能の一覧】が送られてきたら、それに基づいて、どの画面のどのボタン・メニューを使うかを手順で答える（actions は []）。
 ジャンル、テンポ、キー、拍子、スウィング、曲の構成、楽器構成とアンサンブル、演奏技法、コーラス、部分的なアレンジ、歌詞の作成と割り付け、ドラムパターン、コードの技法（テンション・オンコード・セカンダリードミナント・借用和音など）、曲調の模倣（特定の作品のメロディや歌詞をそのまま写さず、テンポ感・和声・リズム・音色などのスタイルの特徴だけを参考にする）、エフェクト、パン、音量、曲の評価と修正提案まで扱います。
 
 # 出力形式（必ずこの JSON だけを返す）
@@ -217,6 +269,7 @@ const SYSTEM_PROMPT = `
 {"type":"setFx","track":"master","add":[{"fx":"limiter","params":{"thr":-6,"gain":1.2}}],"clear":false}   // fx は capabilities.fx の ID
 {"type":"quantize","grid":0.25,"strength":80,"section":"サビ","track":"メロ"}
 {"type":"transpose","track":"メロ","semitones":2,"section":"サビ"}
+{"type":"assignLyricsRange","text":"1行目\n2行目"}   // いまユーザーが選んでいる範囲（セクションをまたいでもよい）のメロディに歌詞を順に割り当てる
 {"type":"tempoChange","bpm":140,"section":"サビ","mode":"set","restore":true}   // 範囲のテンポを変える。mode: set=その範囲をこのテンポに / ramp=範囲の終わりに向けてだんだん変える（リタルダンド・アッチェレランド）/ from=ここから先ずっと。restore=false で範囲のあとも戻さない。section の代わりに fromBar/toBar も可
 {"type":"modulate","semitones":1,"section":"サビ","toEnd":true}   // 転調。範囲の MIDI（ドラム以外）とコードを半音単位で移す（伴奏はコードに付いてくる）。toEnd=true でそこから最後まで。audio=true でオーディオもピッチシフト（重い）
 {"type":"rangeVolume","track":"ギター","section":"Aメロ","db":-4}   // その範囲だけ音量を上げ下げ（トラック全体は setTrack の volume）
