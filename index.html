@@ -1424,6 +1424,14 @@ body.lglight .meterbar,body.lglight .vu{transition:none!important}
 .watbl td,.watbl th{border-bottom:1px solid var(--line,#333);padding:5px 8px;text-align:left;vertical-align:top;font-size:13px}
 .watbl tr.ok td:first-child{color:#9be15d;font-weight:700}.watbl tr.ng td:first-child{color:#e0303c;font-weight:700}
 .watbl th{white-space:nowrap}.wafix{color:#f5c542;font-size:12px;margin-top:2px}
+.mxtbl{border-collapse:collapse;width:100%;margin:8px 0;font-size:12px}.mxtbl th,.mxtbl td{border-bottom:1px solid var(--line,#333);padding:3px 6px;text-align:left}
+.mxlane canvas{position:absolute;left:0;top:0;pointer-events:none}.mxlane{cursor:crosshair}
+.mxev{position:absolute;top:3px;font-size:10px;padding:1px 4px;border-radius:4px;white-space:nowrap;pointer-events:auto;z-index:2}
+.mxev.sx{background:rgba(180,120,255,.25);color:#d8c4ff}.mxev.sig{background:rgba(255,200,80,.25);color:#ffd27a}
+.mxlive{font-size:11px;color:var(--dim,#8b94a3);padding:0 6px;white-space:nowrap}.mxlive.on{color:#4fd1c5}
+.mstbl{display:flex;flex-direction:column;gap:4px;max-height:60vh;overflow:auto}
+.msrow{display:grid;grid-template-columns:24px minmax(140px,1fr) minmax(200px,1.2fr) 150px minmax(160px,1fr) minmax(160px,1.2fr);gap:8px;align-items:center;padding:5px 8px;border-radius:8px;background:var(--panel2,#1d2128);font-size:12px}
+.msrow.msh{background:none;color:var(--dim,#8b94a3)}.msrow select{max-width:100%}
 </style></head><body>
 <script>try{var _t=localStorage.getItem("daw.theme");if(_t&&_t!=="amp")document.body.classList.add("th-"+_t)}catch(e){}</script>
 <div id="app">
@@ -1866,7 +1874,7 @@ ia.IXMAX_VAL=8206;var sa={};sa.SFBMAX=3*c.SBMAX_s;c.ENCDELAY=576;c.POSTDELAY=115
 u.setModules(B,G,f,b,v,a,m,z,g);G.setModules(B,g,m,a);z.setModules(G,m);f.setModules(u);v.setModules(G,e,b,l);b.setModules(l,e,u.enc.psy);e.setModules(G);l.setModules(b);a.setModules(u,G,m);w.setModules(d,g);d.setModules(m,z,f);var q=u.lame_init();q.num_channels=c;q.in_samplerate=k;q.brate=n;q.mode=la.STEREO;q.quality=3;q.bWriteVbrTag=!1;q.disable_reservoir=!0;q.write_id3tag_automatic=!1;u.lame_init_params(q);var D=1152,p=0|1.25*D+7200,r=new Int8Array(p);this.encodeBuffer=function(a,b){1==c&&(b=a);
 a.length>D&&(D=a.length,p=0|1.25*D+7200,r=new Int8Array(p));a=u.lame_encode_buffer(q,a,b,a.length,r,0,p);return new Int8Array(r.subarray(0,a))};this.flush=function(){var a=u.lame_encode_flush(q,r,0,p);return new Int8Array(r.subarray(0,a))}};lamejs.WavHeader=Fa}lamejs();
 </script><script>
-const DEMO_VER='1795275299';
+const DEMO_VER='1795280858';
 /* =====================================================================
    Web Audio の互換対策（いちばん最初に読む）
    ・古い Safari: webkitAudioContext / webkitOfflineAudioContext、コールバック式の decodeAudioData、new AudioBuffer が無い
@@ -2045,6 +2053,7 @@ function voice(t,note,vel,when,ex){
    if(g.cancelAndHoldAtTime)g.cancelAndHoldAtTime(te);else g.cancelScheduledValues(te);
    g.setTargetAtTime(0,te,tone.r/3);const end=te+tone.r*1.6+.05;oscs.forEach(o=>o.stop(end));
    setTimeout(()=>{AE.voices.delete(v);try{out.disconnect()}catch(e){}},(end-c.currentTime)*1000+100)}};
+ v.dts=oscs.filter(o=>o.detune).map(o=>o.detune);   // ピッチベンド（ライブ）用
  AE.voices.add(v);return v;
 }
 function stopAllSounds(){
@@ -2106,7 +2115,7 @@ function schedule(seg){
     const abs=c.start+n.s;if(n.s>=c.len||abs<p-1e-9||abs>=p+len-1e-9)continue;
     const when=rt(r+(abs-p)+swingShift(abs,t));
     const dl=Math.min(n.l,c.len-n.s);
-    const v=voice(t,n.p,n.v,when,exOf(n,secAt(abs+dl)-secAt(abs)));
+    const v=voice(t,n.p,mxVel(c,n),when,mxEx(exOf(n,secAt(abs+dl)-secAt(abs)),n,c,dl));
     v.release(when+secAt(abs+dl)-secAt(abs));
    }}
   }else if(t.type==='chord'){
@@ -2942,7 +2951,7 @@ async function renderRange(tracks,rs,re,sr,mix){
      if(s0+d>re)d=re-s0;
      if(d<=0)continue;
      const when=T(s0+swingShift(s0,t));
-     synthOffline(oc,g,t.tone,t.drum?n.p:n.p+12*(t.oct||0),n.v,Math.max(0,when),secAt(s0+d)-secAt(s0),exOf(n,secAt(s0+d)-secAt(s0)));
+     synthOffline(oc,g,t.tone,t.drum?n.p:n.p+12*(t.oct||0),mxVel(c,n),Math.max(0,when),secAt(s0+d)-secAt(s0),mxEx(exOf(n,secAt(s0+d)-secAt(s0)),n,c,d));
     }
    }
   }
@@ -3013,17 +3022,25 @@ function buildSMF(list,rs,re){
   ...tempoEvents(rs,re),
   {t:0,o:0,b:[0xFF,0x58,0x04,S.sig.n,Math.round(Math.log2(S.sig.d)),24,8]},
   ...secRanges().filter(r=>r.q0>=rs-1e-6&&r.q0<re-1e-6).map(r=>({t:tk(r.q0-rs),o:0,b:metaBytes(0x06,strBytes(r.s.name))}))]));   // 区間名をマーカーとして
+ let chN=0;
  for(const t of list){
   const ev=[{t:0,o:0,b:metaBytes(0x03,strBytes(t.name))}];
+  /* チャンネル（ドラムは 10ch、ほかは順に）・音色（GM の番号）・音量・定位・ベンド幅 */
+  const ch=t.drum?9:(()=>{let x=chN%15;if(x>=9)x++;chN++;return x})();
+  const gm=t.gmProg!=null?t.gmProg:(typeof toneById==='function'&&toneById(t.tone||'').gm!=null?toneById(t.tone).gm:null);
+  if(!t.drum&&gm!=null)ev.push({t:0,o:0,b:[0xC0|ch,gm&127]});
+  ev.push({t:0,o:0,b:[0xB0|ch,7,clamp(Math.round(127*Math.pow(10,(t.vol||0)/40)),0,127)]},{t:0,o:0,b:[0xB0|ch,10,clamp(Math.round(64+(t.pan||0)*63),0,127)]});
+  const br=(t.clips.find(c=>c.bendRange)||{}).bendRange;if(br&&br!==2)ev.push({t:0,o:0,b:[0xB0|ch,101,0]},{t:0,o:0,b:[0xB0|ch,100,0]},{t:0,o:0,b:[0xB0|ch,6,br]});
   for(const c of t.clips){
    if(c.buf||!c.notes)continue;
+   for(const [k,arr] of Object.entries(c.cc||{})){const num={m:1,vol:7,pan:10,ex:11,sus:64,rev:91,cho:93}[k];for(const [q,v] of arr){const a=c.start+q;if(a<rs||a>=re)continue;const tt=tk(a-rs);
+    if(k==='pb'){const x=clamp(Math.round(v)+8192,0,16383);ev.push({t:tt,o:0,b:[0xE0|ch,x&127,x>>7]})}else if(num!=null)ev.push({t:tt,o:0,b:[0xB0|ch,num,clamp(Math.round(v),0,127)]})}}
    for(const n of c.notes){
     const a=c.start+n.s;
     if(a<rs||a>=re)continue;
     const t0=tk(a-rs),t1=Math.max(t0+1,tk(Math.min(a+n.l,re)-rs));
     const v=clamp(Math.round(n.v),1,127);
     if(n.lyr)ev.push({t:t0,o:0,b:metaBytes(0x05,strBytes(n.lyr))});
-    const ch=t.drum?9:0;                     // ドラムは GM の 10ch
     ev.push({t:t0,o:1,b:[0x90|ch,n.p&127,v]},{t:t1,o:0,b:[0x80|ch,n.p&127,0]});
    }
   }
@@ -3156,7 +3173,7 @@ function initIO(){
  $('#fOpen').onclick=()=>openProjectDialog();
  $('#fExport').onclick=openExportAudio;
  $('#fMidiOut').onclick=openExportMidi;
- $('#fMidiIn').onclick=()=>pickFile('.mid,.midi,audio/midi',f=>importMidi(f).catch(e=>toast('読み込めませんでした: '+e.message)));
+ $('#fMidiIn').onclick=()=>pickFile('.mid,.midi,.kar,audio/midi',f=>importMidi(f).catch(e=>toast('読み込めませんでした: '+e.message)));
  HIST.last=projSnap();HIST.saved=HIST.last;updateTitle();
  ['pointerup','keyup','change','drop','dragend'].forEach(ev=>document.addEventListener(ev,()=>setTimeout(checkHistory,0)));
  setInterval(()=>autosaveTick(),10000);
@@ -4129,6 +4146,9 @@ function recGateTick(){
 /* ---------- 表現: ピッチ線・ビブラート・歌詞 ---------- */
 /* ノートの表現データ: n.bend=[[u,cent],...] (u=0..1 はノート内の相対位置), n.vib={d:cent,r:Hz}, n.lyr=歌詞 */
 function exOf(n,dur){return{bend:n.bend,vib:n.vib,d:dur,ly:n.lyr,id:n.id}}
+/* MIDI のコントローラー（ピッチベンド・モジュレーション・ボリューム・エクスプレッション）を、音符の鳴らし方に反映する（midix.js で上書き） */
+function mxEx(ex,n,c,dq){return ex}
+function mxVel(c,n){return n.v}
 function applyExpr(c,oscs,when,ex){
  if(!ex||!(ex.d>0))return;
  if(ex.bend&&ex.bend.length){
@@ -5532,7 +5552,7 @@ function instVoice(c,b,T,note,vel,when,ex){
  const vg=c.createGain();vg.connect(b.g);
  const h=instPlay(c,vg,T,note,vel,when,dur,ex,b);
  if(!h){try{vg.disconnect()}catch(e){}return null}
- const v={released:false,release(te,force){
+ const v={released:false,dts:h.src&&h.src.detune?[h.src.detune]:[],release(te,force){
   if(v.released)return;te=Math.max(te,c.currentTime);
   const natural=known&&te>=when+dur-.005;
   if(T.drum&&!force&&!known)return;                 // ドラムは鍵盤を離しても鳴り切る
@@ -11936,7 +11956,7 @@ async function renderCore(tracks,rs,re,sr,o={}){
      const abs=c.start+n.s;if(abs>=re||abs+n.l<=rs)continue;
      let s0=abs,d=Math.min(n.l,c.len-n.s);if(s0<rs){d-=rs-s0;s0=rs}if(s0+d>re)d=re-s0;if(d<=0)continue;
      const w=Math.max(0,T(s0+swingShift(s0,t))),ds=secAt(s0+d)-secAt(s0);
-     ev.push({w,f:()=>synthOffline(oc,g,t.tone,t.drum?n.p:n.p+12*(t.oct||0),n.v,w,ds,exOf(n,ds))});
+     ev.push({w,f:()=>synthOffline(oc,g,t.tone,t.drum?n.p:n.p+12*(t.oct||0),mxVel(c,n),w,ds,mxEx(exOf(n,ds),n,c,d))});
     }
    }
   }
@@ -17862,6 +17882,376 @@ setInterval(wacLamp,1500);setTimeout(wacLamp,300);
 /* 音が出ない環境では、最初に知らせる */
 if(!window.AudioContext)setTimeout(()=>{try{toast('このブラウザでは音が出せません。Chrome・Edge・Firefox・Safari の新しい版で開いてください');openWebAudioStatus()}catch(e){}},1200);
 FS_FEAT.push(['Web Audio の対応状況','このブラウザで、音を出す・書き出し・録音・MIDI 機器・出力先の切り替え・音声の形式が使えるかを一覧に。使えないときの対処も','下のバーの「🔊 Web Audio」',()=>openWebAudioStatus(),'#waBtn','web audio 対応 ブラウザ 音が出ない safari 互換 midi 使えない']);
+/* =====================================================================
+   🎹 MIDI の拡張
+   ① MIDI ファイルを読み込んで GM 音源（全 128 音色・FluidR3 GM）で演奏
+     ・テンポ／拍子／キー／マーカー／歌詞（Lyric）／プログラムチェンジ／バンク
+     ・ピッチベンド（RPN のベンド幅も）／モジュレーション／ボリューム／エクスプレッション／パン／サステイン／リバーブ・コーラスの送り
+     ・SysEx: GM・GS・XG のリセット、マスターボリューム、GS のドラムパート指定、ほかは内容を表示
+   ② 鍵盤（MIDI 機器）からのピッチベンド・モジュレーション・ボリューム・サステインを受けて鳴らす／録音する
+   ③ ピアノロールの下の欄・上の BPM／SIG の欄（＋ VOL・PITCH・MOD）に表示し、描いて直せる
+   ④ 読み込んだ MIDI に、よりよい音色・エフェクト・定位を提案して反映（DAW の中で ／ AI）
+   クリップのデータ: c.cc = {pb:[[拍,−8192〜8191]], m:[[拍,0〜127]], vol, ex, pan, sus, rev, cho}・c.bendRange（半音）
+   ===================================================================== */
+const GM_JA=['アコースティック・ピアノ','ブライト・ピアノ','エレクトリック・グランド','ホンキートンク・ピアノ','エレピ 1','エレピ 2','ハープシコード','クラビ','チェレスタ','グロッケンシュピール','オルゴール','ビブラフォン','マリンバ','シロフォン','チューブラーベル','ダルシマー',
+ 'ドローバー・オルガン','パーカッシブ・オルガン','ロック・オルガン','チャーチ・オルガン','リード・オルガン','アコーディオン','ハーモニカ','バンドネオン','ナイロン・ギター','スチール・ギター','ジャズ・ギター','クリーン・ギター','ミュート・ギター','オーバードライブ・ギター','ディストーション・ギター','ギター・ハーモニクス',
+ 'アコースティック・ベース','フィンガー・ベース','ピック・ベース','フレットレス・ベース','スラップ・ベース 1','スラップ・ベース 2','シンセ・ベース 1','シンセ・ベース 2','バイオリン','ビオラ','チェロ','コントラバス','トレモロ・ストリングス','ピチカート・ストリングス','ハープ','ティンパニ',
+ 'ストリングス 1','ストリングス 2','シンセ・ストリングス 1','シンセ・ストリングス 2','クワイア（アー）','ボイス（ウー）','シンセ・ボイス','オーケストラ・ヒット','トランペット','トロンボーン','チューバ','ミュート・トランペット','フレンチ・ホルン','ブラス・セクション','シンセ・ブラス 1','シンセ・ブラス 2',
+ 'ソプラノ・サックス','アルト・サックス','テナー・サックス','バリトン・サックス','オーボエ','イングリッシュ・ホルン','バスーン','クラリネット','ピッコロ','フルート','リコーダー','パンフルート','ボトル','尺八','口笛','オカリナ',
+ '矩形波リード','ノコギリ波リード','カリオペ','チフ・リード','チャラン','ボイス・リード','5 度リード','ベース＋リード','ニューエイジ・パッド','ウォーム・パッド','ポリシンセ・パッド','クワイア・パッド','ボウ・パッド','メタリック・パッド','ハロー・パッド','スウィープ・パッド',
+ '雨','サウンドトラック','クリスタル','アトモスフィア','ブライトネス','ゴブリン','エコー','SF','シタール','バンジョー','三味線','琴','カリンバ','バグパイプ','フィドル','シャナイ',
+ 'ティンクル・ベル','アゴゴ','スチールドラム','ウッドブロック','太鼓','メロディック・タム','シンセ・ドラム','リバース・シンバル','ギターのフレット・ノイズ','息の音','海岸','鳥のさえずり','電話のベル','ヘリコプター','拍手','銃声'];
+/* GM の 128 音色を登録（FluidR3 GM・WebAudioFont）。ほかの音色と同じく、使うときにネットから読み込む */
+for(let p=0;p<128;p++){const id='gm_'+p;if(TONES.some(t=>t.id===id))continue;const file=String(p*10).padStart(4,'0')+'_FluidR3_GM_sf2_file',cat=gmCat(p),url=GH('surikov/webaudiofontdata','sound/'+file+'.js');
+ const pad=/パッド|ストリングス|ボーカル/.test(cat)||(p>=40&&p<56)||(p>=88&&p<96);
+ regTone({id,cat,name:`GM ${p+1}: ${GM_JA[p]}`,desc:'GM 音源（FluidR3 GM・WebAudioFont）。MIDI ファイルのプログラムチェンジの番号どおりの音色',eng:'waf',url,local:false,src:'net',fb:fbFor(cat,GM_JA[p],p),rel:pad?.7:.4,att:pad?.05:.004,loop:true,gm:p})}
+const GM_KIT='kit_wd_FluidR3_GM_sf2_file';
+const MX_CC={1:'m',7:'vol',10:'pan',11:'ex',64:'sus',91:'rev',93:'cho'};
+const MX_KINDS=[['vel','ベロシティ',0,127],['pb','ピッチベンド',-8192,8191],['m','モジュレーション（CC1）',0,127],['vol','ボリューム（CC7）',0,127],['ex','エクスプレッション（CC11）',0,127],['pan','パン（CC10）',0,127],['sus','サステイン（CC64）',0,127]];
+const MX_DEF={pb:0,m:0,vol:100,ex:127,pan:64,sus:0,rev:40,cho:0};
+const MXI={edMode:'vel',lanes:{vol:false,pb:false,m:false},live:{bend:0,mod:0,sus:false,held:new Set(),range:2}};
+try{const L=JSON.parse(localStorage.getItem('daw.mxlanes')||'null');if(L)Object.assign(MXI.lanes,L)}catch(e){}
+function mxAt(arr,s,def){if(!arr||!arr.length)return def;let v=def;for(const [q,x] of arr){if(q>s+1e-9)break;v=x}return v}
+function mxSort(c){if(!c.cc)return;for(const k in c.cc){c.cc[k].sort((a,b)=>a[0]-b[0]);if(!c.cc[k].length)delete c.cc[k]}}
+/* ---------- SMF（MIDI ファイル）を全部読む ---------- */
+function mxSysexDesc(d){
+ const h=[...d].map(x=>x.toString(16).padStart(2,'0')).join(' ');
+ const is=(...b)=>b.every((x,i)=>x==null||d[i]===x);
+ if(is(0x7E,null,0x09,0x01))return{kind:'gmon',desc:'GM システム・オン（リセット）',h};
+ if(is(0x7E,null,0x09,0x02))return{kind:'gmoff',desc:'GM システム・オフ',h};
+ if(is(0x41,null,0x42,0x12,0x40,0x00,0x7F))return{kind:'gsreset',desc:'GS リセット',h};
+ if(is(0x43,null,0x4C,0x00,0x00,0x7E))return{kind:'xgon',desc:'XG システム・オン',h};
+ if(is(0x7F,null,0x04,0x01)&&d.length>=6){const v=((d[5]<<7)|d[4])/16383;return{kind:'mvol',val:v,desc:`マスターボリューム ${Math.round(v*100)}%`,h}}
+ if(is(0x7F,null,0x04,0x03))return{kind:'mfine',desc:'マスター・ファインチューン',h};
+ if(is(0x7F,null,0x04,0x04))return{kind:'mcoarse',desc:'マスター・コースチューン',h};
+ if(is(0x41,null,0x42,0x12,0x40)&&(d[5]&0xF0)===0x10&&d[6]===0x15){const x=d[5]&0x0F,ch=x===0?9:x<=9?x-1:x;return{kind:'gsdrum',ch,on:d[7]!==0,desc:`GS: ${ch+1} ch を${d[7]?'ドラム':'ふつうの楽器'}にする`,h}}
+ if(d[0]===0x41)return{kind:'gs',desc:'GS（ローランド）の設定',h};
+ if(d[0]===0x43)return{kind:'xg',desc:'XG（ヤマハ）の設定',h};
+ return{kind:'other',desc:'SysEx（機器ごとの設定）',h};
+}
+function mxParse(buf){
+ const v=new DataView(buf),u=new Uint8Array(buf),td=new TextDecoder();
+ const str=(o,n)=>String.fromCharCode(...u.subarray(o,o+n));
+ if(str(0,4)!=='MThd')throw new Error('MIDI ファイルではありません');
+ const hl=v.getUint32(4),fmt=v.getUint16(8),nt=v.getUint16(10),div=v.getUint16(12);
+ if(div&0x8000)throw new Error('SMPTE 形式の MIDI には対応していません');
+ const out={fmt,div,tempos:[],sigs:[],keys:[],markers:[],sysex:[],texts:[],tracks:[]};let p=8+hl;
+ for(let ti=0;ti<nt&&p+8<=u.length;ti++){
+  if(str(p,4)!=='MTrk')break;const len=v.getUint32(p+4);let q=p+8;const end=Math.min(u.length,q+len);p=q+len;
+  let tick=0,run=0;const tr={name:'',ev:[],lyr:[]};
+  const vlq=()=>{let x=0,b;do{b=u[q++];x=(x*128)+(b&127)}while((b&128)&&q<end);return x};
+  while(q<end){
+   tick+=vlq();let st=u[q];
+   if(st&0x80){q++;if(st<0xF0)run=st}else st=run;
+   if(st===0xFF){const ty=u[q++],l=vlq(),d=u.subarray(q,q+l);q+=l;
+    if(ty===0x03&&!tr.name)tr.name=td.decode(d).trim();
+    else if(ty===0x51)out.tempos.push({tick,us:(d[0]<<16)|(d[1]<<8)|d[2]});
+    else if(ty===0x58)out.sigs.push({tick,n:d[0],d:1<<d[1]});
+    else if(ty===0x59){const sf=(d[0]<<24)>>24,mi=d[1];out.keys.push({tick,root:((sf*7)%12+12+(mi?9:0))%12,mode:mi?'minor':'major'})}
+    else if(ty===0x06)out.markers.push({tick,text:td.decode(d)});
+    else if(ty===0x05)tr.lyr.push({tick,text:td.decode(d)});
+    else if(ty===0x01)out.texts.push({tick,text:td.decode(d)});
+    if(ty===0x2F)break;
+   }else if(st===0xF0||st===0xF7){const l=vlq(),d=u.slice(q,q+l);q+=l;const body=d[d.length-1]===0xF7?d.subarray(0,d.length-1):d;out.sysex.push({tick,...mxSysexDesc(body)})}
+   else{const cmd=st&0xF0,ch=st&0x0F,d1=u[q++],d2=(cmd===0xC0||cmd===0xD0)?0:u[q++];tr.ev.push({tick,cmd,ch,d1,d2})}
+  }
+  out.tracks.push(tr);
+ }
+ return out;
+}
+/* ---------- 読み込み → トラックに ---------- */
+async function mxImport(file,o={}){
+ const m=mxParse(await file.arrayBuffer()),D=m.div,Q=t=>t/D;
+ const replace=o.mode==='new';
+ if(replace){resetEverything({});S.tracks=[];S.sections=[]}
+ /* テンポ・拍子・キー */
+ if(m.tempos.length){const pts=[];[...m.tempos].sort((a,b)=>a.tick-b.tick).forEach(x=>{const q=Q(x.tick),bpm=clamp(Math.round(6e7/x.us*10)/10,10,360),l=pts[pts.length-1];if(l&&Math.abs(l.q-q)<1e-9)l.bpm=bpm;else pts.push({q,bpm})});if(pts[0].q>1e-9)pts.unshift({q:0,bpm:pts[0].bpm});pts[0].q=0;S.tempo=pts;S.bpm=pts[0].bpm}
+ if(m.sigs.length){const s0=m.sigs.sort((a,b)=>a.tick-b.tick)[0];S.sig={n:clamp(s0.n,1,32),d:s0.d}}
+ if(m.keys.length&&replace){S.key={root:m.keys[0].root,mode:m.keys[0].mode}}
+ /* SysEx */
+ const drumCh=new Set([9]);let mvol=null;
+ for(const x of m.sysex){if(x.kind==='gsdrum'){if(x.on)drumCh.add(x.ch);else drumCh.delete(x.ch)}if(x.kind==='mvol'&&mvol==null)mvol=x.val}
+ /* トラック × チャンネルごとにまとめる */
+ const groups=new Map();
+ m.tracks.forEach((tr,ti)=>{for(const e of tr.ev){const k=(m.fmt===0?0:ti)+':'+e.ch;if(!groups.has(k))groups.set(k,{ti,ch:e.ch,name:tr.name,ev:[],lyr:tr.lyr});groups.get(k).ev.push(e)}});
+ const added=[],report=[];let endTick=0;
+ for(const g of [...groups.values()].sort((a,b)=>a.ti-b.ti||a.ch-b.ch)){
+  const notes=[],open=new Map(),cc={},pcs=[];let bank=0,rpn=[127,127],bendRange=2,sus=false;const susHeld=[];
+  const put=(k,tick,val)=>{(cc[k]=cc[k]||[]).push([Q(tick),val])};
+  for(const e of g.ev){
+   const {tick,cmd,d1,d2}=e;
+   if(cmd===0x90&&d2>0){const L=open.get(d1)||[];L.push({s:tick,v:d2});open.set(d1,L)}
+   else if(cmd===0x80||(cmd===0x90&&d2===0)){const L=open.get(d1);if(L&&L.length){const o=L.shift();const n={p:d1,s:o.s,e:tick,v:o.v};notes.push(n);if(sus)susHeld.push(n)}}
+   else if(cmd===0xB0){
+    if(d1===0)bank=d2;
+    if(d1===101)rpn[0]=d2;else if(d1===100)rpn[1]=d2;else if(d1===6&&rpn[0]===0&&rpn[1]===0)bendRange=clamp(d2,1,24);
+    if(MX_CC[d1])put(MX_CC[d1],tick,d2);
+    if(d1===64){const on=d2>=64;if(sus&&!on){for(const n of susHeld)n.e=Math.max(n.e,tick);susHeld.length=0}sus=on}
+    if(d1===121){for(const k of ['m','ex','sus'])put(k,tick,MX_DEF[k]);put('pb',tick,0)}   // リセット・オール・コントローラー
+   }
+   else if(cmd===0xE0)put('pb',tick,((d2<<7)|d1)-8192);
+   else if(cmd===0xC0)pcs.push({tick,p:d1,bank});
+   else if(cmd===0xD0)put('m',tick,Math.max(mxAt(cc.m,Q(tick),0),d2));   // チャンネル・プレッシャー → モジュレーションとして
+  }
+  for(const [p,L] of open)for(const o of L)notes.push({p,s:o.s,e:o.s+D,v:o.v});
+  /* サステインで伸ばした音が、同じ高さの次の音にかぶらないように */
+  notes.sort((a,b)=>a.s-b.s);const lastBy=new Map();for(const n of notes){const pv=lastBy.get(n.p);if(pv&&pv.e>n.s)pv.e=n.s;lastBy.set(n.p,n)}
+  if(!notes.length&&!pcs.length)continue;
+  if(!notes.length)continue;
+  const drum=drumCh.has(g.ch)||bank===120||bank===127&&g.ch===9;
+  const prog=pcs.length?pcs[0].p:0;
+  const t=newTrack(drum?'drum':'midi');
+  t.name=(g.name&&!/^(untitled|track\s*\d+)$/i.test(g.name)?g.name:(drum?'ドラム':GM_JA[prog]))+([...groups.values()].filter(x=>x.ti===g.ti).length>1?` (${g.ch+1}ch)`:'');
+  t.tone=drum?GM_KIT:'gm_'+prog;t.midiCh=g.ch;t.gmProg=drum?null:prog;t.color=TRACK_COLORS[(S.tracks.length+added.length)%TRACK_COLORS.length];
+  /* 最初の値はトラックの設定に（音量・定位・リバーブ／コーラスの送り） */
+  const v0=cc.vol&&cc.vol.length&&cc.vol[0][0]<.01?cc.vol[0][1]:100,p0=cc.pan&&cc.pan.length&&cc.pan[0][0]<.01?cc.pan[0][1]:64;
+  t.vol=Math.max(-40,Math.round(40*Math.log10(Math.max(1,v0)/127)*10)/10);t.pan=Math.round((p0-64)/64*100)/100;t.ccBase={vol:v0};
+  const rv=cc.rev&&cc.rev.length?cc.rev[0][1]:0,ch2=cc.cho&&cc.cho.length?cc.cho[0][1]:0;t.fx=[];
+  if(ch2>8)t.fx.push(smpFx('chorus',{mix:Math.min(.4,ch2/127*.6)}));
+  if(rv>8)t.fx.push(smpFx('reverb',{mix:Math.min(.3,rv/127*.45),decay:1.8,pre:.015,tone:8000}));
+  const endQ=Math.max(...notes.map(n=>Q(n.e)));endTick=Math.max(endTick,...notes.map(n=>n.e));
+  const len=Math.max(qpbar(),Math.ceil(endQ/qpbar()-1e-9)*qpbar());
+  const clip={id:uid('c'),start:0,len,name:t.name,notes:notes.map(n=>({id:uid('n'),p:n.p,s:Q(n.s),l:Math.max(.03,Q(n.e-n.s)),v:n.v})),cc,bendRange};
+  if(pcs.length>1)clip.pc=pcs.map(x=>[Q(x.tick),x.p]);
+  /* 歌詞（Lyric）を、同じ時刻の音符に */
+  if(g.lyr&&g.lyr.length){const byS=new Map();for(const n of clip.notes){const k=Math.round(n.s*D);if(!byS.has(k))byS.set(k,n)}let hit=0;for(const L of g.lyr){const n=byS.get(L.tick);const tx=L.text.replace(/[\r\n\/\\]/g,'').trim();if(n&&tx){n.lyr=tx;hit++}}if(hit)t.lyrFromMidi=hit}
+  mxSort(clip);t.clips.push(clip);added.push(t);
+  report.push({name:t.name,ch:g.ch+1,prog:drum?'ドラム':`${prog+1} ${GM_JA[prog]}`,notes:notes.length,cc:Object.fromEntries(Object.entries(cc).map(([k,a])=>[k,a.length])),bendRange,pcs:pcs.length});
+ }
+ if(!added.length)throw new Error('音符のあるトラックが見つかりませんでした');
+ if(mvol!=null)S.master.vol=Math.max(-30,Math.round(20*Math.log10(Math.max(.03,mvol))*10)/10);
+ /* マーカー → 区間（区間がないとき） */
+ if(m.markers.length&&!S.sections.length){const B=qpbar(),mk=m.markers.sort((a,b)=>a.tick-b.tick).map(x=>({q:Q(x.tick),name:x.text.trim()||'区間'})),endQ=Q(endTick);
+  const secs=[];if(mk[0].q>=B)secs.push({id:uid('s'),name:'前奏',bars:Math.max(1,Math.round(mk[0].q/B)),color:SEC_COLORS[0]});
+  mk.forEach((x,i)=>{const nx=i<mk.length-1?mk[i+1].q:Math.max(x.q+B,Math.ceil(endQ/B)*B);secs.push({id:uid('s'),name:x.name.slice(0,16),bars:Math.max(1,Math.round((nx-x.q)/B)),color:SEC_COLORS[(i+1)%SEC_COLORS.length]})});S.sections=secs}
+ S.midiEv={sysex:m.sysex.map(x=>({q:Q(x.tick),desc:x.desc,h:x.h})),sigs:m.sigs.map(x=>({q:Q(x.tick),n:x.n,d:x.d})),keys:m.keys.map(x=>({q:Q(x.tick),root:x.root,mode:x.mode})),file:file.name};
+ if(replace)S.name=file.name.replace(/\.(mid|midi|kar)$/i,'');
+ S.tracks.push(...added);if(replace){const au=newTrack('audio');au.name='Audio 1';S.tracks.push(au)}S.sel=added[0].id;
+ const need=Math.ceil(Q(endTick)/qpbar())+1;if(need>S.bars)S.bars=need;
+ afterStateReplace();for(const t of added)try{instLoad(t.tone)}catch(e){}
+ checkHistory();
+ return{added,report,m};
+}
+/* 読み込みの窓: 新しい曲として開く／今の曲に足す → 結果と「音作りの提案」 */
+function mxOpenImport(file){
+ const box=el('div',{class:'mxdlg'});
+ const go=async mode=>{box.replaceChildren(el('div',{class:'dim'},'読み込んでいます…'));
+  try{const r=await mxImport(file,{mode});const sx=r.m.sysex;
+   box.replaceChildren(
+    el('div',{class:'mrow'},el('b',{},`✓ ${r.added.length} トラックを読み込みました（GM 音源で鳴ります）`),el('span',{class:'dim'},`テンポ ${Math.round(S.bpm)}・${S.sig.n}/${S.sig.d} 拍子・キー ${NOTE_NAMES[S.key.root]}${S.key.mode==='minor'?'m':''}`)),
+    el('table',{class:'mxtbl'},el('tr',{},...['トラック','ch','音色（GM）','音符','ピッチベンド','モジュレーション','ボリューム','エクスプレッション','パン','サステイン'].map(x=>el('th',{},x))),
+     ...r.report.map(x=>el('tr',{},el('td',{},x.name),el('td',{},x.ch),el('td',{},x.prog+(x.pcs>1?`（途中で ${x.pcs-1} 回変わる）`:'')),el('td',{},x.notes),...['pb','m','vol','ex','pan','sus'].map(k=>el('td',{class:x.cc[k]?'':'dim'},x.cc[k]?String(x.cc[k]):'—'))))),
+    sx.length?el('div',{class:'hint'},'SysEx: '+[...new Set(sx.map(x=>x.desc))].join('／')):'',
+    el('div',{class:'mrow'},el('button',{class:'pri',onclick:()=>{closeModal();openMidiSound()}},'🎨 よりよい音色・エフェクト・定位を提案'),el('button',{onclick:()=>{closeModal();play()}},'▶ GM 音源のまま再生'),el('button',{onclick:closeModal},'閉じる')),
+    el('div',{class:'hint'},'ピッチベンドなどは、ピアノロールの下の欄（「下の欄」で切り替え）と、上の VOL・PITCH・MOD の欄に表示されます。'))}
+  catch(e){box.replaceChildren(el('div',{class:'warn'},'✕ '+e.message))}};
+ box.append(el('p',{},`「${file.name}」を読み込みます。`),el('div',{class:'mrow'},el('button',{class:'pri',onclick:()=>go('new')},'🆕 新しい曲として開く'),el('button',{onclick:()=>go('add')},'＋ 今の曲にトラックを足す')),
+  el('div',{class:'hint'},'GM 音源（General MIDI の 128 音色・ドラム）で、ファイルどおりの音色で鳴らします。テンポ・拍子・ピッチベンド・モジュレーション・ボリューム・パン・サステイン・SysEx（GM/GS/XG リセット、マスターボリュームなど）も読みます。'));
+ openModal('🎹 MIDI ファイルを読み込む',box);document.querySelector('.modal').classList.add('wide');
+}
+importMidi=async function(file){mxOpenImport(file)};
+/* ---------- 再生に反映 ---------- */
+mxEx=function(ex,n,c,dq){
+ const C=c&&c.cc;if(!C||!ex)return ex;
+ const s=n.s,e=n.s+(dq||n.l),rng=(c.bendRange||2)*100;
+ if(C.pb&&C.pb.length){const v0=mxAt(C.pb,s,0),inside=C.pb.filter(([q])=>q>s+1e-9&&q<e-1e-9);
+  if(v0||inside.length){const pts=[[0,v0/8192*rng]];let prev=v0;for(const [q,v] of inside){const u=(q-s)/(e-s);pts.push([Math.max(0,u-.001),prev/8192*rng]);pts.push([u,v/8192*rng]);prev=v}pts.push([1,prev/8192*rng]);
+   const base=ex.bend&&ex.bend.length?ex.bend:null;ex={...ex,bend:pts.map(([u,ct])=>[u,Math.round(ct+(base?mxBendAt(base,u):0))])}}}
+ if(C.m&&C.m.length&&!(ex.vib&&ex.vib.d>0)){const mv=Math.max(mxAt(C.m,s,0),...C.m.filter(([q])=>q>s&&q<e).map(x=>x[1]));if(mv>0)ex={...ex,vib:{d:mv/127*50,r:5.6}}}
+ return ex;
+};
+function mxBendAt(b,u){let a=b[0];for(const x of b){if(x[0]>u)return a[1]+(x[1]-a[1])*((u-a[0])/Math.max(1e-6,x[0]-a[0]));a=x}return a[1]}
+mxVel=function(c,n){
+ const C=c&&c.cc;if(!C||(!C.vol&&!C.ex))return n.v;
+ const t0=C.vol&&C.vol.length&&C.vol[0][0]<.01?C.vol[0][1]:100,vol=mxAt(C.vol,n.s,t0),ex=mxAt(C.ex,n.s,127);
+ const r=Math.pow(Math.max(1,vol)/Math.max(1,t0),2)*Math.pow(ex/127,2);
+ return Math.max(1,Math.min(127,Math.round(n.v*Math.pow(r,1/1.1))));
+};
+/* ---------- 鍵盤（MIDI 機器）から: ピッチベンド・モジュレーション・ボリューム・サステイン ---------- */
+function mxLiveApply(){const ct=MXI.live.bend/8192*MXI.live.range*100,now=AE.ctx?AE.ctx.currentTime:0;for(const v of AE.live.values())for(const d of v.dts||[])try{d.setTargetAtTime(ct,now,.008)}catch(e){}}
+function mxRecCC(k,val){if(!S.recording||!S.playing||!recState.clip)return;const c=recState.clip,rel=perfPos()-c.start;if(rel<0)return;(c.cc=c.cc||{});(c.cc[k]=c.cc[k]||[]).push([+rel.toFixed(4),val])}
+{const _om=onMidi;onMidi=function(ev){
+ const [st,d1,d2]=ev.data,cmd=st&0xF0;
+ if(cmd===0xE0){MXI.live.bend=((d2<<7)|d1)-8192;mxLiveApply();mxRecCC('pb',MXI.live.bend);mxLiveMeter();return}
+ if(cmd===0xB0){
+  if(d1===1){MXI.live.mod=d2;mxLiveVib();mxRecCC('m',d2)}
+  else if(d1===64){const on=d2>=64;if(MXI.live.sus&&!on){for(const p of MXI.live.held)if(!MXI.live.down||!MXI.live.down.has(p))liveOffRaw(p);MXI.live.held.clear()}MXI.live.sus=on;mxRecCC('sus',d2)}
+  else if(MX_CC[d1]){mxRecCC(MX_CC[d1],d2);if(d1===7){const t=selTrack();if(t&&!S.recording){t.vol=Math.round(40*Math.log10(Math.max(1,d2)/127)*10)/10;try{applyAll()}catch(e){}}}}
+  mxLiveMeter();return}
+ if(cmd===0x90&&d2>0){(MXI.live.down=MXI.live.down||new Set()).add(d1)}
+ if(cmd===0x80||(cmd===0x90&&d2===0)){if(MXI.live.down)MXI.live.down.delete(d1);if(MXI.live.sus){MXI.live.held.add(d1);return}}
+ return _om.call(this,ev);
+}}
+const liveOffRaw=p=>{try{liveOff(p)}catch(e){}};
+/* 新しく鳴らした音にも、今のベンドとモジュレーション */
+{const _lo=liveOn;liveOn=function(pitch,vel){const r=_lo.apply(this,arguments);if(MXI.live.bend)mxLiveApply();if(MXI.live.mod)mxLiveVib();return r}}
+function mxLiveVib(){if(!AE.ctx)return;const c=AE.ctx;if(!MXI.lfo){MXI.lfo=c.createOscillator();MXI.lfo.frequency.value=5.6;MXI.lg=c.createGain();MXI.lg.gain.value=0;MXI.lfo.connect(MXI.lg);MXI.lfo.start()}
+ MXI.lg.gain.setTargetAtTime(MXI.live.mod/127*50,c.currentTime,.02);for(const v of AE.live.values())if(!v._lfo){for(const d of v.dts||[])try{MXI.lg.connect(d)}catch(e){}v._lfo=true}}
+function mxLiveMeter(){const b=document.getElementById('mxLive');if(!b)return;const l=MXI.live;b.textContent=`PB ${l.bend>=0?'+':''}${Math.round(l.bend/8192*l.range*100)}c ・ MOD ${l.mod}${l.sus?' ・ ペダル':''}`;b.classList.toggle('on',!!(l.bend||l.mod||l.sus))}
+/* ---------- ピアノロールの下の欄: ベロシティ／ピッチベンド／モジュレーション／… ---------- */
+{const head=document.getElementById('edHead');if(head&&!document.getElementById('mxEdSel')){const s=el('select',{id:'mxEdSel','aria-label':'下の欄に表示するもの'},...MX_KINDS.map(([k,l])=>el('option',{value:k},l)));s.addEventListener('change',()=>{MXI.edMode=s.value;renderVel()});
+  const sp=head.querySelector('.spacer');const lab=el('label',{class:'dim',style:'display:flex;gap:4px;align-items:center'},'下の欄 ',s);if(sp)sp.before(lab);else head.append(lab)}}
+const _renderVelMX=renderVel;
+renderVel=function(){
+ if(MXI.edMode==='vel')return _renderVelMX();
+ const f=S.edClip&&findClip(S.edClip),box=$('#velBox'),cv=$('#velCv');
+ if(!f||f.c.buf||f.c.chords){box.style.display='none';return}
+ box.style.display='block';const K=MX_KINDS.find(x=>x[0]===MXI.edMode),[k,lab,lo,hi]=K,arr=(f.c.cc||{})[k]||[],def=MX_DEF[k]??0;
+ const W=Math.round(f.c.len*R.ppq),H=62;cv.width=W;cv.height=H;cv.style.width=W+'px';cv.style.height=H+'px';
+ const g=cv.getContext('2d');g.fillStyle='#0c0e12';g.fillRect(0,0,W,H);
+ const yOf=v=>H-3-(v-lo)/(hi-lo)*(H-6);
+ g.fillStyle='rgba(255,255,255,.06)';for(let i=0;i<=4;i++)g.fillRect(0,Math.round(3+i*(H-6)/4),W,1);
+ if(k==='pb'||k==='pan'){g.fillStyle='rgba(255,255,255,.18)';g.fillRect(0,Math.round(yOf(k==='pb'?0:64)),W,1)}
+ g.strokeStyle=f.t.color;g.fillStyle=f.t.color+'55';g.lineWidth=2;g.beginPath();let v=def;g.moveTo(0,yOf(v));
+ for(const [q,x] of arr){const X=q*R.ppq;g.lineTo(X,yOf(v));g.lineTo(X,yOf(x));v=x}g.lineTo(W,yOf(v));g.stroke();
+ g.fillStyle='#ffffff';for(const [q,x] of arr)g.fillRect(q*R.ppq-1.5,yOf(x)-1.5,3,3);
+ g.font='10px sans-serif';g.fillStyle='#8b94a3';g.fillText(lab+(arr.length?`（${arr.length} 個）`:'（なし・ドラッグで描けます／右クリックで消す）'),(box.scrollLeft||0)+6,12);
+};
+function mxVelDown(e){
+ const f=S.edClip&&findClip(S.edClip);if(!f||f.c.buf||f.c.chords)return;
+ const cv=$('#velCv'),r=cv.getBoundingClientRect(),H=cv.height,[k,,lo,hi]=MX_KINDS.find(x=>x[0]===MXI.edMode),c=f.c;
+ if(e.button===2){e.preventDefault();if(c.cc&&c.cc[k]){delete c.cc[k];renderVel();checkHistory();toast('この欄の線を消しました（元に戻す: Ctrl+Z）')}return}
+ if(e.button!==0)return;c.cc=c.cc||{};const arr=c.cc[k]=c.cc[k]||[];const step=Math.max(.0625,(snapQ()||.25)/2);
+ const set=ev=>{const q=clamp(Math.round((ev.clientX-r.left)/R.ppq/step)*step,0,c.len),v=clamp(Math.round(lo+(H-3-(ev.clientY-r.top))/(H-6)*(hi-lo)),lo,hi);
+  const i=arr.findIndex(x=>Math.abs(x[0]-q)<1e-6);if(i>=0)arr[i][1]=v;else arr.push([q,v]);arr.sort((a,b)=>a[0]-b[0]);renderVel()};
+ set(e);const mv=ev=>set(ev);const up=()=>{removeEventListener('pointermove',mv);removeEventListener('pointerup',up);mxSort(c);renderLanes();renderRuler();checkHistory()};
+ addEventListener('pointermove',mv);addEventListener('pointerup',up);
+}
+/* ベロシティ以外のときは、下の欄のマウス操作をこちらで受ける（元の処理より先に） */
+{const vb=document.getElementById('velBox');if(vb)vb.addEventListener('pointerdown',e=>{if(MXI.edMode!=='vel'&&e.target.id==='velCv'){e.stopImmediatePropagation();e.stopPropagation();mxVelDown(e)}},true)}
+document.getElementById('velCv')&&document.getElementById('velCv').addEventListener('contextmenu',e=>{if(MXI.edMode!=='vel')e.preventDefault()});
+/* ---------- 上の欄: BPM・SIG に VOL・PITCH・MOD（選んでいるトラック）---------- */
+{const tabs=document.getElementById('extraTabs'),inner=document.getElementById('rulerInner'),sig=document.getElementById('sigLane');
+ if(tabs&&inner&&sig&&!document.getElementById('tabVol')){
+  for(const [k,lab,tt] of [['vol','VOL','ボリューム（CC7）の線を表示'],['pb','PITCH','ピッチベンドの線を表示'],['m','MOD','モジュレーション（CC1）の線を表示']]){
+   const b=el('button',{id:'tab_'+k,class:MXI.lanes[k]?'on':'',title:tt+'（選んでいるトラック・ドラッグで描ける・右クリックで消す）'},lab);if(k==='vol')b.id='tabVol';
+   b.addEventListener('click',()=>{MXI.lanes[k]=!MXI.lanes[k];b.classList.toggle('on',MXI.lanes[k]);try{localStorage.setItem('daw.mxlanes',JSON.stringify(MXI.lanes))}catch(e){}renderRuler()});tabs.append(b);
+   const lane=el('div',{class:'exlane mxlane',id:'mxl_'+k,'data-k':k},el('span',{class:'lbl'},{vol:'VOLUME',pb:'PITCH',m:'MOD'}[k]),el('canvas',{class:'mxlcv'}));inner.insertBefore(lane,document.getElementById('ruler'));
+   lane.addEventListener('pointerdown',e=>mxLaneDown(e,k));lane.addEventListener('contextmenu',e=>{e.preventDefault();mxLaneClear(k)});
+  }}}
+layoutRuler=function(){
+ const tOn=$('#tabTempo').classList.contains('on'),sOn=$('#tabSig').classList.contains('on');
+ $('#tempoLane').style.display=tOn?'block':'none';$('#sigLane').style.display=sOn?'block':'none';
+ $('#secLane').style.top='25px';let y=50;$('#tempoLane').style.top=y+'px';if(tOn)y+=25;$('#sigLane').style.top=y+'px';if(sOn)y+=25;
+ for(const k of ['vol','pb','m']){const L=document.getElementById('mxl_'+k);if(!L)continue;L.style.display=MXI.lanes[k]?'block':'none';L.style.top=y+'px';if(MXI.lanes[k])y+=25}
+ const h=34+y;document.documentElement.style.setProperty('--rh',h+'px');$('#corner').style.height=h+'px';$('#rulerWrap').style.height=h+'px';$('#rulerInner').style.height=h+'px';
+};
+function mxSelClips(){const t=S.tracks.find(x=>x.id===S.sel);return t&&t.type!=='audio'?{t,clips:t.clips.filter(c=>c.notes)}:{t,clips:[]}}
+function mxDrawLanes(){
+ const {t,clips}=mxSelClips(),W=Math.round(totalQ()*S.ppq);
+ for(const k of ['vol','pb','m']){const L=document.getElementById('mxl_'+k);if(!L||!MXI.lanes[k])continue;const cv=L.querySelector('canvas'),H=24;cv.width=W;cv.height=H;cv.style.width=W+'px';cv.style.height=H+'px';
+  const g=cv.getContext('2d');g.clearRect(0,0,W,H);const [,,lo,hi]=MX_KINDS.find(x=>x[0]===k),yOf=v=>H-2-(v-lo)/(hi-lo)*(H-4),def=MX_DEF[k];
+  if(k==='pb'){g.fillStyle='rgba(255,255,255,.12)';g.fillRect(0,Math.round(yOf(0)),W,1)}
+  let n=0;for(const c of clips){const arr=(c.cc||{})[k]||[];if(!arr.length)continue;n+=arr.length;const x0=c.start*S.ppq;g.strokeStyle=t.color;g.lineWidth=1.5;g.beginPath();let v=def;g.moveTo(x0,yOf(v));
+   for(const [q,x] of arr){const X=x0+q*S.ppq;g.lineTo(X,yOf(v));g.lineTo(X,yOf(x));v=x}g.lineTo(x0+c.len*S.ppq,yOf(v));g.stroke()}
+  L.title=t?`「${t.name}」の${{vol:'ボリューム（CC7）',pb:'ピッチベンド',m:'モジュレーション（CC1）'}[k]}: ${n} 個（ドラッグで描く・右クリックで消す）`:'トラックを選んでください';
+ }
+ /* SIG の欄に、MIDI の拍子の変化と SysEx */
+ const sl=document.getElementById('sigLane');if(sl){sl.querySelectorAll('.mxev').forEach(x=>x.remove());const E=S.midiEv;if(E){
+  for(const x of E.sigs.slice(1))sl.append(el('div',{class:'mxev sig',style:`left:${x.q*S.ppq}px`,title:`MIDI の拍子の変化: ${x.n}/${x.d}（${Math.floor(x.q/qpbar())+1} 小節目あたり）`},`${x.n}/${x.d}`));
+  /* 同じ時刻の SysEx はひとつにまとめる（重ならないように）。曲の頭は、拍子の印の右に */
+  const grp=new Map();for(const x of E.sysex){const k=Math.round(x.q*16);if(!grp.has(k))grp.set(k,[]);grp.get(k).push(x)}
+  for(const [k,L] of grp){const q=k/16,x0=q<qpbar()*.5?Math.max(q*S.ppq,112):q*S.ppq;sl.append(el('div',{class:'mxev sx',style:`left:${x0}px`,title:L.map(x=>`SysEx: ${x.desc}\n${x.h}`).join('\n\n')},L.length>1?`◆ SysEx ×${L.length}`:'◆'+L[0].desc.split('（')[0].slice(0,12)))}}}
+}
+{const _rr=renderRuler;renderRuler=function(){_rr();try{mxDrawLanes()}catch(e){console.warn(e)}}}
+{let last='';setInterval(()=>{const k=S.sel+':'+S.tracks.length;if(k!==last){last=k;if(MXI.lanes.vol||MXI.lanes.pb||MXI.lanes.m)try{mxDrawLanes()}catch(e){}}},400)}
+function mxLaneDown(e,k){
+ if(e.button!==0)return;const {t,clips}=mxSelClips();if(!t){toast('トラックを選んでください');return}
+ const L=document.getElementById('mxl_'+k),r=L.getBoundingClientRect(),[,,lo,hi]=MX_KINDS.find(x=>x[0]===k),H=24;
+ const set=ev=>{const q=Math.max(0,(ev.clientX-r.left)/S.ppq),c=clips.find(c=>q>=c.start-1e-6&&q<c.start+c.len+1e-6);if(!c)return;const st=Math.max(.0625,(snapQ()||.25)/2),rq=Math.round((q-c.start)/st)*st;
+  const v=clamp(Math.round(lo+(H-2-(ev.clientY-r.top))/(H-4)*(hi-lo)),lo,hi);c.cc=c.cc||{};const arr=c.cc[k]=c.cc[k]||[];const i=arr.findIndex(x=>Math.abs(x[0]-rq)<1e-6);if(i>=0)arr[i][1]=v;else arr.push([rq,v]);arr.sort((a,b)=>a[0]-b[0]);mxDrawLanes()};
+ set(e);const mv=ev=>set(ev);const up=()=>{removeEventListener('pointermove',mv);removeEventListener('pointerup',up);renderVel();checkHistory()};addEventListener('pointermove',mv);addEventListener('pointerup',up);
+}
+function mxLaneClear(k){const {t,clips}=mxSelClips();if(!t)return;let n=0;for(const c of clips)if(c.cc&&c.cc[k]){n+=c.cc[k].length;delete c.cc[k]}if(n){mxDrawLanes();renderVel();checkHistory();toast(`「${t.name}」の線を消しました（${n} 個・元に戻す: Ctrl+Z）`)}}
+/* 鍵盤からのベンド・モジュレーションの表示（下のバー） */
+{const bar=document.getElementById('bottom');if(bar&&!document.getElementById('mxLive')){const b=el('span',{id:'mxLive',class:'mxlive',title:'MIDI 機器からのピッチベンド・モジュレーション・サステインペダル'},'PB 0c ・ MOD 0');const w=document.getElementById('waBtn');if(w)w.after(b);else bar.append(b)}}
+/* =====================================================================
+   🎨 MIDI の音作りの提案（音色・エフェクト・定位）
+   ・DAW の中で: GM の番号と音域から、ネットの実録サンプル（Salamander ピアノ・ローズ・ウッドベース・生ドラム…）を提案
+     定位は楽器の定番（ベース・キック・歌は真ん中、ギターは左右に振り分け…）、エフェクトは役割ごとに薄く
+   ・AI に: トラックの一覧と、使える音色の一覧を渡して、JSON で提案してもらう
+   ・チェックしたものだけ反映。元に戻す（Ctrl+Z）で戻せる
+   ===================================================================== */
+const MS_TONE={0:'smp_sal_hq',1:'smp_sal_hq',2:'smp_sal_hq',4:'smp_rhodes',5:'waf_epiano2',11:'waf_vibes',12:'waf_marimba',16:'waf_organ',17:'waf_perc_organ',18:'waf_rock_organ',19:'waf_church_organ',21:'waf_accordion',22:'waf_harmonica',
+ 24:'tj_guitar-acoustic',25:'tj_guitar-acoustic',26:'waf_jazz_gtr',27:'tj_guitar-electric',28:'waf_mute_gtr',29:'waf_od_gtr',30:'waf_dist_gtr',32:'smp_upright',33:'tj_bass-electric',34:'waf_pick_bass',35:'waf_fretless',36:'waf_slap_bass',37:'waf_slap_bass',38:'waf_synth_bass',39:'waf_synth_bass2',
+ 40:'tj_violin',42:'waf_cello',45:'waf_pizz',46:'waf_harp',48:'waf_strings',49:'waf_slow_strings',50:'waf_synth_strings',51:'waf_synth_strings',52:'waf_choir',53:'waf_oohs',54:'waf_synth_choir',
+ 56:'tj_trumpet',57:'waf_trombone',61:'waf_brass',62:'waf_synth_brass',63:'waf_synth_brass',64:'tj_saxophone',65:'waf_altosax',66:'waf_tenorsax',67:'tj_saxophone',68:'waf_oboe',71:'waf_clarinet',73:'tj_flute',72:'tj_flute',75:'waf_panflute',77:'waf_shakuhachi',
+ 80:'waf_lead_square',81:'waf_lead_saw',88:'waf_pad_new',89:'waf_pad_warm',90:'waf_pad_poly',94:'waf_pad_halo',95:'waf_pad_sweep',104:'waf_sitar',106:'waf_shamisen',107:'waf_koto',108:'waf_kalimba',114:'waf_steeldrum'};
+const MS_WHY={smp_sal_hq:'本物のグランドピアノ（3 段階の強さ）',smp_rhodes:'本物のローズ（1977 年製）',smp_upright:'本物のウッドベース（指弾き）','tj_guitar-acoustic':'本物のアコースティックギター','tj_guitar-electric':'本物のエレキギター','tj_bass-electric':'本物のエレキベース',tj_violin:'本物のバイオリン',tj_trumpet:'本物のトランペット',tj_saxophone:'本物のサックス',tj_flute:'本物のフルート',kit_vd:'本物の生ドラム（多層の強さ）'};
+function msRole(t){
+ if(t.drum||t.type==='drum')return'drums';const p=t.gmProg??-1,ns=t.clips.flatMap(c=>c.notes||[]),avg=ns.length?ns.reduce((a,n)=>a+n.p,0)/ns.length:60,poly=ns.length/Math.max(1,new Set(ns.map(n=>Math.round(n.s*8))).size);
+ if(p>=32&&p<40||avg<48)return'bass';if(p>=88&&p<96||(p>=48&&p<56&&poly>1.5))return'pad';if(p>=0&&p<8)return'piano';if(p>=24&&p<32)return'guitar';if(p>=16&&p<24)return'organ';
+ if((p>=56&&p<80)||(p>=80&&p<88)||(poly<1.2&&avg>=60))return'lead';if(p>=40&&p<56)return'strings';return'keys';
+}
+function msSuggest(){
+ const out=[];let gtSide=-1,padSide=1,percSide=1;const leadMain=S.tracks.filter(t=>t.type==='midi'&&msRole(t)==='lead').sort((a,b)=>b.clips.reduce((x,c)=>x+(c.notes||[]).length,0)-a.clips.reduce((x,c)=>x+(c.notes||[]).length,0))[0];
+ for(const t of S.tracks){if(t.type==='audio'||t.type==='chord'||t.guide||!t.clips.some(c=>c.notes&&c.notes.length))continue;
+  const role=msRole(t),ns=t.clips.flatMap(c=>c.notes),lo=Math.min(...ns.map(n=>n.p));
+  let tone=role==='drums'?'kit_vd':(MS_TONE[t.gmProg]||t.tone);if(!TONES.some(x=>x.id===tone))tone=t.tone;
+  const filePan=Math.abs(t.pan||0)>.05;
+  let pan={drums:0,bass:0,piano:-.12,keys:-.2,organ:-.25,strings:.2,pad:.3*(padSide=-padSide),lead:0,guitar:.35*(gtSide=-gtSide)}[role]??0;
+  if(role==='lead'&&t!==leadMain)pan=.25*(percSide=-percSide);
+  const hp=role==='bass'||role==='drums'?(role==='bass'?30:28):Math.round(Math.max(70,Math.min(160,440*Math.pow(2,(lo-69)/12)*.7)));
+  const fx=[['eq',{hp}]];
+  if(role==='bass')fx.push(['rcomp',{thr:-20,ratio:3.5,att:.01,rel:.15,gain:1}]);
+  if(role==='drums')fx.push(['rcomp',{thr:-18,ratio:2.5,att:.008,rel:.12,gain:1}],['reverb',{mix:.08,decay:1,pre:.006,tone:8000}]);
+  if(['piano','keys','strings','pad','organ'].includes(role))fx.push(['reverb',{mix:role==='pad'||role==='strings'?.18:.13,decay:role==='pad'?2.6:1.9,pre:.02,tone:8000}]);
+  if(role==='guitar')fx.push(['reverb',{mix:.1,decay:1.2,pre:.01,tone:7500}]);
+  if(role==='lead')fx.push(['reverb',{mix:.13,decay:1.7,pre:.015,tone:9000}],['delay',{mix:.08,time:.75,fb:.25}]);
+  const why=[`役割: ${{drums:'ドラム',bass:'ベース',piano:'ピアノ',keys:'鍵盤',organ:'オルガン',strings:'ストリングス',pad:'パッド',lead:'メロディ・ソロ',guitar:'ギター'}[role]}`];
+  if(tone!==t.tone)why.push(MS_WHY[tone]||'GM よりきれいな実録・高音質の音色');
+  why.push(filePan?'定位はファイルの指定を残す（変えるならチェック）':`定位: ${pan===0?'真ん中':pan<0?'左 '+Math.round(-pan*100):'右 '+Math.round(pan*100)}（${role==='bass'||role==='drums'?'低音は真ん中':role==='guitar'?'左右に振り分け':'ぶつからない位置'}）`);
+  out.push({t,role,tone,pan,fx,why,ck:{tone:tone!==t.tone,pan:!filePan,fx:true}});
+ }
+ return out;
+}
+async function msAskAI(rows){
+ const cand=[...new Set([...Object.values(MS_TONE),'kit_vd',GM_KIT,'smp_sal_hq'])].filter(id=>TONES.some(x=>x.id===id)).map(id=>`${id}=${toneById(id).name}`).join(' / ');
+ const list=rows.map((r,i)=>{const ns=r.t.clips.flatMap(c=>c.notes);return`${i}: 「${r.t.name}」 GM:${r.t.gmProg!=null?(r.t.gmProg+1)+' '+GM_JA[r.t.gmProg]:'ドラム'} 音域:${noteName(Math.min(...ns.map(n=>n.p)))}〜${noteName(Math.max(...ns.map(n=>n.p)))} 音符:${ns.length} 今の定位:${(r.t.pan||0).toFixed(2)}`}).join('\n');
+ const prompt=`MIDI ファイルを読み込んだ曲の音作りをしてください。テンポ ${Math.round(S.bpm)}、キー ${NOTE_NAMES[S.key.root]}${S.key.mode==='minor'?'m':''}。\nトラック:\n${list}\n使える音色（id=名前）: ${cand}\n`+
+  `各トラックに、合う音色（上の id から）・定位（-1〜1）・リバーブの量（0〜0.35）・ディレイの量（0〜0.2）・コンプを使うか・ローカット（Hz）を提案してください。音が重なりすぎないように、エフェクトは薄めに。\n`+
+  `返事は JSON だけ: {"tracks":[{"i":番号,"tone":"id","pan":数値,"reverb":数値,"delay":数値,"comp":true/false,"hp":数値,"why":"理由（日本語・漢字かな交じり・短く）"}],"comment":"全体のひとこと"}`;
+ const j=await aiCall({action:'task',prompt});const L=(j.data&&j.data.tracks)||[];
+ for(const x of L){const r=rows[+x.i];if(!r)continue;if(x.tone&&TONES.some(t=>t.id===x.tone)){r.tone=x.tone;r.ck.tone=x.tone!==r.t.tone}
+  if(isFinite(+x.pan)){r.pan=clamp(+x.pan,-1,1);r.ck.pan=true}
+  const fx=[['eq',{hp:clamp(+x.hp||80,20,400)}]];if(x.comp)fx.push(['rcomp',{thr:-20,ratio:3,att:.01,rel:.15,gain:1}]);if(+x.reverb>0)fx.push(['reverb',{mix:clamp(+x.reverb,0,.35),decay:1.8,pre:.015,tone:8000}]);if(+x.delay>0)fx.push(['delay',{mix:clamp(+x.delay,0,.2),time:.75,fb:.25}]);r.fx=fx;
+  r.why=['AI: '+(x.why||'')]}
+ return j.data&&j.data.comment;
+}
+function msApply(rows,o){
+ for(const r of rows){if(!r.on)continue;const t=r.t;
+  if(r.ck.tone&&r.tone){t.tone=r.tone;try{instLoad(r.tone)}catch(e){}}
+  if(r.ck.pan)t.pan=r.pan;
+  if(r.ck.fx){t.fx=(t.fx||[]).filter(f=>!['eq','rcomp','reverb','delay','chorus'].includes(f.fx));for(const [id,set] of r.fx)t.fx.push(smpFx(id,set))}}
+ if(o.master&&!S.master.fx.some(f=>f.fx==='rcomp'))S.master.fx.push(smpFx('rcomp',{thr:-16,ratio:2,att:.02,rel:.25,gain:1}));
+ S.master.lim=true;
+ try{syncFxAll()}catch(e){}renderAll();checkHistory();
+}
+function openMidiSound(){
+ let rows=msSuggest();rows.forEach(r=>r.on=true);
+ const box=el('div',{class:'msdlg'}),tbl=el('div',{class:'mstbl'}),msg=el('div',{class:'dim'});
+ if(!rows.length){openModal('🎨 音作りの提案',el('div',{},'音符のある MIDI トラックがありません'));return}
+ const toneSel=(r)=>{const s=el('select',{},...[...new Set([r.t.tone,r.tone,...Object.values(MS_TONE).filter(id=>toneById(id).cat===toneById(r.tone).cat),'gm_'+(r.t.gmProg??0)])].filter(id=>TONES.some(x=>x.id===id)).map(id=>el('option',{value:id,selected:id===r.tone},toneById(id).name)));s.addEventListener('change',()=>{r.tone=s.value;r.ck.tone=r.tone!==r.t.tone;draw()});return s};
+ const draw=()=>tbl.replaceChildren(el('div',{class:'msrow msh'},el('span',{},''),el('span',{},'トラック'),el('span',{},'音色'),el('span',{},'定位'),el('span',{},'エフェクト'),el('span',{},'理由')),
+  ...rows.map(r=>{const on=el('input',{type:'checkbox'});on.checked=r.on;on.addEventListener('change',()=>r.on=on.checked);
+   const ck=(k)=>{const c=el('input',{type:'checkbox',title:'反映する'});c.checked=r.ck[k];c.addEventListener('change',()=>r.ck[k]=c.checked);return c};
+   const pan=el('input',{type:'range',min:-1,max:1,step:.05,value:r.pan,style:'width:80px'}),pv=el('small',{},'');const pu=()=>pv.textContent=r.pan===0?'中':r.pan<0?'L'+Math.round(-r.pan*100):'R'+Math.round(r.pan*100);pu();pan.addEventListener('input',()=>{r.pan=+pan.value;r.ck.pan=true;pu()});
+   const fxs=r.fx.map(([id,v])=>({eq:`ローカット ${v.hp}Hz`,rcomp:'コンプ',reverb:`リバーブ ${Math.round(v.mix*100)}%`,delay:`ディレイ ${Math.round(v.mix*100)}%`,chorus:'コーラス'}[id]||id)).join('・');
+   return el('div',{class:'msrow'},on,el('span',{},el('b',{},r.t.name),el('div',{class:'dim'},toneById(r.t.tone).name)),el('span',{},ck('tone'),toneSel(r)),el('span',{},ck('pan'),pan,pv),el('span',{},ck('fx'),' '+fxs),el('span',{class:'dim'},r.why.join('／')))}));
+ const master=el('input',{type:'checkbox'});master.checked=true;const amx=el('input',{type:'checkbox'});amx.checked=true;
+ const ai=el('button',{},'🤖 AI に提案してもらう');
+ ai.addEventListener('click',async()=>{ai.disabled=true;msg.textContent='AI が考えています…';try{const c=await msAskAI(rows);msg.textContent='✓ AI の提案にしました'+(c?'：'+c:'');draw()}catch(e){msg.textContent='✕ '+e.message}finally{ai.disabled=false}});
+ const go=el('button',{class:'pri'},'✓ チェックしたものを反映');
+ go.addEventListener('click',async()=>{go.disabled=true;try{await histGroup(async()=>{msApply(rows,{master:master.checked});if(amx.checked&&typeof autoMix==='function'){msg.textContent='音量のバランスを測っています…';await autoMix()}});msg.textContent='✓ 反映しました（元に戻す: Ctrl+Z）';toast('音作りを反映しました')}catch(e){msg.textContent='✕ '+e.message}finally{go.disabled=false}});
+ draw();
+ box.append(el('div',{class:'hint'},'GM の番号と音域から、より高音質の音色（本物の楽器の録音）・定位・エフェクトを提案します。行ごと・項目ごとにチェックを外せます。'),tbl,
+  el('div',{class:'mrow'},el('label',{class:'lyrck'},master,' マスターに薄いコンプとリミッター'),el('label',{class:'lyrck'},amx,' 音量のバランスも自動で整える（実際の音を測る）')),
+  el('div',{class:'mrow'},go,ai,el('button',{onclick:()=>{rows=msSuggest();rows.forEach(r=>r.on=true);draw();msg.textContent='DAW の提案に戻しました'}},'↺ DAW の提案に戻す'),el('button',{onclick:()=>{for(const r of rows){r.tone=r.t.gmProg!=null?'gm_'+r.t.gmProg:GM_KIT;r.ck.tone=true;r.ck.pan=false;r.ck.fx=false}draw();msg.textContent='GM 音源の音色にします（定位・エフェクトはそのまま）'}},'🎹 GM 音源の音色に戻す')),msg);
+ openModal('🎨 音作りの提案（音色・エフェクト・定位）',box);document.querySelector('.modal').classList.add('wide');
+}
+FS_FEAT.push(['MIDI の音作りの提案（音色・エフェクト・定位）','読み込んだ MIDI に、より高音質の音色・定位・エフェクトを提案して反映します（DAW の中で／AI）','MIDI を読み込んだあとの窓、またはトラックの右クリック',()=>openMidiSound(),null,'MIDI 音色 GM 提案 定位 パン エフェクト 音作り ミックス']);
+FS_FEAT.push(['MIDI ファイルを読み込む（GM 音源で演奏）','MIDI ファイルを GM 音源で鳴らします。テンポ・拍子・ピッチベンド・モジュレーション・ボリューム・パン・サステイン・SysEx も読みます','上のバーの「MIDI読込」',()=>pickFile('.mid,.midi,.kar,audio/midi',f=>importMidi(f)),'#fMidiIn','MIDI 読み込み GM 音源 SMF ピッチベンド SysEx']);
+{const _tm=trackMenu;trackMenu=function(x,y,t){if(!t||t.type==='audio')return _tm(x,y,t);const sm=showMenu;showMenu=function(a,b,items){showMenu=sm;return sm(a,b,[...items,'-',['🎨 音作りの提案（音色・エフェクト・定位）…',()=>openMidiSound()]])};try{return _tm(x,y,t)}finally{showMenu=sm}}}
 /* =====================================================================
    🎚 音量バランスを自動で整える
    トラックごとに実際の音を書き出して大きさ（聞こえる大きさ・LUFS に近い計り方）を測り、役割ごとの目安に合わせる
